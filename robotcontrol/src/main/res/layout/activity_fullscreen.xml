@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel1"
+            type="com.ttl.robotcontrol.FullscreenViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:id="@+id/mainLayout"
+        tools:context = ".FullscreenActivity">
+
+        <TextView
+            android:id="@+id/toast1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel1.servo0.angle)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/toast2"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textSize="@dimen/_60ssp"
+            android:gravity="center"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/toast2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel1.servo1.angle)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/toast1"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textSize="@dimen/_60ssp"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/toast3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel1.servo2.angle)}"
+            app:layout_constraintTop_toBottomOf="@id/toast2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/toast4"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:textSize="@dimen/_60ssp"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/toast4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel1.servo3.angle)}"
+            app:layout_constraintTop_toBottomOf="@id/toast2"
+            app:layout_constraintStart_toEndOf="@id/toast3"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:textSize="@dimen/_60ssp"
+            android:gravity="center"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textValue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/_80sdp"
+            android:textSize="@dimen/_35ssp"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:progressDrawable="@drawable/seek_style"
+            android:thumb="@drawable/roboticon"
+            android:rotation="270"
+            android:progress="0" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:visibility="visible"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:text="@string/write"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="@color/font_yellow"
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:focusable="true"
+            android:clickable="true"
+            android:onClick="@{() -> viewModel1.resetESP()}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

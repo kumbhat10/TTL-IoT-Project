@@ -1,0 +1,26 @@
+<resources>
+
+    <style name="Widget.Theme.IotRobot.ActionBar.Fullscreen" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Widget.Theme.IotRobot.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="Widget.Theme.Rpi.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.Rpi.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="Theme.launcher" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:background">@color/font_yellow</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+</resources>
