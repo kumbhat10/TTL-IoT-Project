@@ -11,7 +11,7 @@
         android:id="@+id/ttlLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/_30sdp"
+        android:layout_margin="@dimen/_80sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

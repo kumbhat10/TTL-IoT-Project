@@ -35,7 +35,7 @@
             android:exported="true"
             android:theme="@style/Theme.Rpi.NoActionBar"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensor"
             tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

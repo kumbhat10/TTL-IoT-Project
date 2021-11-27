@@ -3,6 +3,7 @@ package com.ttl.robotcontrol
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -24,6 +25,7 @@ import com.google.firebase.messaging.ktx.messaging
 
 class Splash : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+    private lateinit var clickSound: MediaPlayer
     private val timerLoading = 3000L
     private var state = 0
     private var allowStart = false
@@ -37,8 +39,13 @@ class Splash : AppCompatActivity() {
         updateUI()
         getToken()
         subscribeTopic()
+        clickSound = MediaPlayer.create(this, R.raw.done_sound)
     }
 
+    override fun onDestroy() {
+        clickSound.release()
+        super.onDestroy()
+    }
     private fun fakeCrashSetup(){
         val crashButton = Button(this)
         crashButton.text = "Test Crash"
@@ -59,6 +66,7 @@ class Splash : AppCompatActivity() {
                 when(state){
                     0->{
                         state = 1
+//                        clickSound.start()
                         binding.warmingup.text = getString(R.string.serverConnect)
                         binding.lottieView.scaleX = 1F
                         binding.lottieView.scaleY = 1F
@@ -70,6 +78,7 @@ class Splash : AppCompatActivity() {
                     }
                     1->{
                         state = 2
+                        clickSound.start()
                         binding.warmingup.text = getString(R.string.wakingrobot)
                         loadingAnim.duration = 4000L
                         binding.wait.visibility = View.GONE
@@ -79,6 +88,7 @@ class Splash : AppCompatActivity() {
                     }
                     2->{
                         state = 3
+                        clickSound.start()
                         binding.warmingup.text = getString(R.string.connected)
                         binding.wait.visibility = View.GONE
                         binding.lottieView.scaleX = 1.4F
