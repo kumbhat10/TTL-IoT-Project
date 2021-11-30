@@ -142,7 +142,7 @@ class FullscreenActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onStart() {
         super.onStart()
-        binding.mapView?.onStart() //AIzaSyAYPJUzpcLQooXZXK6PmcTyGxcHgl1Dr7w
+        binding.mapView?.onStart()
     }
 
     override fun onStop() {
