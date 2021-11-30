@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.google.android.datatransport.BuildConfig
 import com.ttl.robotcontrol.databinding.ActivitySplashBinding
 import com.google.android.gms.tasks.OnCompleteListener
@@ -29,36 +30,50 @@ class Splash : AppCompatActivity() {
     private val timerLoading = 3000L
     private var state = 0
     private var allowStart = false
+    private var fastStart = false
+    private lateinit var loadingAnim:ObjectAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        CaocConfig.Builder.create()
+            .backgroundMode(CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM) //default: CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM
+            .enabled(true) //default: true
+            .showErrorDetails(true) //default: true
+            .showRestartButton(true) //default: true
+            .logErrorOnRestart(false) //default: true
+            .trackActivities(false) //default: false
+            .errorDrawable(R.drawable.bug_icon) //default: bug image
+            .apply()
+
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(BuildConfig.DEBUG) allowStart = true
+        if(com.ttl.robotcontrol.BuildConfig.DEBUG) allowStart = true
         updateUI()
         getToken()
         subscribeTopic()
         clickSound = MediaPlayer.create(this, R.raw.done_sound)
+
     }
 
     override fun onDestroy() {
         clickSound.release()
         super.onDestroy()
     }
-    private fun fakeCrashSetup(){
-        val crashButton = Button(this)
-        crashButton.text = "Test Crash"
-        crashButton.setOnClickListener {
-            throw RuntimeException("Test Crash") // Force a crash
-        }
-        addContentView(crashButton, ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT))
-    }
+//    private fun fakeCrashSetup(){
+//        val crashButton = Button(this)
+//        crashButton.text = "Test Crash"
+//        crashButton.setOnClickListener {
+//            throw RuntimeException("Test Crash") // Force a crash
+//        }
+//        addContentView(crashButton, ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT))
+//    }
+
     private fun updateUI(){
 //        fakeCrashSetup()
-        val loadingAnim = ObjectAnimator.ofInt(binding.loading, "progress", 0, 10000)
+        loadingAnim = ObjectAnimator.ofInt(binding.loading, "progress", 0, 10000)
         loadingAnim.duration = timerLoading
         loadingAnim.addListener(object : Animator.AnimatorListener{
             override fun onAnimationStart(animation: Animator?) {}
@@ -68,8 +83,8 @@ class Splash : AppCompatActivity() {
                         state = 1
 //                        clickSound.start()
                         binding.warmingup.text = getString(R.string.serverConnect)
-                        binding.lottieView.scaleX = 1F
-                        binding.lottieView.scaleY = 1F
+                        binding.lottieView.scaleX = 0.9F
+                        binding.lottieView.scaleY = 0.9F
                         binding.wait.visibility = View.GONE
                         binding.lottieView.setAnimation(R.raw.cloudsync)
                         binding.lottieView.playAnimation()
@@ -81,9 +96,12 @@ class Splash : AppCompatActivity() {
                         clickSound.start()
                         binding.warmingup.text = getString(R.string.wakingrobot)
                         loadingAnim.duration = 4000L
+                        binding.lottieView.scaleX = 1.1F
+                        binding.lottieView.scaleY = 1.1F
                         binding.wait.visibility = View.GONE
                         binding.lottieView.setAnimation(R.raw.robot)
                         binding.lottieView.playAnimation()
+                        Firebase.database.getReference("Control/data").setValue(FirebaseData())
                         loadingAnim.start()
                     }
                     2->{
@@ -99,9 +117,10 @@ class Splash : AppCompatActivity() {
                         binding.loading.visibility = View.GONE
                         Firebase.database.getReference("Control/data").setValue(FirebaseData())
                         Handler(Looper.getMainLooper()).postDelayed({
-                            binding.warmingup.text = getString(R.string.startClick)
+//                            binding.warmingup.text = getString(R.string.startClick)
                             allowStart = true
-                        }, 1500)
+                            startNextActivity(View(this@Splash))
+                        }, 1100)
                     }
                 }
             }
@@ -113,11 +132,16 @@ class Splash : AppCompatActivity() {
         ttlAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) {}
             override fun onAnimationEnd(p0: Animation?) {
-                binding.lottieView.visibility = View.VISIBLE
-                binding.loading.visibility = View.VISIBLE
-                binding.warmingup.visibility = View.VISIBLE
-                binding.wait.visibility = View.VISIBLE
-                loadingAnim.start()
+                if(fastStart){
+                    allowStart= true
+                    startNextActivity(View(this@Splash))
+                }else {
+                    binding.lottieView.visibility = View.VISIBLE
+                    binding.loading.visibility = View.VISIBLE
+                    binding.warmingup.visibility = View.VISIBLE
+                    binding.wait.visibility = View.VISIBLE
+                    loadingAnim.start()
+                }
             }
             override fun onAnimationRepeat(p0: Animation?) {}
         } )
@@ -145,8 +169,17 @@ class Splash : AppCompatActivity() {
             Toast.makeText(baseContext, "Token registered to cloud", Toast.LENGTH_SHORT).show()
         })
     }
+
+    override fun onStop() {
+        super.onStop()
+        loadingAnim.cancel()
+
+    }
     fun startNextActivity(view: View){
-        if (allowStart) startActivity(Intent(this, FullscreenActivity::class.java))
+        if (allowStart) startActivity(Intent(this, FullscreenActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
+        finishAndRemoveTask()
     }
 
     override fun onBackPressed() {

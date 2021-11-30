@@ -7,11 +7,21 @@
     tools:context=".Splash"
     android:background="@color/black">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="600dp"
+        android:textSize="@dimen/_5ssp"
+        android:layout_margin="@dimen/_3sdp"
+        android:textColor="@color/font_grey_settings"/>
+
     <ImageView
         android:id="@+id/ttlLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/_80sdp"
+        android:layout_margin="@dimen/_60sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +32,7 @@
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/_8sdp"
+        android:layout_margin="@dimen/_35sdp"
         android:indeterminate="true"
         android:indeterminateBehavior="cycle"
         android:indeterminateDrawable="@drawable/indeter_progress"
@@ -37,23 +47,24 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieView"
-        android:layout_width="@dimen/_190sdp"
-        android:layout_height="@dimen/_190sdp"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_140sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="startNextActivity"
+        android:scaleX="2.2"
+        android:scaleY="2.2"
+        android:visibility="gone"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleX="2.2"
-        android:scaleY="2.2"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:focusable="true"
-        android:visibility="gone"
-        android:clickable="true"
-        android:onClick="startNextActivity"
         app:lottie_rawRes="@raw/robotworkout"
         app:lottie_repeatMode="restart"
-        app:lottie_speed="1.3"/>
+        app:lottie_speed="1.3" />
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -61,12 +72,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/wait"
-        android:visibility="gone"
         android:textColor="@color/font_grey_settings"
-        android:textSize="@dimen/_10ssp"
+        android:textSize="@dimen/_8ssp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/warmingup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -74,11 +85,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/warming_up"
-        android:visibility="gone"
         android:textColor="@color/font_yellow"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_10ssp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/lottieView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/lottieView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

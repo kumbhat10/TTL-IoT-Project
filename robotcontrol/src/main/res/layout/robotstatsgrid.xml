@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="robotStat"
+            type="com.ttl.robotcontrol.RobotStatsItem" />
+        <variable
+            name="gridAdapter"
+            type="com.ttl.robotcontrol.RobotStatsGridAdapter"/>
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shine_user_rank_bkgd">
+
+    <TextView
+        android:id="@+id/parameter1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@{robotStat.parameter}"
+        android:textColor="@color/font_grey_settings"
+        android:textSize="@dimen/_7ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintStart_toEndOf= "@id/parameterIcon1"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/parameterIcon1"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        app:setImageID="@{robotStat.parameterIcon}"
+        tools:ignore="ContentDescription"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/parameterValue1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:text="@{String.valueOf(robotStat.parameterProgress)}"
+        android:textColor="@color/font_yellow"
+        android:textSize="@dimen/_10ssp"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/parameterIcon1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <SeekBar
+        android:id="@+id/parameterProgress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/parameterValue1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:progress="@={robotStat.parameterProgress}"
+        app:SeekBarChangeListener="@{robotStat}"
+
+        android:min="-100"
+        android:max="100"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

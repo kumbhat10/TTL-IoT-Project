@@ -20,20 +20,20 @@
         android:id="@+id/mainLayout"
         tools:context = ".FullscreenActivity">
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/gridControlStats"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            app:layout_constraintEnd_toStartOf="@id/mapView"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:gravity="center"-->
-        <!--            android:visibility="gone"-->
-        <!--            android:layout_marginEnd="@dimen/_5sdp"-->
-        <!--            android:layout_marginStart="@dimen/_5sdp"-->
-        <!--            android:layout_marginTop="@dimen/_5sdp"-->
-        <!--            android:background="@drawable/shine_user_rank"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:setRecyclerViewAdapter="@{recyclerViewAdapter}"/>-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/gridControlStats"-->
+<!--            android:layout_width="0dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/mapView"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_marginEnd="@dimen/_5sdp"-->
+<!--            android:layout_marginStart="@dimen/_5sdp"-->
+<!--            android:layout_marginTop="@dimen/_5sdp"-->
+<!--            android:background="@drawable/shine_user_rank"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:setRecyclerViewAdapter="@{recyclerViewAdapter}"/>-->
 
         <LinearLayout
             android:id="@+id/gridControlStats"

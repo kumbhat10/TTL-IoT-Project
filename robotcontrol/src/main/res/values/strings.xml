@@ -7,6 +7,17 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="customactivityoncrash_error_activity_error_occurred_explanation">"It's not you, It's us &#128522; \n\nServer is high on spirit &#129396; \n\n(Sending error report to developer)"</string>
+    <string name="customactivityoncrash_error_activity_restart_app">Home</string>
+    <string name="customactivityoncrash_error_activity_close_app">Close app</string>
+    <string name="customactivityoncrash_error_activity_error_details">Error Report</string>
+    <string name="customactivityoncrash_error_activity_error_details_title">Error Report</string>
+    <string name="customactivityoncrash_error_activity_error_details_close">Close</string>
+    <string name="customactivityoncrash_error_activity_error_details_copy">Copy to clipboard</string>
+    <string name="customactivityoncrash_error_activity_error_details_copied">Copied to clipboard</string>
+    <string name="customactivityoncrash_error_activity_error_details_clipboard_label">Error information</string>
+
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="wait">Please wait...</string>
@@ -16,8 +27,15 @@
     <string name="startClick">Click to start</string>
     <string name="wakingrobot">Waking Robot…</string>
     <string name="notification_channel_id">IoTChannel</string>
-    <string name="write">Reset</string>
+    <string name="write">Reset\nAll</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="base">Base</string>
+    <string name="main_arm">Main Arm</string>
+    <string name="second_arm">Second Arm</string>
+    <string name="rotate_gripper">Rotate Gripper</string>
+    <string name="gripper">Gripper</string>
+    <string name="joystick_noff">Joystick\nOff</string>
+    <string name="joystick_non">Joystick\nOn</string>
 </resources>
