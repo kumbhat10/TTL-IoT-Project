@@ -140,7 +140,7 @@ class FullscreenActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.mapView?.onResume()
     }
 
-    override fun onStart() {
+    override fun onStart() { //removed API key from here
         super.onStart()
         binding.mapView?.onStart()
     }
