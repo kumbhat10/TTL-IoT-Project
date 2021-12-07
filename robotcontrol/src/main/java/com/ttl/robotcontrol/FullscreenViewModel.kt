@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import kotlin.math.log
 import kotlin.math.round
 import kotlin.math.roundToInt
@@ -59,6 +60,7 @@ class FullscreenViewModel : ViewModel() {
         gnssInfo.value = gpsInfo.child("M").value.toString()
         val x = gnssInfo.value!!.split(",")
 
+        gpsLastSeen.value = SimpleDateFormat("d MMM 'at' h:mm:ss a").format(SimpleDateFormat("ddMMyyHHmmss").parse(x[8]+x[9])).toString()
         gpsSat.value = (x[1].toInt() + x[2].toInt() + x[3].toInt()).toString()
         val lat = x[4].slice(0..1).toDouble() +   x[4].removeRange(0,2).toDouble()/60
         val long= x[6].slice(0..2).toDouble()+  x[6].removeRange(0,3).toDouble()/60
@@ -72,10 +74,10 @@ class FullscreenViewModel : ViewModel() {
             "W"->gpsLongitude.value = -long
         }
 
-         gpsLat.value = String.format("%.6f",lat)  +"\u00B0"+" " + x[5]  //    "\u00B0" + x[4].slice()
-        gpsLong.value = String.format("%.6f",long)  +"\u00B0"+" " + x[7]
-        gpsAlt.value = x[10]
-        gpsSpeed.value = x[11]
+         gpsLat.value = String.format("%.8f",lat)  +"\u00B0"+" " + x[5]  //    "\u00B0" + x[4].slice()
+        gpsLong.value = String.format("%.8f",long)  +"\u00B0"+" " + x[7]
+        gpsAlt.value = x[10]+"m"
+        gpsSpeed.value = String.format("%.1f", x[11].toDouble()*1.852)+" kmph"   //Knots to kmph = 1.852
 
 
         Log.d("GPSLog", " "+x[1]+" "+x[2]+" "+x[3]+" "+x[4]+" "+x[5] +" "+x[6]+" "+x[7]+" "+x[8]+" "+x[9])

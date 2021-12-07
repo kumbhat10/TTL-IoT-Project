@@ -423,7 +423,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             map:cameraBearing="0"
             map:cameraTilt="0"
-            map:cameraZoom="12"
+            map:cameraZoom="14"
             map:mapType="normal"
             map:uiCompass="true"
             map:uiRotateGestures="true"
@@ -577,11 +577,12 @@
 
         <ImageView
             android:id="@+id/ttlogoFS"
-            android:layout_width="@dimen/_75sdp"
-            android:layout_height="@dimen/_33sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_40sdp"
             android:src="@drawable/ttl_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             android:elevation="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/app_name" />
