@@ -20,38 +20,38 @@
         android:id="@+id/mainLayout"
         tools:context = ".FullscreenActivity">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/gridControlStats"-->
-<!--            android:layout_width="0dp"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/mapView"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:visibility="gone"-->
-<!--            android:layout_marginEnd="@dimen/_5sdp"-->
-<!--            android:layout_marginStart="@dimen/_5sdp"-->
-<!--            android:layout_marginTop="@dimen/_5sdp"-->
-<!--            android:background="@drawable/shine_user_rank"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:setRecyclerViewAdapter="@{recyclerViewAdapter}"/>-->
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/gridControlStats"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/mapView"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:layout_marginEnd="@dimen/_5sdp"-->
+        <!--            android:layout_marginStart="@dimen/_5sdp"-->
+        <!--            android:layout_marginTop="@dimen/_5sdp"-->
+        <!--            android:background="@drawable/shine_user_rank"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:setRecyclerViewAdapter="@{recyclerViewAdapter}"/>-->
 
         <LinearLayout
             android:id="@+id/gridControlStats"
             android:layout_width="@dimen/_340sdp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
+            android:padding="1dp"
             android:background="@drawable/shine_green"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="vertical">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t1"
                     android:layout_width="wrap_content"
@@ -60,10 +60,11 @@
                     android:text="@string/base"
                     android:textColor="@color/font_grey_settings"
                     android:textSize="@dimen/_7ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/s1"
+                    app:layout_constraintStart_toStartOf="@id/s1"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_8sdp"
-                    app:layout_constraintStart_toEndOf= "@id/i1"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
                     android:id="@+id/i1"
@@ -71,12 +72,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{()-> viewModel1.resetESP(1)}"/>
                 <TextView
                     android:id="@+id/t11"
                     android:layout_width="wrap_content"
@@ -106,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t2"
                     android:layout_width="wrap_content"
@@ -115,10 +120,11 @@
                     android:text="@string/main_arm"
                     android:textColor="@color/font_grey_settings"
                     android:textSize="@dimen/_7ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/s2"
+                    app:layout_constraintStart_toStartOf="@id/s2"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_8sdp"
-                    app:layout_constraintStart_toEndOf= "@id/i2"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
                     android:id="@+id/i2"
@@ -126,12 +132,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(2)}"/>
                 <TextView
                     android:id="@+id/t22"
                     android:layout_width="wrap_content"
@@ -161,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t3"
                     android:layout_width="wrap_content"
@@ -170,10 +180,11 @@
                     android:text="@string/second_arm"
                     android:textColor="@color/font_grey_settings"
                     android:textSize="@dimen/_7ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/s3"
+                    app:layout_constraintStart_toStartOf="@id/s3"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_8sdp"
-                    app:layout_constraintStart_toEndOf= "@id/i3"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
                     android:id="@+id/i3"
@@ -181,12 +192,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(3)}"/>
                 <TextView
                     android:id="@+id/t33"
                     android:layout_width="wrap_content"
@@ -216,7 +231,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t4"
                     android:layout_width="wrap_content"
@@ -225,10 +240,11 @@
                     android:text="@string/rotate_gripper"
                     android:textColor="@color/font_grey_settings"
                     android:textSize="@dimen/_7ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/s4"
+                    app:layout_constraintStart_toStartOf="@id/s4"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_8sdp"
-                    app:layout_constraintStart_toEndOf= "@id/i4"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
                     android:id="@+id/i4"
@@ -236,12 +252,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(4)}"/>
                 <TextView
                     android:id="@+id/t44"
                     android:layout_width="wrap_content"
@@ -270,8 +290,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:background="@drawable/shine_user_rank_bkgd">
                 <TextView
                     android:id="@+id/t5"
                     android:layout_width="wrap_content"
@@ -280,10 +299,11 @@
                     android:text="@string/gripper"
                     android:textColor="@color/font_grey_settings"
                     android:textSize="@dimen/_7ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/s5"
+                    app:layout_constraintStart_toStartOf="@id/s5"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_8sdp"
-                    app:layout_constraintStart_toEndOf= "@id/i5"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
                     android:id="@+id/i5"
@@ -291,12 +311,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(5)}"/>
                 <TextView
                     android:id="@+id/t55"
                     android:layout_width="wrap_content"
@@ -355,26 +379,41 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gridControlStats"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/write"
-            android:textSize="@dimen/_7ssp"
+            android:textSize="@dimen/_6ssp"
             android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="@{() -> viewModel1.resetESP()}"/>
+            android:onClick="@{() -> viewModel1.resetESP(6)}"/>
+        <Button
+            android:id="@+id/buttonReset2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="11dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.resetESP(7)}"
+            android:text="@string/defaultPos"
+            android:textSize="@dimen/_6ssp"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/buttonReset"
+            app:layout_constraintTop_toTopOf="@id/buttonReset"
+            app:layout_constraintBottom_toBottomOf="@id/buttonReset"/>
 
         <ToggleButton
             android:id="@+id/buttonJoystick"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:checked="@={viewModel1.joystickEnable}"
             android:textOff="@string/joystick_noff"
             android:textOn="@string/joystick_non"
             android:textSize="@dimen/_7ssp"
             app:layout_constraintBottom_toBottomOf="@+id/buttonReset"
-            app:layout_constraintStart_toEndOf="@id/buttonReset"
+            app:layout_constraintEnd_toStartOf="@id/mapView"
             app:layout_constraintTop_toTopOf="@id/buttonReset" />
 
         <com.google.android.gms.maps.MapView
@@ -384,7 +423,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             map:cameraBearing="0"
             map:cameraTilt="0"
-            map:cameraZoom="11"
+            map:cameraZoom="12"
             map:mapType="normal"
             map:uiCompass="true"
             map:uiRotateGestures="true"
@@ -393,23 +432,157 @@
             map:uiZoomControls="true"
             map:uiZoomGestures="true"
             android:id="@+id/mapView"
-
             android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
             map:layout_constraintStart_toEndOf="@+id/gridControlStats"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/ttlogoFS" />
+            app:layout_constraintBottom_toTopOf="@id/gpsCard" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/gpsCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TableLayout
+                android:id="@+id/gpsTable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:stretchColumns="1">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gpsLastSeen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText"
+                        android:text="@string/last_updated_on"/>
+                    <TextView
+                        android:id="@+id/gpsLastSeenValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/gpsText"
+                        android:textColor="@color/font_grey_settings"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsLastSeen}"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gpsLat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText"
+                        android:text="@string/gpsLat"/>
+                    <TextView
+                        android:id="@+id/gpsLatValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/gpsText"
+                        android:textColor="@color/font_grey_settings"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsLat}"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gpsLong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText"
+                        android:text="@string/gpsLong"/>
+                    <TextView
+                        android:id="@+id/gpsLongValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/gpsText"
+                        android:textColor="@color/font_grey_settings"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsLong}"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gpsSat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText"
+                        android:text="@string/gpsStat"/>
+                    <TextView
+                        android:id="@+id/gpsSatValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/gpsText"
+                        android:textColor="@color/font_grey_settings"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsSat}"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gpsAlt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText"
+                        android:text="@string/gpsAlt"/>
+                    <TextView
+                        android:id="@+id/gpsAltValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/gpsText"
+                        android:textColor="@color/font_grey_settings"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsAlt}"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gpsSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText"
+                        android:text="@string/gpsSpeed"/>
+                    <TextView
+                        android:id="@+id/gpsSpeedValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/gpsText"
+                        android:textColor="@color/font_grey_settings"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsSpeed}"/>
+                </TableRow>
+
+            </TableLayout>
+        </com.google.android.material.card.MaterialCardView>
+
 
         <ImageView
             android:id="@+id/ttlogoFS"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_33sdp"
             android:src="@drawable/ttl_logo"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/_5sdp"
+            android:elevation="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/app_name" />
 

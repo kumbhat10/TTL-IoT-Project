@@ -32,12 +32,10 @@ class FirebaseData(
     val ry: Int = 490,
     val tr: Int = 270,
     val rt: Int = 0) {
-
-    fun pose1():FirebaseData{
-        return FirebaseData(184,389,309,411,270,0)
-    }
-    fun pose2():FirebaseData{
-        return FirebaseData(446,389,309,411,270,0)
-    }
-
+}
+fun pose1():FirebaseData{
+    return FirebaseData(184,389,309,411,270,0)
+}
+fun pose2():FirebaseData{
+    return FirebaseData(446,389,309,411,270,0)
 }

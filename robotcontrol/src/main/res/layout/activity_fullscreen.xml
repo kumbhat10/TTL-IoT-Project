@@ -40,18 +40,18 @@
             android:layout_width="@dimen/_340sdp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
+            android:padding="1dp"
             android:background="@drawable/shine_green"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="vertical">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t1"
                     android:layout_width="wrap_content"
@@ -71,12 +71,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{()-> viewModel1.resetESP(1)}"/>
                 <TextView
                     android:id="@+id/t11"
                     android:layout_width="wrap_content"
@@ -106,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t2"
                     android:layout_width="wrap_content"
@@ -126,12 +130,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(2)}"/>
                 <TextView
                     android:id="@+id/t22"
                     android:layout_width="wrap_content"
@@ -161,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t3"
                     android:layout_width="wrap_content"
@@ -181,12 +189,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(3)}"/>
                 <TextView
                     android:id="@+id/t33"
                     android:layout_width="wrap_content"
@@ -216,7 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:layout_marginBottom="1dp">
                 <TextView
                     android:id="@+id/t4"
                     android:layout_width="wrap_content"
@@ -236,12 +248,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(4)}"/>
                 <TextView
                     android:id="@+id/t44"
                     android:layout_width="wrap_content"
@@ -270,8 +286,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shine_user_rank_bkgd"
-                android:layout_marginBottom="@dimen/_1sdp">
+                android:background="@drawable/shine_user_rank_bkgd">
                 <TextView
                     android:id="@+id/t5"
                     android:layout_width="wrap_content"
@@ -291,12 +306,16 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:src="@drawable/roboticon"
+                    android:src="@drawable/revert"
                     tools:ignore="ContentDescription"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel1.resetESP(5)}"/>
                 <TextView
                     android:id="@+id/t55"
                     android:layout_width="wrap_content"
@@ -356,13 +375,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gridControlStats"
             android:layout_marginTop="@dimen/_15sdp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_marginStart="@dimen/_5sdp"
             android:text="@string/write"
             android:textSize="@dimen/_7ssp"
             android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="@{() -> viewModel1.resetESP()}"/>
+            android:onClick="@{() -> viewModel1.resetESP(6)}"/>
 
         <ToggleButton
             android:id="@+id/buttonJoystick"

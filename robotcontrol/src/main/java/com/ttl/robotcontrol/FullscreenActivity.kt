@@ -15,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
@@ -27,16 +28,16 @@ import kotlin.math.round
 class FullscreenActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityFullscreenBinding
     private lateinit var viewModel: FullscreenViewModel
-    private var precision = 3
-    private var maxDegree = 180
     private var lx = Servo().resetPositionAngle
     private var ly = Servo().resetPositionAngle
     private var rx = Servo().resetPositionAngle
     private var ry = Servo().resetPositionAngle
     private var tr = Servo().resetPositionAngle
 
-    private lateinit var databaseRef:DatabaseReference
-    private lateinit var databaseRef1:DatabaseReference
+    private lateinit var marker: Marker
+    private lateinit var googleMap: GoogleMap
+    private lateinit var databaseRef: DatabaseReference
+//    private lateinit var databaseRef1: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,107 +56,147 @@ class FullscreenActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this)[FullscreenViewModel::class.java]
         binding.viewModel1 = viewModel // bind view model in XML layout to our viewModel
-
+        viewModel.gpsInfoListener()
 //        binding.gridControlStats!!.layoutManager = GridLayoutManager(this, 1)
 //        binding.recyclerViewAdapter = RobotStatsGridAdapter(arrayList = setDataList())
-        binding.mapView?.onCreate(savedInstanceState)
-        binding.mapView?.getMapAsync(this)
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync(this)
 
-        databaseRef =  Firebase.database.getReference("Control/data")
-        databaseRef1 =  Firebase.database.getReference("Control/dataProgress")
+        databaseRef = Firebase.database.getReference("Control/data")
+//        databaseRef1 = Firebase.database.getReference("Control/dataProgress")
         observeDataAndUpdateServer()
     }
 
-    private fun observeDataAndUpdateServer(){
+    private fun observeDataAndUpdateServer() {
         viewModel.progress1.observe(this) {
-            binding.t11!!.text = (round((it/2).toDouble()).toInt()).toString()
-            lx= Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 540)
-            databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
+            binding.t11.text = (round((it / 2).toDouble()).toInt()).toString()
+            lx = Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 540)
+            databaseRef.updateChildren(
+                mapOf(
+                    "lx" to lx,
+                    "ly" to ly,
+                    "rx" to rx,
+                    "ry" to ry,
+                    "tr" to tr
+                )
+            )
 //            databaseRef1.setValue(FirebaseData(lx=viewModel.progress1.value!!,
 //                ly=viewModel.progress2.value!!, rx=viewModel.progress4.value!!, ry=viewModel.progress3.value!!, tr=viewModel.progress5.value!!))
         }
         viewModel.progress2.observe(this) {
-            ly= Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 400)
-            databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
-            binding.t22!!.text = (round((it/2).toDouble()).toInt()).toString()
+            ly = Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 400)
+            databaseRef.updateChildren(
+                mapOf(
+                    "lx" to lx,
+                    "ly" to ly,
+                    "rx" to rx,
+                    "ry" to ry,
+                    "tr" to tr
+                )
+            )
+// databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
+            binding.t22.text = (round((it / 2).toDouble()).toInt()).toString()
         }
         viewModel.progress3.observe(this) {
-            ry= Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 490)
-            databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
-            binding.t33!!.text = (round((it/2).toDouble()).toInt()).toString()
+            ry = Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 490)
+            databaseRef.updateChildren(
+                mapOf(
+                    "lx" to lx,
+                    "ly" to ly,
+                    "rx" to rx,
+                    "ry" to ry,
+                    "tr" to tr
+                )
+            )
+// databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
+            binding.t33.text = (round((it / 2).toDouble()).toInt()).toString()
         }
         viewModel.progress4.observe(this) {
-            rx= Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 540)
-            databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
-            binding.t44!!.text = (round((it/2).toDouble()).toInt()).toString()
+            rx = Servo().getPWMFromProgress(progress = it, minPWM = 90, maxPWM = 540)
+            databaseRef.updateChildren(
+                mapOf(
+                    "lx" to lx,
+                    "ly" to ly,
+                    "rx" to rx,
+                    "ry" to ry,
+                    "tr" to tr
+                )
+            )
+//  databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
+            binding.t44.text = (round((it / 2).toDouble()).toInt()).toString()
 
         }
         viewModel.progress5.observe(this) {
-            tr= Servo().getPWMFromProgress(progress = it, minPWM = 185, maxPWM = 355)
-            databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
+            tr = Servo().getPWMFromProgress(progress = it, minPWM = 185, maxPWM = 355)
+            databaseRef.updateChildren(
+                mapOf(
+                    "lx" to lx,
+                    "ly" to ly,
+                    "rx" to rx,
+                    "ry" to ry,
+                    "tr" to tr
+                )
+            )
+// databaseRef.setValue(FirebaseData(lx=lx, ly=ly, rx=rx, ry=ry, tr=tr))
 //            Log.d("Progress", "tr = $tr")
-            binding.t55!!.text = (round((it/2).toDouble()).toInt()).toString() }
+            binding.t55.text = (round((it / 2).toDouble()).toInt()).toString()
+        }
 
-//        databaseRef1.addValueEventListener(object : ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//            val data = snapshot.getValue<FirebaseData>()!!
-//                viewModel.progress1.value = data.lx
-//                viewModel.progress2.value = data.ly
-//                viewModel.progress3.value = data.ry
-//                viewModel.progress4.value = data.rx
-//                viewModel.progress5.value = data.tr
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//            }
-//        })
+        viewModel.gnssInfo.observe(this) {
+            val latLong = LatLng(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!)
+            if (this::marker.isInitialized) marker.position = latLong
+            if(this::googleMap.isInitialized) googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLong))
+        }
     }
 
     @SuppressLint("SetTextI18n")
     override fun onGenericMotionEvent(event: MotionEvent?): Boolean {
-        if(viewModel.joystickEnable.value == true) viewModel.onGenericMotionEvent(event)
+        if (viewModel.joystickEnable.value == true) viewModel.onGenericMotionEvent(event)
         return super.onGenericMotionEvent(event)
     }
 
-    private fun toastCenter(message: String) {
-        Snackbar.make(binding.mainLayout, message, Snackbar.LENGTH_LONG).setAction("Dismiss") {}
-            .setActionTextColor(getColor(R.color.borderblue)).show()
-    }
+//    private fun toastCenter(message: String) {
+//        Snackbar.make(binding.mainLayout, message, Snackbar.LENGTH_LONG).setAction("Dismiss") {}
+//            .setActionTextColor(getColor(R.color.borderblue)).show()
+//    }
 
-    private val robotIcon: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(this, R.color.font_yellow)
-        BitmapHelper.vectorToBitmap(this, R.drawable.android_24, color)
-    }
+//    private val robotIcon: BitmapDescriptor by lazy {
+//        val color = ContextCompat.getColor(this, R.color.font_yellow)
+//        BitmapHelper.vectorToBitmap(this, R.drawable.android_24, color)
+//    }
 
     override fun onMapReady(googleMap: GoogleMap) {
 //        toastCenter("Google maps API are ready now")
-        val latLong = LatLng(51.5054, 0.0235)
-        googleMap.addMarker(MarkerOptions().position(latLong).title("IoT Robot").visible(true))
-        googleMap.addMarker(MarkerOptions().position(latLong).title("IoT Robot").visible(true))
-            ?.showInfoWindow()
+        this.googleMap = googleMap
+        val latLong = LatLng(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!)
+        marker = googleMap.addMarker(MarkerOptions().position(latLong).title("IoT Robot").visible(true))!!
+        marker.showInfoWindow()
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLong))
     }
 
+
     override fun onResume() {
         super.onResume()
-        binding.mapView?.onResume()
+        binding.mapView.onResume()
     }
 
     override fun onStart() { //removed API key from here
         super.onStart()
-        binding.mapView?.onStart()
+        binding.mapView.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        binding.mapView?.onStop()
+        binding.mapView.onStop()
     }
+
     override fun onPause() {
-        binding.mapView?.onPause()
+        binding.mapView.onPause()
         super.onPause()
     }
 
     override fun onDestroy() {
-        binding.mapView?.onDestroy()
+        binding.mapView.onDestroy()
         super.onDestroy()
     }
 

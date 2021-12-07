@@ -1,4 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="splashMargin">@dimen/_30sdp</dimen>
+    <dimen name="gpsText">@dimen/_7ssp</dimen>
 </resources>

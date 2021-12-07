@@ -27,7 +27,7 @@
     <string name="startClick">Click to start</string>
     <string name="wakingrobot">Waking Robot…</string>
     <string name="notification_channel_id">IoTChannel</string>
-    <string name="write">Reset\nAll</string>
+    <string name="write">Reset\nto 0</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -38,4 +38,12 @@
     <string name="gripper">Gripper</string>
     <string name="joystick_noff">Joystick\nOff</string>
     <string name="joystick_non">Joystick\nOn</string>
+    <string name="mapinfo">Last Updated on :</string>
+    <string name="defaultPos">Default\nPosition</string>
+    <string name="last_updated_on">Last updated on : </string>
+    <string name="gpsStat">"No of GPS satellites :  "</string>
+    <string name="gpsAlt">GPS Altitude : </string>
+    <string name="gpsSpeed">GPS velocity : </string>
+    <string name="gpsLat">Latitude : </string>
+    <string name="gpsLong">Longitude : </string>
 </resources>

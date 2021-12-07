@@ -52,7 +52,7 @@ class Splash : AppCompatActivity() {
         updateUI()
         getToken()
         subscribeTopic()
-        clickSound = MediaPlayer.create(this, R.raw.done_sound)
+        clickSound = MediaPlayer.create(this, R.raw.success)
 
     }
 
@@ -93,7 +93,7 @@ class Splash : AppCompatActivity() {
                     }
                     1->{
                         state = 2
-                        clickSound.start()
+//                        clickSound.start()
                         binding.warmingup.text = getString(R.string.wakingrobot)
                         loadingAnim.duration = 4000L
                         binding.lottieView.scaleX = 1.1F
@@ -120,7 +120,7 @@ class Splash : AppCompatActivity() {
 //                            binding.warmingup.text = getString(R.string.startClick)
                             allowStart = true
                             startNextActivity(View(this@Splash))
-                        }, 1100)
+                        }, 900)
                     }
                 }
             }
