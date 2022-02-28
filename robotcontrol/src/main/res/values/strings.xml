@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">IoT Robot Control</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -26,8 +26,14 @@
     <string name="connected">All set</string>
     <string name="startClick">Click to start</string>
     <string name="wakingrobot">Waking Robot…</string>
-    <string name="notification_channel_id">IoTChannel</string>
+    <string name="wakingExc">Waking Excavator…</string>
+    <string name="notification_channel_id">Robot</string>
+    <string name="notification_channel_id_ex">Excavator</string>
     <string name="write">Reset\nto 0</string>
+    <string name="button3">Buzz</string>
+    <string name="engineSound">Engine\nsound</string>
+    <string name="lights">Lights</string>
+    <string name="button4">Fake\nCrash</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -35,15 +41,35 @@
     <string name="main_arm">Main Arm</string>
     <string name="second_arm">Second Arm</string>
     <string name="rotate_gripper">Rotate Gripper</string>
-    <string name="gripper">Gripper</string>
-    <string name="joystick_noff">Joystick\nOff</string>
-    <string name="joystick_non">Joystick\nOn</string>
+    <string name="gripper">Release</string>
+    <string name="joystick_noff">Joystick\nOFF</string>
+    <string name="joystick_non">Joystick\nON</string>
+    <string name="dance_off">Dance\nOFF</string>
+    <string name="dance_on">Dance\nON</string>
+    <string name="buz_noff">Buzzer\nOFF</string>
+    <string name="buz_non">Buzzer\nON</string>
+    <string name="eng_non">Power\nON</string>
+    <string name="eng_noff">Power\nOFF</string>
     <string name="mapinfo">Last Updated on :</string>
-    <string name="defaultPos">Default\nPosition</string>
+    <string name="defaultPos">Start\nPosition</string>
     <string name="last_updated_on">Last updated on : </string>
     <string name="gpsStat">"No of GPS satellites :  "</string>
     <string name="gpsAlt">GPS Altitude : </string>
     <string name="gpsSpeed">GPS velocity : </string>
+    <string name="bv">Battery Voltage</string>
     <string name="gpsLat">Latitude : </string>
     <string name="gpsLong">Longitude : </string>
+    <string name="select_the_client_machine">Select client machine</string>
+    <string name="robot_arm">Robot Arm</string>
+    <string name="excavator">Excavator</string>
+    <string name="title_activity_excavator">ExcavatorActivity</string>
+
+    <string name="_600dp">600dp</string>
+    <string name="stand_up">Stand Up</string>
+    <string name="pose1" tools:ignore="Typos">Pose 1</string>
+    <string name="pose2" tools:ignore="Typos">Pose 2</string>
+    <string name="rotate_nright">Release</string>
+    <string name="rotate_nleft">Grab</string>
+    <string name="move">Move</string>
+    <string name="grab">Grab</string>
 </resources>

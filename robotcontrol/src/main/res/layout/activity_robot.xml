@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel1"
+            type="com.ttl.robotcontrol.RobotViewModel" />
+
+        <variable
+            name="recyclerViewAdapter"
+            type="com.ttl.robotcontrol.RobotStatsGridAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".RobotActivity">
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/gridControlStats"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/mapView"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:layout_marginEnd="@dimen/_5sdp"-->
+        <!--            android:layout_marginStart="@dimen/_5sdp"-->
+        <!--            android:layout_marginTop="@dimen/_5sdp"-->
+        <!--            android:background="@drawable/shine_user_rank"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:setRecyclerViewAdapter="@{recyclerViewAdapter}"/>-->
+
+        <LinearLayout
+            android:id="@+id/gridControlStats"
+            android:layout_width="@dimen/_340sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/shine_green"
+            android:orientation="vertical"
+            android:padding="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/shine_user_rank_bkgd">
+
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="@string/base"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_7ssp"
+                    app:layout_constraintEnd_toEndOf="@id/s1"
+                    app:layout_constraintStart_toStartOf="@id/s1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/i1"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{()-> viewModel1.resetESP(1)}"
+                    android:src="@drawable/revert"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/t11"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center|start"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/i1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/s1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.7"
+                    android:max="200"
+                    android:min="-200"
+                    android:progress="@={viewModel1.progress1}"
+                    android:progressTint="#E91E63"
+                    android:thumbTint="#FF0057"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t11"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/shine_user_rank_bkgd">
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="@string/main_arm"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_7ssp"
+                    app:layout_constraintEnd_toEndOf="@id/s2"
+                    app:layout_constraintStart_toStartOf="@id/s2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/i2"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel1.resetESP(2)}"
+                    android:src="@drawable/revert"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/t22"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center|start"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/i2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/s2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.7"
+                    android:max="200"
+                    android:progressTint="#9841ED"
+                    android:thumbTint="#9841ED"
+                    android:min="-200"
+                    android:progress="@={viewModel1.progress2}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t22"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/shine_user_rank_bkgd">
+
+                <TextView
+                    android:id="@+id/t3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="@string/second_arm"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_7ssp"
+                    app:layout_constraintEnd_toEndOf="@id/s3"
+                    app:layout_constraintStart_toStartOf="@id/s3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/i3"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel1.resetESP(3)}"
+                    android:src="@drawable/revert"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/t33"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center|start"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/i3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/s3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.7"
+                    android:max="200"
+                    android:min="-200"
+                    android:progressTint="#1396FF"
+                    android:thumbTint="#1396FF"
+                    android:progress="@={viewModel1.progress3}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t33"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/shine_user_rank_bkgd">
+
+                <TextView
+                    android:id="@+id/t4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="@string/rotate_gripper"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_7ssp"
+                    app:layout_constraintEnd_toEndOf="@id/s4"
+                    app:layout_constraintStart_toStartOf="@id/s4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/i4"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel1.resetESP(4)}"
+                    android:src="@drawable/revert"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/t44"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center|start"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/i4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/s4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.7"
+                    android:max="200"
+                    android:progressTint="#28BD2E"
+                    android:thumbTint="#28BD2E"
+                    android:min="-200"
+                    android:progress="@={viewModel1.progress4}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t44"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shine_user_rank_bkgd">
+
+                <TextView
+                    android:id="@+id/t5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="@string/gripper"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_7ssp"
+                    app:layout_constraintEnd_toEndOf="@id/s5"
+                    app:layout_constraintStart_toStartOf="@id/s5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/i5"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel1.resetESP(5)}"
+                    android:src="@drawable/revert"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/t55"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center|start"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/i5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/s5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.7"
+                    android:max="200"
+                    android:min="-200"
+                    android:progressTint="#FFEB3B"
+                    android:thumbTint="#FFEB3B"
+                    android:progress="@={viewModel1.progress5}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t55"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/t5r"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:gravity="center"
+                    android:text="@string/grab"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_6ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/t5l"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:gravity="center"
+                    android:text="@string/gripper"
+                    android:textColor="@color/font_grey_settings"
+                    android:textSize="@dimen/_6ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t55" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonReset1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:background="#CB16EC"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.defaultPosition()}"
+            android:text="@string/defaultPos"
+            android:textSize="@dimen/_7ssp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonReset2"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/gridControlStats" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonReset2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="#F63174"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.buzzOnce()}"
+            android:text="@string/button3"
+            android:textSize="@dimen/_7ssp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/buttonReset1"
+            app:layout_constraintStart_toEndOf="@id/buttonReset1"
+            app:layout_constraintEnd_toStartOf="@+id/buttonReset3"
+            app:layout_constraintTop_toTopOf="@id/buttonReset1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonReset3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="#FF9800"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.fakeCrash()}"
+            android:text="@string/button4"
+            android:textSize="@dimen/_7ssp"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/buttonReset2"
+            app:layout_constraintStart_toEndOf="@id/buttonReset2"
+            app:layout_constraintEnd_toStartOf="@+id/buzzer"
+            app:layout_constraintTop_toTopOf="@id/buttonReset2" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/buzzer"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_43sdp"
+            android:checked="@={viewModel1.buzzerEnable}"
+            android:soundEffectsEnabled="true"
+            android:textOff="@string/buz_noff"
+            android:textOn="@string/buz_non"
+            android:textSize="@dimen/_7ssp"
+            android:theme="@style/ToggleButton.CustomTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonReset1"
+            app:layout_constraintEnd_toStartOf="@+id/buttonJoystick"
+            app:layout_constraintStart_toEndOf="@+id/buttonReset3"
+            app:layout_constraintTop_toTopOf="@id/buttonReset1" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/buttonJoystick"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:checked="@={viewModel1.joystickEnable}"
+            android:textColorHighlight="#2D531D"
+            android:textColorLink="#00FF21"
+            android:visibility="gone"
+            android:textOff="@string/joystick_noff"
+            android:textOn="@string/joystick_non"
+            android:textSize="@dimen/_7ssp"
+            android:theme="@style/ToggleButton.CustomTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonReset1"
+            app:layout_constraintStart_toEndOf="@+id/buzzer"
+            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintTop_toTopOf="@id/buttonReset1" />
+
+        <com.google.android.gms.maps.MapView xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapView"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            app:layout_constraintBottom_toTopOf="@id/gpsCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            map:cameraBearing="0"
+            map:cameraTilt="0"
+            map:cameraZoom="14"
+            map:layout_constraintStart_toEndOf="@+id/gridControlStats"
+            map:mapType="normal"
+            map:uiCompass="true"
+            map:uiRotateGestures="true"
+            map:uiScrollGestures="true"
+            map:uiTiltGestures="true"
+            map:uiZoomControls="true"
+            map:uiZoomGestures="true" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/gpsCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mapView">
+
+            <TableLayout
+                android:id="@+id/gpsTable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:stretchColumns="1">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/gpsLastSeen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_updated_on"
+                        android:textColor="@color/font_yellow"
+                        android:textSize="@dimen/gpsText" />
+
+                    <TextView
+                        android:id="@+id/gpsLastSeenValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsLastSeen}"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/gpsLat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gpsLat"
+                        android:textColor="@color/font_yellow"
+                        android:textSize="@dimen/gpsText" />
+
+                    <TextView
+                        android:id="@+id/gpsLatValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsLat}"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/gpsLong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gpsLong"
+                        android:textColor="@color/font_yellow"
+                        android:textSize="@dimen/gpsText" />
+
+                    <TextView
+                        android:id="@+id/gpsLongValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsLong}"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/gpsSat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gpsStat"
+                        android:textColor="@color/font_yellow"
+                        android:textSize="@dimen/gpsText" />
+
+                    <TextView
+                        android:id="@+id/gpsSatValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsSat}"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/gpsAlt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gpsAlt"
+                        android:textColor="@color/font_yellow"
+                        android:textSize="@dimen/gpsText" />
+
+                    <TextView
+                        android:id="@+id/gpsAltValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsAlt}"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/gpsSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gpsSpeed"
+                        android:textColor="@color/font_yellow"
+                        android:textSize="@dimen/gpsText" />
+
+                    <TextView
+                        android:id="@+id/gpsSpeedValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{viewModel1.gpsSpeed}"
+                        android:textColor="@color/font_grey_settings"
+                        android:textSize="@dimen/gpsText" />
+                </TableRow>
+
+            </TableLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/pose1"
+            android:layout_width="wrap_content"
+            android:background="#6FB81B"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.standUpPosition()}"
+            android:text="@string/stand_up"
+            android:textSize="@dimen/_7ssp"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/batteryCard"
+            app:layout_constraintEnd_toStartOf="@+id/pose2"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toTopOf="@id/batteryCard" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/pose2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:background="#00BCD4"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.pose1Set()}"
+            android:text="@string/pose1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_7ssp"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/pose1"
+            app:layout_constraintEnd_toStartOf="@+id/dance"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toTopOf="@id/batteryCard" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/dance"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_43sdp"
+            android:checked="@={viewModel1.danceEnable}"
+            android:soundEffectsEnabled="true"
+            android:textOff="@string/dance_off"
+            android:textOn="@string/dance_on"
+            android:textSize="@dimen/_7ssp"
+            android:theme="@style/ToggleButton.CustomTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/pose2"
+            app:layout_constraintEnd_toStartOf="@+id/mapView"
+            app:layout_constraintStart_toEndOf="@+id/pose2"
+            app:layout_constraintTop_toTopOf="@id/pose2" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/batteryCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonReset1">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:background="@color/grey">
+
+                <ImageView
+                    android:id="@+id/bvImage"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/battery" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bvText1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/bvImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@string/bv"
+                    android:textSize="@dimen/_9ssp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bvText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/bvText1"
+                    app:layout_constraintStart_toEndOf="@id/bvImage"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@{viewModel1.bv}"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_22ssp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bvText3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/bvText2"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@{viewModel1.bvInfo}"
+                    android:textSize="@dimen/_7ssp"
+                    android:gravity="center"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/ttlogoFS"
+            android:layout_width="@dimen/_104sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_7sdp"
+            android:contentDescription="@string/app_name"
+            android:elevation="@dimen/_5sdp"
+            android:src="@drawable/ttl_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

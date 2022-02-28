@@ -1,6 +1,33 @@
 <resources>
 
-    <style name="Widget.Theme.IotRobot.ActionBar.Fullscreen" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        // Set the splash screen background, animated icon, and animation duration.
+        <item name="windowSplashScreenBackground">@color/font_grey_settings</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ttl_logo</item> // Use windowSplashScreenAnimatedIcon to add either a drawable or an animated drawable. One of these is required.
+        <item name="windowSplashScreenAnimationDuration">3500</item>  # Required for
+        # animated icons
+        // Set the theme of the Activity that directly follows your splash screen.
+        <item name="postSplashScreenTheme">@style/Theme.App</item>  # Required.
+    </style>
+
+
+    <style name="Theme.App" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/colorSecondary</item>
+        <item name="colorPrimaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnSecondary</item>
+<!--        <item name="colorSecondary">@color/colorPrimary</item>-->
+<!--        <item name="colorSecondaryVariant">@color/colorPrimaryVariant</item>-->
+        <item name="colorOnSecondary">@color/colorOnPrimary</item>
+    </style>
+
+    <style name="ToggleButton.CustomTheme" parent="Theme.App">
+        <item name="colorControlNormal">#AE0E44</item>
+        <item name="colorControlActivated">#69CC02</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+
+    <style name="Widget.Theme.IotRobot.NoActionBar.Fullscreen" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:background">@color/black</item>
     </style>
 
@@ -20,7 +47,6 @@
 
     <style name="Theme.launcher" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:background">@color/font_yellow</item>
-        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
 </resources>

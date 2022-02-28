@@ -2,4 +2,14 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="splashMargin">@dimen/_30sdp</dimen>
     <dimen name="gpsText">@dimen/_7ssp</dimen>
+    <dimen name="arrow_width">@dimen/_120sdp</dimen>
+    <dimen name="arrow_height">@dimen/_120sdp</dimen>
+
+    <dimen name="arrow_width2">@dimen/_55sdp</dimen>
+    <dimen name="arrow_height2">@dimen/_55sdp</dimen>
+
+    <dimen name="arrow_width1">@dimen/_50sdp</dimen>
+    <dimen name="arrow_height1">@dimen/_50sdp</dimen>
+    <dimen name="arrow_gap">@dimen/_24sdp</dimen>
+    <dimen name="textExc">@dimen/_7ssp</dimen>
 </resources>

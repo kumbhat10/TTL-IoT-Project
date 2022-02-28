@@ -8,24 +8,51 @@
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/raspberryPiReceiver/src/main/res/layout/activity_main.xml" value="0.15625" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/raspberryPiReceiver/src/main/res/layout/content_main.xml" value="0.15625" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/android_24.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_down.xml" value="0.1325" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_down1.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_left.xml" value="0.166" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_left1.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_right.xml" value="0.1205" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_right1.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_up.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_up1.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/arrow_up2.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/avd_ttl.xml" value="0.1605" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/avd_ttl1.xml" value="0.1" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/biddericon.xml" value="0.1825" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/bug_icon.xml" value="0.1815" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/button_center.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/button_down.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/button_left.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/button_right.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/button_up.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/circle.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/circle_filled.xml" value="0.139" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/excavator.xml" value="0.1825" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/joystick.xml" value="0.1105" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/remote.xml" value="0.1745" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/reset_button.xml" value="0.122" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/revert.xml" value="0.1825" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/roboticon.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/robotss.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/seek_style.xml" value="0.1745" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_green.xml" value="0.1815" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_user_rank.xml" value="0.1815" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_user_rank_bkgd.xml" value="0.156" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/splash.xml" value="0.1825" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/toggle_button.xml" value="0.1815" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/ttl_logo.xml" value="0.1825" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-land/activity_splash.xml" value="0.3009009009009009" />
-        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_fullscreen.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_fullscreen.xml" value="0.16880341880341881" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_splash.xml" value="0.18675213675213675" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_excavator.xml" value="0.2094017094017094" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_full_screen.xml" value="0.17395833333333333" />
-        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_fullscreen.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_fullscreen.xml" value="0.1952991452991453" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_robot.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_splash.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/content_excavator.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/fragment_first.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/fragment_second.xml" value="0.22" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/robot_stats_grid.xml" value="0.22" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/robotstatsgrid.xml" value="0.5" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/robotstatsgridnew.xml" value="0.16666666666666666" />
@@ -37,5 +64,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>

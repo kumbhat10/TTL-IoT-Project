@@ -3,35 +3,44 @@ package com.ttl.robotcontrol
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.drawable.Animatable2
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.viewbinding.BuildConfig
 import cat.ereza.customactivityoncrash.config.CaocConfig
-import com.google.android.datatransport.BuildConfig
-import com.ttl.robotcontrol.databinding.ActivitySplashBinding
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.database.ktx.database
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
+import com.ttl.robotcontrol.databinding.ActivitySplashBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class Splash : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     private lateinit var clickSound: MediaPlayer
-    private val timerLoading = 3000L
+    private lateinit var backgroundMusic: MediaPlayer
+    private val timerLoading = 1000L
     private var state = 0
+    private var machine = ""
     private var allowStart = false
     private var fastStart = false
-    private lateinit var loadingAnim:ObjectAnimator
+    private lateinit var loadingAnim: ObjectAnimator
+    private lateinit var fireStoreRef: DocumentReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,67 +55,77 @@ class Splash : AppCompatActivity() {
             .apply()
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
+        FirebaseApp.initializeApp(this);
+
         setContentView(binding.root)
+        backgroundMusic = MediaPlayer.create(this, R.raw.inspiring)
+        backgroundMusic.setVolume(0.07F, 0.07F)
+        backgroundMusic.start()
 
-        if(com.ttl.robotcontrol.BuildConfig.DEBUG) allowStart = true
+        if (BuildConfig.DEBUG) {
+            allowStart = true
+        }
         updateUI()
-        getToken()
-        subscribeTopic()
+
         clickSound = MediaPlayer.create(this, R.raw.success)
+        clickSound.setVolume(0.06F, 0.06F)
 
+        fireStoreRef =
+            Firebase.firestore.collection("Users").document(FirebaseAuth.getInstance().uid.toString())
     }
 
-    override fun onDestroy() {
-        clickSound.release()
-        super.onDestroy()
-    }
-//    private fun fakeCrashSetup(){
-//        val crashButton = Button(this)
-//        crashButton.text = "Test Crash"
-//        crashButton.setOnClickListener {
-//            throw RuntimeException("Test Crash") // Force a crash
-//        }
-//        addContentView(crashButton, ViewGroup.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT))
-//    }
 
-    private fun updateUI(){
-//        fakeCrashSetup()
+    private fun updateUI() {
+
+        val avd = binding.ttlLogo.drawable as AnimatedVectorDrawable
+        avd.registerAnimationCallback(object : Animatable2.AnimationCallback() {
+            override fun onAnimationEnd(drawable: Drawable?) {
+                clickSound.start()
+                binding.motionLogo.setTransition(R.id.start, R.id.end)
+                binding.motionLogo.transitionToEnd()
+                getToken()
+                subscribeTopic()
+            }
+        })
+        avd.start()
+
         loadingAnim = ObjectAnimator.ofInt(binding.loading, "progress", 0, 10000)
         loadingAnim.duration = timerLoading
-        loadingAnim.addListener(object : Animator.AnimatorListener{
+        loadingAnim.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator?) {}
             override fun onAnimationEnd(animation: Animator?) {
-                when(state){
-                    0->{
+                when (state) {
+                    0 -> {
                         state = 1
-//                        clickSound.start()
                         binding.warmingup.text = getString(R.string.serverConnect)
+                        loadingAnim.duration = 1200L
                         binding.lottieView.scaleX = 0.9F
                         binding.lottieView.scaleY = 0.9F
                         binding.wait.visibility = View.GONE
                         binding.lottieView.setAnimation(R.raw.cloudsync)
                         binding.lottieView.playAnimation()
-                        loadingAnim.duration = 3000L
                         loadingAnim.start()
                     }
-                    1->{
+                    1 -> {
                         state = 2
-//                        clickSound.start()
-                        binding.warmingup.text = getString(R.string.wakingrobot)
-                        loadingAnim.duration = 4000L
+                        loadingAnim.duration = 1200L
                         binding.lottieView.scaleX = 1.1F
                         binding.lottieView.scaleY = 1.1F
                         binding.wait.visibility = View.GONE
-                        binding.lottieView.setAnimation(R.raw.robot)
+                        if (machine == "RobotArm") {
+                            binding.warmingup.text = getString(R.string.wakingrobot)
+                            binding.lottieView.setAnimation(R.raw.robot)
+                        }
+                        if (machine == "Excavator") {
+                            binding.warmingup.text = getString(R.string.wakingrobot)
+                            binding.lottieView.setAnimation(R.raw.excavator)
+                        }
                         binding.lottieView.playAnimation()
-                        Firebase.database.getReference("Control/data").setValue(FirebaseData())
+                        resetPosition()
                         loadingAnim.start()
                     }
-                    2->{
+                    2 -> {
                         state = 3
-                        clickSound.start()
                         binding.warmingup.text = getString(R.string.connected)
                         binding.wait.visibility = View.GONE
                         binding.lottieView.scaleX = 1.4F
@@ -115,74 +134,106 @@ class Splash : AppCompatActivity() {
                         binding.lottieView.repeatCount = 0
                         binding.lottieView.playAnimation()
                         binding.loading.visibility = View.GONE
-                        Firebase.database.getReference("Control/data").setValue(FirebaseData())
                         Handler(Looper.getMainLooper()).postDelayed({
 //                            binding.warmingup.text = getString(R.string.startClick)
                             allowStart = true
-                            startNextActivity(View(this@Splash))
-                        }, 900)
+                            if (machine == "RobotArm") startRobotActivity(View(this@Splash))
+                            if (machine == "Excavator") startExcavatorActivity(View(this@Splash))
+                        }, 600)
                     }
                 }
             }
             override fun onAnimationCancel(animation: Animator?) {}
             override fun onAnimationRepeat(animation: Animator?) {}
         })
+    }
 
-        val ttlAnimation = AnimationUtils.loadAnimation(this, R.anim.ttl_logo_intro)
-        ttlAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(p0: Animation?) {}
-            override fun onAnimationEnd(p0: Animation?) {
-                if(fastStart){
-                    allowStart= true
-                    startNextActivity(View(this@Splash))
-                }else {
+    fun selectClientMachine(view: View) {
+        machine = view.tag.toString()
+        if (machine == "RobotArm" && BuildConfig.DEBUG) startRobotActivity(View(this@Splash))
+        else if (machine == "Excavator" && BuildConfig.DEBUG) startExcavatorActivity(View(this@Splash))
+        else {
+            binding.motionLogo.setTransitionListener(object : MotionLayout.TransitionListener {
+                override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {}
+                override fun onTransitionChange(motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float) {}
+                override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                    binding.motionLogo.visibility = View.GONE
                     binding.lottieView.visibility = View.VISIBLE
                     binding.loading.visibility = View.VISIBLE
                     binding.warmingup.visibility = View.VISIBLE
                     binding.wait.visibility = View.VISIBLE
                     loadingAnim.start()
                 }
-            }
-            override fun onAnimationRepeat(p0: Animation?) {}
-        } )
-        ttlAnimation.fillAfter = true
-        binding.ttlLogo.startAnimation(ttlAnimation)
+
+                override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {}
+            })
+            binding.motionLogo.setTransition(R.id.endToFinish)
+            binding.motionLogo.transitionToEnd()
+        }
     }
+
     private fun subscribeTopic() {
         Firebase.messaging.subscribeToTopic("Alert")
             .addOnCompleteListener { task ->
-                var msg = "Subscription successful"
+                var msg = "Cloud notification subscribed"
                 if (!task.isSuccessful) {
-                    msg = "Subscription Failed"
+                    msg = "Cloud notification subscription Failed"
                 }
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun getToken(){
+    private fun getToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
             val token = task.result            // Get new FCM registration token
-            Firebase.database.getReference("FCM_Token").setValue(token)
-            Toast.makeText(baseContext, "Token registered to cloud", Toast.LENGTH_SHORT).show()
+//            Firebase.database.getReference("FCM_Token").setValue(token)
+            fireStoreRef.set(hashMapOf("LSDT" to SimpleDateFormat("HH:mm:ss z").format(Date()), "lang" to applicationContext.resources.configuration.locale.displayLanguage, "VC" to packageManager.getPackageInfo(packageName, 0).versionName.toString()), SetOptions.merge())                    //					checkAccessToTrain()
+
         })
-    }
-
-    override fun onStop() {
-        super.onStop()
-        loadingAnim.cancel()
-
-    }
-    fun startNextActivity(view: View){
-        if (allowStart) startActivity(Intent(this, FullscreenActivity::class.java)
-            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
-        overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
-        finishAndRemoveTask()
     }
 
     override fun onBackPressed() {
         this.moveTaskToBack(true)
     }
+
+    override fun onPause() {
+        backgroundMusic.pause()
+        super.onPause()
+    }
+
+    override fun onStart() {
+        backgroundMusic.start()
+        super.onStart()
+    }
+
+    override fun onStop() {
+        loadingAnim.removeAllListeners()
+        loadingAnim.removeAllUpdateListeners()
+        loadingAnim.cancel()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        clickSound.release()
+        backgroundMusic.release()
+        super.onDestroy()
+    }
+
+    fun startRobotActivity(view: View) {
+        if (allowStart) startActivity(Intent(this, RobotActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
+        finishAndRemoveTask()
+    }
+
+    fun startExcavatorActivity(view: View) {
+        if (allowStart) startActivity(Intent(this, ExcavatorActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
+        finishAndRemoveTask()
+    }
+
 }

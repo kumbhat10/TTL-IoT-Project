@@ -30,7 +30,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
         }
         sendNotification(remoteMessage)
-
         remoteMessage.notification?.let {   // Check if message contains a notification payload.
             Log.d(TAG, "Message Notification Body: ${it.body}")
         }
@@ -45,9 +44,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun sendNotification(remoteMessage: RemoteMessage) {
         val intent = Intent(this, Splash::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val channelId = getString(R.string.notification_channel_id)
-        val defaultSoundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + applicationContext.packageName + "/" + R.raw.robotalertmerged)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+//        val channelId = getString(R.string.notification_channel_id)
+
+        val channelId = if(remoteMessage.data.toString() =="robot") {
+           getString(R.string.notification_channel_id)
+        }
+        else {
+            getString(R.string.notification_channel_id_ex)
+        }
+
+        val defaultSoundUri = if(remoteMessage.data.toString() =="robot") {
+            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + applicationContext.packageName + "/" + R.raw.robotalertmerged)
+        }
+        else {
+            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + applicationContext.packageName + "/" + R.raw.excavator_online)
+        }
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.remote)
