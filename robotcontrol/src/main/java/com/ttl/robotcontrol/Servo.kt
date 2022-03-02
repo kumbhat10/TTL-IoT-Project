@@ -36,31 +36,34 @@ class FirebaseData(
     val pro_lx: Int = 24,  //base
     val pro_ly: Int = 170, //main arm
     val pro_rx: Int = -10, //rotate griper
-    val pro_ry: Int = 180, //2nd arm
+    val pro_ry: Int = 190, //2nd arm
     val pro_tr: Int = 0, //gripper
 ) {
 }
 fun resetPosition() {
     Firebase.database.getReference("Robot/Control/data").updateChildren(mapOf(
-        "lx" to Servo().getPWM("lx", it = FirebaseData().pro_lx),
-        "ly" to Servo().getPWM("ly", it = FirebaseData().pro_ly),
-        "ry" to Servo().getPWM("ry", it = FirebaseData().pro_ry),
-        "rx" to Servo().getPWM("rx", it = FirebaseData().pro_rx),
-        "tr" to Servo().getPWM("tr", it = FirebaseData().pro_tr),
+        "lx" to Servo().getPWM("lx", it = FirebaseData().pro_lx), //base
+        "ly" to Servo().getPWM("ly", it = FirebaseData().pro_ly), //main arm
+        "ry" to Servo().getPWM("ry", it = FirebaseData().pro_ry), //second arm
+        "rx" to Servo().getPWM("rx", it = FirebaseData().pro_rx), // Gripper Rotate
+        "tr" to Servo().getPWM("tr", it = FirebaseData().pro_tr), // Gripper
     ))
 }
 fun pose1(): FirebaseData {
-    return FirebaseData(-60, 80, -180,  -92, 0)
+    return FirebaseData(200, 68, -10,  -92, 0)
+}
+fun pose2(): FirebaseData {
+    return FirebaseData(-110, 68, -10,  -92, 0)
 }
 fun standUp(): FirebaseData {
-    return FirebaseData(24, 80, -10,  -92, 0)
+    return FirebaseData(24, 68, -10,  -92, 0)
 }
 
 fun pos(): Int{
-    return Random.nextInt(0, 1000)
+    return Random.nextInt(1, 1000)
 }
 fun neg(): Int{
-    return -1*Random.nextInt(0, 1000)
+    return -1*Random.nextInt(1, 1000)
 }
 fun zValue(i:Int):Int{
     return if(i==0) 0

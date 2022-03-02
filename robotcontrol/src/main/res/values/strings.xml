@@ -72,4 +72,10 @@
     <string name="rotate_nleft">Grab</string>
     <string name="move">Move</string>
     <string name="grab">Grab</string>
+    <string name="down">Down</string>
+    <string name="up">Up</string>
+    <string name="phone_no_excavator">+447915722291</string>
+    <string name="phone_no_robot">+447442655745</string>
+    <string name="tablet_mode">Tablet Mode</string>
+    <string name="default_mode">Default Mode</string>
 </resources>

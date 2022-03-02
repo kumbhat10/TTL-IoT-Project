@@ -1,9 +1,21 @@
 package com.ttl.robotcontrol
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.telephony.SmsManager
+import android.telephony.TelephonyManager
 import android.view.MotionEvent
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,6 +30,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.ttl.robotcontrol.databinding.ActivityRobotBinding
 import kotlin.math.round
+import kotlin.random.Random
 
 class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityRobotBinding
@@ -27,7 +40,11 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var marker: Marker
     private lateinit var googleMap: GoogleMap
     private lateinit var databaseRef: DatabaseReference
-//    private lateinit var databaseRef1: DatabaseReference
+
+    //    private lateinit var databaseRef1: DatabaseReference
+    private val int_call_phone_request_code = 103
+    private val int_sms_request_code = 104
+    private val intReadPhoneNumber = 105
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +73,78 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
 
         databaseRef = Firebase.database.getReference("Robot/Control/data")
         observeDataAndUpdateServer()
+    }
+
+    fun pickUpCallRobot(view: View) {
+        databaseRef.updateChildren(mapOf("AT" to "ATA"))
+    }
+
+    fun hangUpCallRobot(view: View) {
+        databaseRef.updateChildren(mapOf("AT" to "AT+cvhu=0"))
+        Handler(Looper.getMainLooper()).postDelayed({ databaseRef.updateChildren(mapOf("AT" to "ATH")) }, 1000L)
+    }
+
+    @SuppressLint("MissingPermission")
+    fun receiveCallRobot(view: View) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_NUMBERS), intReadPhoneNumber)
+        } else {
+            try {
+                val telephoneManager =
+                    getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val myPhoneNumber = telephoneManager.line1Number
+                Toast.makeText(this, myPhoneNumber.substring(1), Toast.LENGTH_SHORT).show()
+                databaseRef.updateChildren(mapOf("AT" to "ATD+44" + myPhoneNumber.substring(1) + ";"))
+            } catch (_: Exception) {
+                databaseRef.updateChildren(mapOf("AT" to "ATD+447496393966;"))
+            }
+        }
+    }
+
+    fun callRobot(view: View) {
+        val callIntent = Intent(Intent.ACTION_CALL)
+        callIntent.data = Uri.parse("tel:" + getString(R.string.phone_no_robot))
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), int_call_phone_request_code)
+        } else {
+            try {
+                startActivity(callIntent)
+            } catch (me: Exception) {
+                Toast.makeText(this, "Failed to make a call: " + me.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun smsRobot(view: View) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS), int_sms_request_code)
+        } else {
+            try {
+                val smsManager = SmsManager.getDefault()
+                smsManager.sendTextMessage(getString(R.string.phone_no_robot), null, "Seed - " + Random.nextInt(1, 1000).toString() + " -> Hello from Android App", null, null)
+            } catch (me: Exception) {
+                Toast.makeText(this, "Failed to send SMS: " + me.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            int_call_phone_request_code -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Phone call permission granted", Toast.LENGTH_SHORT).show()
+                    callRobot(View(this))
+                }
+            }
+            int_sms_request_code -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Send SMS permission granted", Toast.LENGTH_SHORT).show()
+                    smsRobot(View(this))
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun observeDataAndUpdateServer() {
@@ -87,8 +176,8 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
             if (this::marker.isInitialized) marker.position = latLong
             if (this::googleMap.isInitialized) googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLong))
         }
-        viewModel.buzzerEnable.observe(this){
-            if(it) databaseRef.updateChildren(mapOf("bs" to 1))
+        viewModel.buzzerEnable.observe(this) {
+            if (it) databaseRef.updateChildren(mapOf("bs" to 1))
             else databaseRef.updateChildren(mapOf("bs" to 0))
         }
     }
@@ -108,7 +197,6 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
         marker.showInfoWindow()
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLong))
     }
-
 
     override fun onResume() {
         super.onResume()

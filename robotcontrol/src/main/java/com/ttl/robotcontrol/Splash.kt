@@ -59,7 +59,7 @@ class Splash : AppCompatActivity() {
 
         setContentView(binding.root)
         backgroundMusic = MediaPlayer.create(this, R.raw.inspiring)
-        backgroundMusic.setVolume(0.07F, 0.07F)
+//        backgroundMusic.setVolume(0.07F, 0.07F)
         backgroundMusic.start()
 
         if (BuildConfig.DEBUG) {

@@ -49,7 +49,7 @@ class RobotViewModel : ViewModel() {
     var danceEnable = MutableLiveData(false)
 
     fun buzzOnce() {
-        Firebase.database.getReference("Robot/Control/data").updateChildren(mapOf("Buzz" to Random.nextInt(0, 1000)))
+        if(buzzerEnable.value!!) Firebase.database.getReference("Robot/Control/data").updateChildren(mapOf("Buzz" to Random.nextInt(0, 1000)))
     }
 
     fun gpsInfoListener() {
@@ -161,7 +161,7 @@ class RobotViewModel : ViewModel() {
     fun batteryDisconnectedReport(voltage:String) {
         reportCrash = false
         try {
-            throw RuntimeException("Robot Battery was Disconnected")
+            throw RuntimeException("Robot Battery was Disconnected - Fake Crash")
         } catch (e: Exception) {
             Firebase.crashlytics.log(" Last known voltage of robot was $voltage")
             Firebase.crashlytics.recordException(e)

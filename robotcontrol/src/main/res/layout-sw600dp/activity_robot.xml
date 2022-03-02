@@ -52,6 +52,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/shine_user_rank_bkgd">
 
@@ -65,7 +67,7 @@
                     android:gravity="center"
                     android:text="@string/base"
                     android:textColor="@color/font_grey_settings"
-                    android:textSize="@dimen/_7ssp"
+                    android:textSize="@dimen/_8ssp"
                     app:layout_constraintEnd_toEndOf="@id/s1"
                     app:layout_constraintStart_toStartOf="@id/s1"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -119,6 +121,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/shine_user_rank_bkgd">
 
@@ -132,7 +136,7 @@
                     android:gravity="center"
                     android:text="@string/main_arm"
                     android:textColor="@color/font_grey_settings"
-                    android:textSize="@dimen/_7ssp"
+                    android:textSize="@dimen/_8ssp"
                     app:layout_constraintEnd_toEndOf="@id/s2"
                     app:layout_constraintStart_toStartOf="@id/s2"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -211,6 +215,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/shine_user_rank_bkgd">
 
@@ -224,7 +230,7 @@
                     android:gravity="center"
                     android:text="@string/second_arm"
                     android:textColor="@color/font_grey_settings"
-                    android:textSize="@dimen/_7ssp"
+                    android:textSize="@dimen/_8ssp"
                     app:layout_constraintEnd_toEndOf="@id/s3"
                     app:layout_constraintStart_toStartOf="@id/s3"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -304,6 +310,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/shine_user_rank_bkgd">
 
@@ -317,7 +325,7 @@
                     android:gravity="center"
                     android:text="@string/rotate_gripper"
                     android:textColor="@color/font_grey_settings"
-                    android:textSize="@dimen/_7ssp"
+                    android:textSize="@dimen/_8ssp"
                     app:layout_constraintEnd_toEndOf="@id/s4"
                     app:layout_constraintStart_toStartOf="@id/s4"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -370,6 +378,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shine_user_rank_bkgd">
 
@@ -383,7 +393,7 @@
                     android:gravity="center"
                     android:text="@string/gripper"
                     android:textColor="@color/font_grey_settings"
-                    android:textSize="@dimen/_7ssp"
+                    android:textSize="@dimen/_8ssp"
                     app:layout_constraintEnd_toEndOf="@id/s5"
                     app:layout_constraintStart_toStartOf="@id/s5"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -465,10 +475,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/startPosition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
             app:layout_constraintHorizontal_chainStyle="spread"
-            android:background="#CB16EC"
+            android:background="#3F51B5"
             android:layout_marginStart="@dimen/_5sdp"
             android:clickable="true"
             android:focusable="true"
@@ -478,32 +488,71 @@
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buzz"
+            app:layout_constraintEnd_toStartOf="@+id/standUp"
             android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintTop_toBottomOf="@id/gridControlStats" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/standUp"
+            android:layout_width="@dimen/_50sdp"
+            android:background="#03A9F4"
+            android:layout_height="@dimen/_35sdp"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.standUpPosition()}"
+            android:text="@string/stand_up"
+            android:textSize="@dimen/_7ssp"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/startPosition"
+            app:layout_constraintStart_toEndOf="@id/startPosition"
+            app:layout_constraintEnd_toStartOf="@+id/pose1"
+            app:layout_constraintTop_toTopOf="@id/startPosition"  />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/pose1"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:background="#E91E63"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel1.pose1Set()}"
+            android:text="@string/pose1"
+            android:textColor="@color/font_grey_settings"
+            android:textSize="@dimen/_7ssp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/startPosition"
+            app:layout_constraintStart_toEndOf="@id/standUp"
+            app:layout_constraintEnd_toStartOf="@+id/buzz"
+            app:layout_constraintTop_toTopOf="@id/startPosition"  />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buzz"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="#F63174"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="#4CAF50"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{() -> viewModel1.buzzOnce()}"
             android:text="@string/button3"
             android:textSize="@dimen/_7ssp"
+            android:textColor="@color/black"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/startPosition"
-            app:layout_constraintStart_toEndOf="@id/startPosition"
+            app:layout_constraintStart_toEndOf="@id/pose1"
             app:layout_constraintEnd_toStartOf="@+id/fakeCrash"
             app:layout_constraintTop_toTopOf="@id/startPosition" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fakeCrash"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="#FF9800"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="#CDDC39"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -519,8 +568,8 @@
 
         <androidx.appcompat.widget.AppCompatToggleButton
             android:id="@+id/buzzer"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_43sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:checked="@={viewModel1.buzzerEnable}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/buz_noff"
@@ -725,56 +774,7 @@
             </TableLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/standUp"
-            android:layout_width="wrap_content"
-            android:background="#6FB81B"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{() -> viewModel1.standUpPosition()}"
-            android:text="@string/stand_up"
-            android:textSize="@dimen/_7ssp"
-            android:textColor="@color/black"
-            android:visibility="visible"
-            android:layout_marginEnd="@dimen/_3sdp"
-            app:layout_constraintEnd_toStartOf="@+id/pose1"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@id/startPosition" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/pose1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            android:background="#00BCD4"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{() -> viewModel1.pose1Set()}"
-            android:text="@string/pose1"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_7ssp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/dance"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@id/startPosition" />
-
-        <androidx.appcompat.widget.AppCompatToggleButton
-            android:id="@+id/dance"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_43sdp"
-            android:checked="@={viewModel1.danceEnable}"
-            android:soundEffectsEnabled="true"
-            android:textOff="@string/dance_off"
-            android:textOn="@string/dance_on"
-            android:textSize="@dimen/_7ssp"
-            android:theme="@style/ToggleButton.CustomTheme"
-            app:layout_constraintBottom_toBottomOf="@+id/pose1"
-            app:layout_constraintEnd_toStartOf="@+id/mapView"
-            app:layout_constraintTop_toTopOf="@id/pose1" />
 
         <ImageButton
             android:id="@+id/call"
@@ -818,7 +818,7 @@
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
             app:layout_constraintTop_toBottomOf="@id/standUp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
@@ -856,9 +856,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/startPosition" >
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"

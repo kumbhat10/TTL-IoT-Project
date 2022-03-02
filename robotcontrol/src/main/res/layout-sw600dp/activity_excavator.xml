@@ -26,20 +26,21 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="@dimen/_40sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/default_mode"
+            android:text="@string/tablet_mode"
             android:rotation="-90"
             android:textSize="@dimen/_5ssp"
             android:textColor="#FFC107"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buzz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#CB16EC"
             android:layout_marginTop="@dimen/_5sdp"
             android:clickable="true"
             android:focusable="true"
             android:textColor="#FFFFFF"
+            app:layout_constraintHorizontal_chainStyle="spread"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{() -> viewModel1.buzzOnce()}"
             android:text="@string/button3"
@@ -51,8 +52,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fakeCrash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#E91E63"
             android:layout_marginTop="@dimen/_5sdp"
             android:clickable="true"
@@ -69,9 +70,8 @@
 
         <ToggleButton
             android:id="@+id/buzzer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
             android:checked="@={viewModel1.buzzerEnable}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/buz_noff"
@@ -80,12 +80,13 @@
             android:theme="@style/ToggleButton.CustomTheme"
             app:layout_constraintEnd_toStartOf="@id/mapView"
             app:layout_constraintStart_toEndOf="@+id/fakeCrash"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/fakeCrash"
+            app:layout_constraintBottom_toBottomOf="@id/fakeCrash"/>
 
         <ToggleButton
             android:id="@+id/powerOn"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
             android:checked="@={viewModel1.power}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/eng_noff"
@@ -100,8 +101,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonEngineSound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#FF9800"
             android:layout_marginTop="@dimen/_8sdp"
             android:clickable="true"
@@ -119,8 +120,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLights"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#6FB81B"
             android:layout_marginTop="@dimen/_8sdp"
             android:clickable="true"
@@ -145,9 +146,9 @@
             android:background="#00000000"
             android:scaleY="1"
             android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/sendSMS"
             app:layout_constraintEnd_toStartOf="@id/callIncoming"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
@@ -160,9 +161,9 @@
             android:background="#00000000"
             android:scaleY="1"
             android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/call"
             app:layout_constraintEnd_toStartOf="@id/callPick"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
@@ -175,9 +176,9 @@
             android:background="#00000000"
             android:scaleY="1"
             android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/callIncoming"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
@@ -190,9 +191,9 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:scaleY="1"
             android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/callPick"
             app:layout_constraintEnd_toStartOf="@id/mapView"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
@@ -205,9 +206,9 @@
             android:background="#00000000"
             android:scaleY="1"
             android:scaleX="1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/call"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"/>
 
         <TextView
@@ -387,7 +388,7 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="@dimen/_200sdp"
+            android:layout_width="@dimen/_220sdp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_1sdp"
             app:cameraBearing="0"
@@ -396,7 +397,7 @@
             app:layout_constraintBottom_toTopOf="@id/gpsCard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:mapType="normal"
             app:uiCompass="true"
@@ -628,7 +629,7 @@
             android:id="@+id/ttlogoFS"
             android:layout_width="@dimen/_104sdp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ttl_logo"
