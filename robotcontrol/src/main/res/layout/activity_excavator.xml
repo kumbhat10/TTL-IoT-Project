@@ -70,8 +70,7 @@
         <ToggleButton
             android:id="@+id/buzzer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="@dimen/_40sdp"
             android:checked="@={viewModel1.buzzerEnable}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/buz_noff"
@@ -80,12 +79,13 @@
             android:theme="@style/ToggleButton.CustomTheme"
             app:layout_constraintEnd_toStartOf="@id/mapView"
             app:layout_constraintStart_toEndOf="@+id/fakeCrash"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/fakeCrash"
+            app:layout_constraintBottom_toBottomOf="@id/fakeCrash"/>
 
         <ToggleButton
             android:id="@+id/powerOn"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/_40sdp"
             android:checked="@={viewModel1.power}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/eng_noff"
@@ -137,12 +137,13 @@
 
         <ImageButton
             android:id="@+id/call"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
             android:src="@drawable/call"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="callExcavator"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callIncoming"
@@ -152,12 +153,13 @@
 
         <ImageButton
             android:id="@+id/callIncoming"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
             android:src="@drawable/call_incoming"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="receiveCallExcavator"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callPick"
@@ -167,12 +169,13 @@
 
         <ImageButton
             android:id="@+id/callPick"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
             android:src="@drawable/call_pick"
             android:onClick="pickUpCall"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
@@ -182,12 +185,13 @@
 
         <ImageButton
             android:id="@+id/callEnd"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
             android:src="@drawable/call_end"
             android:onClick="hangUpCall"
             android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/mapView"
@@ -197,12 +201,13 @@
 
         <ImageButton
             android:id="@+id/sendSMS"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
             android:src="@drawable/sms"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="smsExcavator"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/call"
@@ -253,7 +258,7 @@
             style="?android:attr/borderlessButtonStyle"
             android:text="@string/rotate_nleft"
             android:textSize="@dimen/_11ssp"
-            android:textColor="@color/font_yellow"
+            android:textColor="@color/button_text_color"
             android:background="@drawable/button_center"
             android:layout_width="@dimen/arrow_width2"
             android:layout_height="@dimen/arrow_height2"
@@ -569,6 +574,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/battCardLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
@@ -624,16 +630,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-        <ImageView
-            android:id="@+id/ttlogoFS"
-            android:layout_width="@dimen/_104sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ttl_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveLeft1"
@@ -680,7 +676,7 @@
             android:text="@string/rotate_nright"
             android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_15sdp"
-            android:textColor="@color/font_yellow"
+            android:textColor="@color/button_text_color"
             android:background="@drawable/button_center"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/arrow_height2"
@@ -779,6 +775,95 @@
             app:layout_constraintStart_toEndOf="@id/moveLeft1"
             app:layout_constraintTop_toTopOf="@id/moveLeft1"
             tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/maskDownloading"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:visibility="visible"
+            android:background="@color/mask"
+            android:clickable="true"
+            android:elevation="@dimen/_5sdp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/downloadLottie"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleX="2.6"
+                android:scaleY="2.6"
+                android:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintVertical_bias="0.4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_enableMergePathsForKitKatAndAbove="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/downloading"
+                app:lottie_repeatMode="restart"
+                app:lottie_speed="1" />
+
+            <TextView
+                android:id="@+id/downloadingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie"
+                app:layout_constraintBottom_toTopOf="@id/downloading"
+                android:text="@string/please_wait"
+                android:textColor="@color/font_grey_settings"
+                android:scrollbarSize="@dimen/_9ssp"/>
+
+            <TextView
+                android:id="@+id/downloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie"
+                app:layout_constraintTop_toTopOf="@id/downloadLottie"
+                app:layout_constraintBottom_toBottomOf="@id/downloadLottie"
+                app:layout_constraintVertical_bias="0.5"
+                android:text="@string/downloading_firmware_to_esp32"
+                android:textColor="@color/font_yellow"
+                android:scrollbarSize="@dimen/_11ssp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/switchToRobot"
+            android:layout_width="@dimen/_53sdp"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:clickable="true"
+            android:elevation="@dimen/_5sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/robot"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="startRobot"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="@+id/powerOn"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintTop_toBottomOf="@id/powerOn"/>
+        <ImageView
+            android:id="@+id/ttlogoFS"
+            android:elevation="@dimen/_5sdp"
+            android:layout_width="@dimen/_104sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ttl_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

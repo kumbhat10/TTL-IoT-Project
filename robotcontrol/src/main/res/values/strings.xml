@@ -78,4 +78,10 @@
     <string name="phone_no_robot">+447442655745</string>
     <string name="tablet_mode">Tablet Mode</string>
     <string name="default_mode">Default Mode</string>
+    <string name="excavator1">Excavator</string>
+    <string name="go_to_nexcavator">Go to\nExcavator</string>
+    <string name="turn_right">Turn Right</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="downloading_firmware_to_esp32">Downloading &amp; updating firmware</string>
+    <string name="updatefirmware">Firmware Updated Successfully</string>
 </resources>

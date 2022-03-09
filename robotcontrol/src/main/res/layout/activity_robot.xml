@@ -758,98 +758,92 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/dance"
+            android:layout_marginEnd="@dimen/_8sdp"
+            app:layout_constraintEnd_toStartOf="@+id/switchTo"
             android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintTop_toBottomOf="@id/startPosition" />
 
-        <androidx.appcompat.widget.AppCompatToggleButton
-            android:id="@+id/dance"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_43sdp"
-            android:checked="@={viewModel1.danceEnable}"
-            android:soundEffectsEnabled="true"
-            android:textOff="@string/dance_off"
-            android:textOn="@string/dance_on"
-            android:textSize="@dimen/_7ssp"
-            android:theme="@style/ToggleButton.CustomTheme"
-            app:layout_constraintBottom_toBottomOf="@+id/pose1"
-            app:layout_constraintEnd_toStartOf="@+id/mapView"
-            app:layout_constraintTop_toTopOf="@id/pose1" />
+
 
         <ImageButton
             android:id="@+id/call"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
             android:src="@drawable/call"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="callRobot"
             android:background="#00000000"
             android:scaleY="1"
+            android:scaleType="fitXY"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callIncoming"
             app:layout_constraintTop_toBottomOf="@id/standUp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            android:layout_marginTop="@dimen/_8sdp"/>
 
         <ImageButton
             android:id="@+id/callIncoming"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
             android:src="@drawable/call_incoming"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="receiveCallRobot"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callPick"
             app:layout_constraintTop_toBottomOf="@id/standUp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            android:layout_marginTop="@dimen/_8sdp"/>
 
         <ImageButton
             android:id="@+id/callPick"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
             android:src="@drawable/call_pick"
             android:onClick="pickUpCallRobot"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
             app:layout_constraintTop_toBottomOf="@id/standUp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            android:layout_marginTop="@dimen/_8sdp"/>
 
         <ImageButton
             android:id="@+id/callEnd"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
             android:src="@drawable/call_end"
             android:onClick="hangUpCallRobot"
             android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:scaleY="1"
+            android:scaleType="fitXY"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/mapView"
             app:layout_constraintTop_toBottomOf="@id/standUp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            android:layout_marginTop="@dimen/_8sdp"/>
 
         <ImageButton
             android:id="@+id/sendSMS"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
             android:src="@drawable/sms"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="smsRobot"
             android:background="#00000000"
+            android:scaleType="fitXY"
             android:scaleY="1"
             android:scaleX="1"
             app:layout_constraintEnd_toStartOf="@id/call"
             app:layout_constraintTop_toBottomOf="@id/standUp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            android:layout_marginTop="@dimen/_8sdp"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/batteryCard"
@@ -917,12 +911,89 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/maskDownloading"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:visibility="gone"
+            android:background="@color/mask"
+            android:clickable="true"
+            android:elevation="@dimen/_5sdp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/downloadLottie"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleX="2.6"
+                android:scaleY="2.6"
+                android:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintVertical_bias="0.4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_enableMergePathsForKitKatAndAbove="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/downloading"
+                app:lottie_repeatMode="restart"
+                app:lottie_speed="1" />
+
+            <TextView
+                android:id="@+id/downloadingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie"
+                app:layout_constraintBottom_toTopOf="@id/downloading"
+                android:text="@string/please_wait"
+                android:textColor="@color/font_grey_settings"
+                android:scrollbarSize="@dimen/_9ssp"/>
+
+            <TextView
+                android:id="@+id/downloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie"
+                app:layout_constraintTop_toTopOf="@id/downloadLottie"
+                app:layout_constraintBottom_toBottomOf="@id/downloadLottie"
+                app:layout_constraintVertical_bias="0.5"
+                android:text="@string/downloading_firmware_to_esp32"
+                android:textColor="@color/font_yellow"
+                android:scrollbarSize="@dimen/_11ssp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/switchTo"
+            android:elevation="@dimen/_5sdp"
+            android:layout_width="@dimen/_55sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/excavator"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="startExcavator"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/mapView"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintTop_toTopOf="@id/pose1"
+            app:layout_constraintBottom_toBottomOf="@id/pose1"/>
+
         <ImageView
             android:id="@+id/ttlogoFS"
             android:layout_width="@dimen/_104sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_7sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_name"
             android:elevation="@dimen/_5sdp"
             android:src="@drawable/ttl_logo"

@@ -47,11 +47,23 @@ class RobotViewModel : ViewModel() {
     var joystickEnable = MutableLiveData(false)
     var buzzerEnable = MutableLiveData(true)
     var danceEnable = MutableLiveData(false)
+    var downlaodingFirmware = MutableLiveData(false)
+    var downlaodingFirmwarePrev = MutableLiveData(false)
 
     fun buzzOnce() {
         if(buzzerEnable.value!!) Firebase.database.getReference("Robot/Control/data").updateChildren(mapOf("Buzz" to Random.nextInt(0, 1000)))
     }
 
+    fun firmwareUpdateListener(){
+        Firebase.database.getReference("Robot/AT/Update").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(data: DataSnapshot) {
+                if (data.exists() || data.value != null) {
+                    downlaodingFirmware.value = data.value==1L
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {            }
+        })
+    }
     fun gpsInfoListener() {
         databaseRef.child("GNSS").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(gnssInfoData: DataSnapshot) {

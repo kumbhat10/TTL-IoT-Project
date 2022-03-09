@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import cat.ereza.customactivityoncrash.config.CaocConfig
+import com.airbnb.lottie.LottieDrawable
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -72,6 +73,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this)[ExcavatorViewModel::class.java]
         binding.viewModel1 = viewModel // bind view model in XML layout to our viewModel
+        viewModel.firmwareUpdateListener()
         viewModel.gpsInfoListener()
         viewModel.bvListener()
         binding.mapView.onCreate(savedInstanceState)
@@ -90,28 +92,32 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         observeDataAndUpdateServer()
     }
 
-    fun pickUpCall(view: View){
+    fun pickUpCall(view: View) {
         databaseRef.updateChildren(mapOf("AT" to "ATA"))
     }
-    fun hangUpCall(view: View){
+
+    fun hangUpCall(view: View) {
         databaseRef.updateChildren(mapOf("AT" to "AT+cvhu=0"))
-        Handler(Looper.getMainLooper()).postDelayed({databaseRef.updateChildren(mapOf("AT" to "ATH"))},1000L)
+        Handler(Looper.getMainLooper()).postDelayed({ databaseRef.updateChildren(mapOf("AT" to "ATH")) }, 1000L)
     }
-    fun receiveCallExcavator(view: View){
+
+    @SuppressLint("MissingPermission")
+    fun receiveCallExcavator(view: View) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_NUMBERS), intReadPhoneNumber)
-        }else{
+        } else {
             try {
                 val telephoneManager =
                     getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val myPhoneNumber = telephoneManager.line1Number
                 Toast.makeText(this, myPhoneNumber.substring(1), Toast.LENGTH_SHORT).show()
                 databaseRef.updateChildren(mapOf("AT" to "ATD+44" + myPhoneNumber.substring(1) + ";"))
-            }catch(_:Exception){
-                databaseRef.updateChildren(mapOf("AT" to "ATD+447496393966;" ))
+            } catch (_: Exception) {
+                databaseRef.updateChildren(mapOf("AT" to "ATD+447496393966;"))
             }
         }
     }
+
     fun callExcavator(view: View) {
         val callIntent = Intent(Intent.ACTION_CALL)
         callIntent.data = Uri.parse("tel:" + getString(R.string.phone_no_excavator))
@@ -126,18 +132,20 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
             }
         }
     }
+
     fun smsExcavator(view: View) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS), int_sms_request_code)
         } else {
             try {
                 val smsManager = SmsManager.getDefault()
-                smsManager.sendTextMessage(getString(R.string.phone_no_excavator), null, "Seed - "+ Random.nextInt(1, 1000).toString() +" -> Hello from Android App", null, null)
+                smsManager.sendTextMessage(getString(R.string.phone_no_excavator), null, "Seed - " + Random.nextInt(1, 1000).toString() + " -> Hello from Android App", null, null)
             } catch (me: Exception) {
                 Toast.makeText(this, "Failed to send SMS: " + me.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             int_call_phone_request_code -> {
@@ -164,8 +172,47 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         ))
     }
 
+    fun startRobot(view: View) {
+        startActivity(Intent(this, RobotActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
+        finishAndRemoveTask()
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private fun observeDataAndUpdateServer() {
+        viewModel.downlaodingFirmware.observe(this) {
+            when {
+                it -> {
+                    binding.maskDownloading.visibility = View.VISIBLE
+                    binding.downloadingText.visibility = View.VISIBLE
+                    viewModel.downlaodingFirmwarePrev.value = true
+                    binding.downloadLottie.scaleX = 2.6F
+                    binding.downloadLottie.scaleY = 2.6F
+                    binding.downloadLottie.setAnimation(R.raw.downloading)
+                    binding.downloadLottie.repeatCount = LottieDrawable.INFINITE
+                    binding.downloadLottie.playAnimation()
+                    binding.downloading.text = getString(R.string.downloading_firmware_to_esp32)
+                }
+                viewModel.downlaodingFirmwarePrev.value == true -> {
+                    viewModel.downlaodingFirmwarePrev.value = false
+                    binding.downloadLottie.scaleX = 1.4F
+                    binding.downloadLottie.scaleY = 1.4F
+                    binding.downloadLottie.setAnimation(R.raw.done)
+                    binding.downloadLottie.repeatCount = 0
+                    binding.downloadLottie.playAnimation()
+                    binding.downloading.text = getString(R.string.updatefirmware)
+                    binding.downloadingText.visibility = View.GONE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.maskDownloading.visibility = View.GONE
+                    }, 3000)
+                }
+                else -> {
+                    viewModel.downlaodingFirmwarePrev.value = false
+                    binding.maskDownloading.visibility = View.GONE
+                }
+            }
+        }
         viewModel.gnssInfo.observe(this) {
             val latLong = LatLng(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!)
             if (this::marker.isInitialized) marker.position = latLong
@@ -201,7 +248,8 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
 
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        binding.debugText.text = MotionEvent.actionToString(event!!.action) //+ "  " + v!!.id.toString()
+        binding.debugText.text =
+            MotionEvent.actionToString(event!!.action) //+ "  " + v!!.id.toString()
         if (event.action == MotionEvent.ACTION_DOWN) {
             when (v!!.id) {
                 R.id.moveLeft -> {
@@ -314,5 +362,8 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         super.onDestroy()
     }
 
+    override fun onBackPressed() {
+        this.moveTaskToBack(true)
+    }
 
 }

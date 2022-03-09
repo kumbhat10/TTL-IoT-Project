@@ -71,16 +71,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setColor(ContextCompat.getColor(this, R.color.font_yellow))
 //            .setStyle(NotificationCompat.InboxStyle())
             .setLargeIcon(ContextCompat.getDrawable(applicationContext, R.drawable.roboticon)?.toBitmap())
+
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Daily Notification", NotificationManager.IMPORTANCE_HIGH)
-            val audioAttributes =  AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build()
-            channel.setSound(defaultSoundUri, audioAttributes)
-            channel.setShowBadge(true)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(channelId, "Daily Notification", NotificationManager.IMPORTANCE_HIGH)
+        val audioAttributes =  AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build()
+        channel.setSound(defaultSoundUri, audioAttributes)
+        channel.setShowBadge(true)
+        notificationManager.createNotificationChannel(channel)
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
     }

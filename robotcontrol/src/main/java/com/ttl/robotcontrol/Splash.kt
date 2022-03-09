@@ -188,7 +188,7 @@ class Splash : AppCompatActivity() {
             if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
-            val token = task.result            // Get new FCM registration token
+//            val token = task.result            // Get new FCM registration token
 //            Firebase.database.getReference("FCM_Token").setValue(token)
             fireStoreRef.set(hashMapOf("LSDT" to SimpleDateFormat("HH:mm:ss z").format(Date()), "lang" to applicationContext.resources.configuration.locale.displayLanguage, "VC" to packageManager.getPackageInfo(packageName, 0).versionName.toString()), SetOptions.merge())                    //					checkAccessToTrain()
 
@@ -235,5 +235,6 @@ class Splash : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
         finishAndRemoveTask()
     }
+
 
 }

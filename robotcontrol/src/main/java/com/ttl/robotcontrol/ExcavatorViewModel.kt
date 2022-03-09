@@ -47,6 +47,8 @@ class ExcavatorViewModel : ViewModel() {
     var bv = MutableLiveData("7.00v")
     var bvInfo = MutableLiveData("Last updated ")
 
+    var downlaodingFirmware = MutableLiveData(false)
+    var downlaodingFirmwarePrev = MutableLiveData(false)
     var buzzerEnable = MutableLiveData(true)
     var power = MutableLiveData(true)
 
@@ -61,15 +63,12 @@ class ExcavatorViewModel : ViewModel() {
     fun buzzOnce() {
         Firebase.database.getReference("Excavator/Control/data").updateChildren(mapOf("Buzz" to Random.nextInt(0, 1000)))
     }
-
     fun engineSound() {
         databaseRef.child("data").updateChildren(mapOf("z5" to Random.nextInt(0, 1000)))
     }
-
     fun engineLight() {
         databaseRef.child("data").updateChildren(mapOf("z5" to -1*Random.nextInt(0, 1000)))
     }
-
     fun gpsInfoListener() {
         databaseRef.child("GNSS").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(gnssInfoData: DataSnapshot) {
@@ -77,16 +76,24 @@ class ExcavatorViewModel : ViewModel() {
                     try {
                         extractGPSInfo(gnssInfoData)
                     }catch (me:Exception){
-
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
     }
 
+    fun firmwareUpdateListener(){
+        Firebase.database.getReference("Excavator/AT/Update").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(data: DataSnapshot) {
+                if (data.exists() || data.value != null) {
+                    downlaodingFirmware.value = data.value==1L
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {            }
+        })
+    }
     fun bvListener() {
         Firebase.database.getReference("Excavator/BatteryVoltage").addValueEventListener(object : ValueEventListener {
             @SuppressLint("SimpleDateFormat")
@@ -99,7 +106,6 @@ class ExcavatorViewModel : ViewModel() {
                         if (reportCrash) batteryDisconnectedReport(bv.value!!)
                         bv.value = "Disconnected"
                     }
-
                     try {
                         bvInfo.value = "Last update : \n" +
                                 SimpleDateFormat("d MMM 'at' h:mm:ss a").format(SimpleDateFormat("yyyyMMddHH:mm:ss").parse(
@@ -112,7 +118,6 @@ class ExcavatorViewModel : ViewModel() {
                     bv.value = "Server error"
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })

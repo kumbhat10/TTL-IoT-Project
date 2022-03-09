@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import cat.ereza.customactivityoncrash.config.CaocConfig
+import com.airbnb.lottie.LottieDrawable
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -64,6 +65,7 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this)[RobotViewModel::class.java]
         binding.viewModel1 = viewModel // bind view model in XML layout to our viewModel
+        viewModel.firmwareUpdateListener()
         viewModel.gpsInfoListener()
         viewModel.bvListener()
 //        binding.gridControlStats!!.layoutManager = GridLayoutManager(this, 1)
@@ -129,6 +131,12 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    fun startExcavator(view: View) {
+        startActivity(Intent(this, ExcavatorActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             int_call_phone_request_code -> {
@@ -148,6 +156,39 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun observeDataAndUpdateServer() {
+        viewModel.downlaodingFirmware.observe(this) {
+            when {
+                it -> {
+                    binding.maskDownloading.visibility = View.VISIBLE
+                    binding.downloadingText.visibility = View.VISIBLE
+                    viewModel.downlaodingFirmwarePrev.value = true
+                    binding.downloadLottie.scaleX = 2.6F
+                    binding.downloadLottie.scaleY = 2.6F
+                    binding.downloadLottie.setAnimation(R.raw.downloading)
+                    binding.downloadLottie.repeatCount = LottieDrawable.INFINITE
+                    binding.downloadLottie.playAnimation()
+                    binding.downloading.text = getString(R.string.downloading_firmware_to_esp32)
+                }
+                viewModel.downlaodingFirmwarePrev.value == true -> {
+                    viewModel.downlaodingFirmwarePrev.value = false
+                    binding.downloadLottie.scaleX = 1.4F
+                    binding.downloadLottie.scaleY = 1.4F
+                    binding.downloadLottie.setAnimation(R.raw.done)
+                    binding.downloadLottie.repeatCount = 0
+                    binding.downloadLottie.playAnimation()
+                    binding.downloading.text = getString(R.string.updatefirmware)
+                    binding.downloadingText.visibility = View.GONE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.maskDownloading.visibility = View.GONE
+                    }, 3000)
+                }
+                else -> {
+                    viewModel.downlaodingFirmwarePrev.value = false
+                    binding.maskDownloading.visibility = View.GONE
+                }
+            }
+        }
+
         viewModel.progress1.observe(this) {
             binding.t11.text = (round((it / 2).toDouble()).toInt()).toString()
             databaseRef.updateChildren(mapOf("lx" to Servo().getPWM("lx", it = it)))
@@ -221,6 +262,10 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onDestroy() {
         binding.mapView.onDestroy()
         super.onDestroy()
+    }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
     }
 
 
