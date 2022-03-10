@@ -84,4 +84,5 @@
     <string name="please_wait">Please wait...</string>
     <string name="downloading_firmware_to_esp32">Downloading &amp; updating firmware</string>
     <string name="updatefirmware">Firmware Updated Successfully</string>
+    <string name="serial_text">Serial text</string>
 </resources>

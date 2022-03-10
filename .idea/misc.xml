@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout/activity_excavator.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/app/src/main/res/drawable/roboticon.xml" value="0.1225" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/app/src/main/res/layout/activity_splash.xml" value="0.1015625" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/raspberryPiReceiver/src/main/res/layout/activity_main.xml" value="0.15625" />
@@ -66,7 +67,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

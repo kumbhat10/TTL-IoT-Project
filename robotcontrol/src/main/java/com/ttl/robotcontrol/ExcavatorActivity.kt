@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -29,6 +31,9 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.hoho.android.usbserial.driver.UsbSerialPort
+import com.hoho.android.usbserial.driver.UsbSerialProber
+import com.hoho.android.usbserial.util.SerialInputOutputManager
 import com.ttl.robotcontrol.databinding.ActivityExcavatorBinding
 import kotlin.random.Random
 
@@ -52,6 +57,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     private val int_call_phone_request_code = 103
     private val int_sms_request_code = 104
     private val intReadPhoneNumber = 105
+    private val intUSBPermission = 106
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +96,49 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         }
 
         observeDataAndUpdateServer()
+        usbAdapter()
+    }
+
+    private fun usbAdapter(){
+//        requestPermissions(UsbDevice, intUSBPermission)
+
+        val manager = getSystemService(USB_SERVICE) as UsbManager
+        val deviceList = manager.deviceList
+        for (dev in deviceList){
+            if(dev.value.vendorId == 6790){
+                val device = dev.value
+                val deviceKey = dev.value.deviceName //   device name = "/dev/bus/usb/002/004"
+            }
+        }
+
+        val availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager)
+        if (availableDrivers.isEmpty()) {
+            return
+        }
+
+        // Open a connection to the first available driver.
+        // Open a connection to the first available driver.
+        val driver = availableDrivers[0]
+        val connection = manager.openDevice(driver.device)
+            ?: // add UsbManager.requestPermission(driver.getDevice(), ..) handling here
+            return
+
+        val port = driver.ports[0] // Most devices have just one port (port 0)
+
+        port.open(connection)
+        port.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
+
+        val usbIoManager = SerialInputOutputManager(port, object: SerialInputOutputManager.Listener{
+            @SuppressLint("SetTextI18n")
+            override fun onNewData(data: ByteArray?) {
+                binding.serialText!!.text = "Hello " + data.toString()
+            }
+
+            override fun onRunError(e: java.lang.Exception?) {
+                binding.serialText!!.text = e.toString()
+            }
+        })
+        usbIoManager.start()
     }
 
     fun pickUpCall(view: View) {

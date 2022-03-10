@@ -32,4 +32,5 @@
     <usb-device vendor-id="3368" product-id="516"  /> <!-- 0x0d28 / 0x0204: ARM mbed -->
     <usb-device vendor-id="1155" product-id="22336" /><!-- 0x0483 / 0x5740: ST CDC -->
     <usb-device vendor-id="11914" product-id="5"   /> <!-- 0x2E8A: Raspberry Pi Pico Micropython -->
+    <usb-device vendor-id="6790" product-id="21972"   /> <!-- 0x1A86 / 0x55D4 : ESP32 WROVER BOARD -->
 </resources>
