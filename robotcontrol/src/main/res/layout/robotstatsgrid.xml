@@ -11,7 +11,6 @@
         <variable
             name="gridAdapter"
             type="com.ttl.robotcontrol.RobotStatsGridAdapter"/>
-
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

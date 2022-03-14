@@ -12,6 +12,10 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <uses-feature android:name="android.hardware.usb.host"  android:required="true"/>
+    <uses-feature android:name="android.hardware.usb.accessory" android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +25,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
 
-
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
@@ -29,6 +32,15 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+<!--        <service-->
+<!--            android:name="MyNavigationService"-->
+<!--            android:foregroundServiceType="location" ... >-->
+<!--        &lt;!&ndash; Any inner elements would go here. &ndash;&gt;-->
+<!--    </service>-->
+
+        <service android:name="com.ttl.robotcontrol.UsbService"
+            android:enabled="true"> </service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -74,17 +86,39 @@
             android:launchMode="singleTop"
             android:screenOrientation="sensorLandscape"
             tools:ignore="LockedOrientationActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-        </intent-filter>
             <intent-filter>
-            <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-        </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
-
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
+
+
+
 
     </application>
 

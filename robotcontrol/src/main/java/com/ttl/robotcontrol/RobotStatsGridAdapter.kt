@@ -12,6 +12,11 @@ import com.ttl.robotcontrol.BuildConfig.DEBUG
 import com.ttl.robotcontrol.databinding.RobotstatsgridBinding
 
 
+class SerialText1(var serialText:String){
+
+}
+
+
 class RobotStatsItem(
     var parameterIcon: Int,
     var parameter: String,
@@ -39,7 +44,6 @@ class RobotStatsGridAdapter(var arrayList: ArrayList<RobotStatsItem>) :
             binding.executePendingBindings()
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = RobotstatsgridBinding.inflate(layoutInflater)

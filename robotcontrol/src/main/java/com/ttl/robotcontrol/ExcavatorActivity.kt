@@ -1,11 +1,12 @@
 package com.ttl.robotcontrol
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -14,27 +15,36 @@ import android.telephony.SmsManager
 import android.telephony.TelephonyManager
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.airbnb.lottie.LottieDrawable
+import com.felhr.usbserial.UsbSerialDevice
+import com.felhr.usbserial.UsbSerialInterface
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.hoho.android.usbserial.driver.UsbSerialPort
-import com.hoho.android.usbserial.driver.UsbSerialProber
-import com.hoho.android.usbserial.util.SerialInputOutputManager
 import com.ttl.robotcontrol.databinding.ActivityExcavatorBinding
+import java.util.ArrayList
 import kotlin.random.Random
 
 class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchListener {
@@ -43,7 +53,14 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     private lateinit var marker: Marker
     private lateinit var googleMap: GoogleMap
     private lateinit var databaseRef: DatabaseReference
-    private lateinit var ATdatabaseRef: DatabaseReference
+    private lateinit var aTDatabaseRef: DatabaseReference
+    private lateinit var serialDatabaseRef: DatabaseReference
+    private lateinit var serialTextAdapter: SerialTextRecyclerAdapter
+    private var serialTextArray = ArrayList<SerialText>()
+    private var serialTextData = MutableLiveData("")
+    private var serialTextDataTemp = ""
+    private var serialWindowOpen = false
+
     private lateinit var updateFirebaseTask: Runnable
     private lateinit var handler: Handler
     private var z1 = 0
@@ -54,10 +71,18 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     private var z7 = 0
     private var z8 = 0
     private var refreshTimer = 100L
-    private val int_call_phone_request_code = 103
-    private val int_sms_request_code = 104
+    private val intCallPhoneRequestCode = 103
+    private val intSMSRequestCode = 104
     private val intReadPhoneNumber = 105
     private val intUSBPermission = 106
+    private val intLocationPermission = 107
+    private lateinit var usbDevice: UsbDevice
+    private lateinit var usbDeviceConnection: UsbDeviceConnection
+    private lateinit var usbSerialDevice: UsbSerialDevice
+
+    private lateinit var currentDeviceLocation: Location
+    private val fusedLocationClient: FusedLocationProviderClient by lazy { LocationServices.getFusedLocationProviderClient(this) }
+    private var cancellationTokenSource = CancellationTokenSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +109,23 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         viewModel.bvListener()
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
+        binding.serialTextRecyclerView!!.layoutManager = LinearLayoutManager(this)
+        serialTextAdapter = SerialTextRecyclerAdapter(serialTextArray)
+        binding.serialTextRecyclerView!!.adapter = serialTextAdapter
+
         databaseRef = Firebase.database.getReference("Excavator/Control/data")
-        ATdatabaseRef = Firebase.database.getReference("Excavator/AT")
+        aTDatabaseRef = Firebase.database.getReference("Excavator/AT")
+        serialDatabaseRef = Firebase.database.getReference("Serial")
+        binding.editTextChatInput!!.setOnEditorActionListener { v, actionId, _ ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {
+                    sendSerialCommand(v)
+                    hideKeyboard()
+                    false
+                }
+                else -> false
+            }
+        }
 
         handler = Handler(Looper.getMainLooper())
         updateFirebaseTask = object : Runnable {
@@ -96,62 +136,77 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         }
 
         observeDataAndUpdateServer()
-        usbAdapter()
-    }
-
-    private fun usbAdapter(){
-//        requestPermissions(UsbDevice, intUSBPermission)
-
-        val manager = getSystemService(USB_SERVICE) as UsbManager
-        val deviceList = manager.deviceList
+        val usbManager = getSystemService(USB_SERVICE) as UsbManager
+        val deviceList = usbManager.deviceList
         for (dev in deviceList){
             if(dev.value.vendorId == 6790){
-                val device = dev.value
-                val deviceKey = dev.value.deviceName //   device name = "/dev/bus/usb/002/004"
+                usbDevice = dev.value
+                usbDeviceConnection = usbManager.openDevice(usbDevice)
+                usbAdapter1()
             }
         }
-
-        val availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager)
-        if (availableDrivers.isEmpty()) {
-            return
-        }
-
-        // Open a connection to the first available driver.
-        // Open a connection to the first available driver.
-        val driver = availableDrivers[0]
-        val connection = manager.openDevice(driver.device)
-            ?: // add UsbManager.requestPermission(driver.getDevice(), ..) handling here
-            return
-
-        val port = driver.ports[0] // Most devices have just one port (port 0)
-
-        port.open(connection)
-        port.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
-
-        val usbIoManager = SerialInputOutputManager(port, object: SerialInputOutputManager.Listener{
-            @SuppressLint("SetTextI18n")
-            override fun onNewData(data: ByteArray?) {
-                binding.serialText!!.text = "Hello " + data.toString()
-            }
-
-            override fun onRunError(e: java.lang.Exception?) {
-                binding.serialText!!.text = e.toString()
-            }
-        })
-        usbIoManager.start()
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        requestCurrentLocation()
     }
 
-    fun pickUpCall(view: View) {
+    @SuppressLint("MissingPermission")
+    private fun requestCurrentLocation(){
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+//            Toast.makeText(this, "Requesting currentDeviceLocation now",Toast.LENGTH_SHORT).show()
+            val currentLocationTask = fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token)
+            currentLocationTask.addOnCompleteListener{task->
+                if(task.isSuccessful){
+                    currentDeviceLocation = task.result
+                    val latLong = LatLng(currentDeviceLocation.latitude, currentDeviceLocation.longitude)
+                    val marker = googleMap.addMarker(MarkerOptions().position(latLong).title("Phone").visible(true))!!
+                    marker.showInfoWindow()
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLong))
+                }
+            }
+        }else{
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), intLocationPermission)
+        }
+    }
+
+    fun openCloseSerialWindow(view: View){
+        if(serialWindowOpen) {
+            binding.serialWindow!!.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoomout_scoretable_close))
+            Handler(Looper.getMainLooper()).postDelayed({binding.serialWindow!!.visibility = View.GONE}, 240)
+        }
+        else{
+            binding.serialWindow!!.visibility = View.VISIBLE
+            binding.serialWindow!!.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoomin_scoretable_open))
+        }
+        serialWindowOpen = !serialWindowOpen
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun usbAdapter1(){
+
+        usbSerialDevice = UsbSerialDevice.createUsbSerialDevice(usbDevice, usbDeviceConnection)
+        usbSerialDevice.open();
+        usbSerialDevice.setBaudRate(115200);
+        usbSerialDevice.setDataBits(UsbSerialInterface.DATA_BITS_8);
+        usbSerialDevice.setParity(UsbSerialInterface.PARITY_NONE);
+        usbSerialDevice.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
+
+        val mCallBack = UsbSerialInterface.UsbReadCallback { data ->
+            serialTextData.postValue(data.toString(Charsets.UTF_8))
+        }
+        usbSerialDevice.read(mCallBack)
+    }
+
+    fun pickUpCall(view: View){
         databaseRef.updateChildren(mapOf("AT" to "ATA"))
     }
 
-    fun hangUpCall(view: View) {
+    fun hangUpCall(view: View){
         databaseRef.updateChildren(mapOf("AT" to "AT+cvhu=0"))
         Handler(Looper.getMainLooper()).postDelayed({ databaseRef.updateChildren(mapOf("AT" to "ATH")) }, 1000L)
     }
 
     @SuppressLint("MissingPermission")
-    fun receiveCallExcavator(view: View) {
+    fun receiveCallExcavator(view: View){
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_NUMBERS), intReadPhoneNumber)
         } else {
@@ -167,12 +222,11 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         }
     }
 
-    fun callExcavator(view: View) {
+    fun callExcavator(view: View){
         val callIntent = Intent(Intent.ACTION_CALL)
         callIntent.data = Uri.parse("tel:" + getString(R.string.phone_no_excavator))
-
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), int_call_phone_request_code)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), intCallPhoneRequestCode)
         } else {
             try {
                 startActivity(callIntent)
@@ -182,9 +236,9 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         }
     }
 
-    fun smsExcavator(view: View) {
+    fun smsExcavator(view: View){
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS), int_sms_request_code)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS), intSMSRequestCode)
         } else {
             try {
                 val smsManager = SmsManager.getDefault()
@@ -195,15 +249,19 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray){
         when (requestCode) {
-            int_call_phone_request_code -> {
+            intLocationPermission -> {
+                Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show()
+                requestCurrentLocation()
+            }
+            intCallPhoneRequestCode -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Phone call permission granted", Toast.LENGTH_SHORT).show()
                     callExcavator(View(this))
                 }
             }
-            int_sms_request_code -> {
+            intSMSRequestCode -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Send SMS permission granted", Toast.LENGTH_SHORT).show()
                     smsExcavator(View(this))
@@ -213,7 +271,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    private fun writeToFirebase() {
+    private fun writeToFirebase(){
         databaseRef.updateChildren(mapOf(
             "z1" to zValue(z1), "z2" to zValue(z2),
             "z3" to zValue(z3), "z4" to zValue(z4), "z6" to zValue(z6),
@@ -221,16 +279,43 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         ))
     }
 
-    fun startRobot(view: View) {
+    fun startRobot(view: View){
         startActivity(Intent(this, RobotActivity::class.java)
             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
         overridePendingTransition(R.anim.slide_left_activity, R.anim.slide_left_activity)
         finishAndRemoveTask()
     }
 
+    private fun updateSerialData(serialText: String, received:Boolean = true){
+        serialTextArray.add(SerialText(serialText, received))
+        serialTextAdapter.notifyItemInserted(serialTextArray.size - 1)
+        binding.serialTextRecyclerView!!.scrollToPosition(serialTextArray.size - 1)
+    }
+
+    fun sendSerialCommand(view: View){
+        if(binding.editTextChatInput!!.text.toString().isNotEmpty()){
+            updateSerialData("Send : " + binding.editTextChatInput!!.text.toString(), false)
+            if(this::usbSerialDevice.isInitialized) usbSerialDevice.write(binding.editTextChatInput!!.text.toString().toByteArray())
+            binding.editTextChatInput!!.setText("")
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
-    private fun observeDataAndUpdateServer() {
-        viewModel.downlaodingFirmware.observe(this) {
+    private fun observeDataAndUpdateServer(){
+        serialTextData.observe(this) {
+            binding.serialText!!.text = it
+//            val key = serialDatabaseRef.child("R").push().key
+//            serialDatabaseRef.child("R").updateChildren(mapOf(key to it))
+
+            serialTextDataTemp += it
+            if(it.contains("\n")) {
+                updateSerialData(serialTextDataTemp.replace("\n",""))
+                serialTextDataTemp = ""
+            }
+
+        }
+
+        viewModel.downlaodingFirmware.observe(this){
             when {
                 it -> {
                     binding.maskDownloading.visibility = View.VISIBLE
@@ -378,10 +463,19 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
         val latLong = LatLng(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!)
-        marker =
-            googleMap.addMarker(MarkerOptions().position(latLong).title("Excavator").visible(true))!!
+        marker = googleMap.addMarker(MarkerOptions().position(latLong).title("Excavator").visible(true))!!
         marker.showInfoWindow()
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLong))
+    }
+
+    private fun hideKeyboard() {
+        val view = this.currentFocus
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        if (imm != null) {
+            view?.let { v ->
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+            }
+        }
     }
 
     override fun onResume() {
@@ -414,5 +508,4 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     override fun onBackPressed() {
         this.moveTaskToBack(true)
     }
-
 }

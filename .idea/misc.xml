@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout/activity_excavator.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/app/src/main/res/drawable/roboticon.xml" value="0.1225" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/app/src/main/res/layout/activity_splash.xml" value="0.1015625" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/raspberryPiReceiver/src/main/res/layout/activity_main.xml" value="0.15625" />
@@ -40,7 +39,10 @@
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/roboticon.xml" value="0.1825" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/robotss.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/seek_style.xml" value="0.1745" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/serial_line.xml" value="0.1475" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_chat_background.xml" value="0.1" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_green.xml" value="0.1815" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_player_stats.xml" value="0.1" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_user_rank.xml" value="0.1815" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/shine_user_rank_bkgd.xml" value="0.156" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/drawable/splash.xml" value="0.1825" />
@@ -52,9 +54,10 @@
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_excavator.xml" value="0.1" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_fullscreen.xml" value="0.16880341880341881" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout-w600dp/activity_splash.xml" value="0.18675213675213675" />
-        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_excavator.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_excavator.xml" value="0.22" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_full_screen.xml" value="0.17395833333333333" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_fullscreen.xml" value="0.1952991452991453" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_main.xml" value="0.14279606669516887" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_robot.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/activity_splash.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/content_excavator.xml" value="0.13333333333333333" />
@@ -63,6 +66,7 @@
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/robot_stats_grid.xml" value="0.22" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/robotstatsgrid.xml" value="0.5" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/robotstatsgridnew.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/layout/serial_text.xml" value="0.14279606669516887" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/robotcontrol/src/main/res/xml/device_filter.xml" value="0.14279606669516887" />
       </map>
     </option>

@@ -17,11 +17,10 @@
     <string name="customactivityoncrash_error_activity_error_details_copied">Copied to clipboard</string>
     <string name="customactivityoncrash_error_activity_error_details_clipboard_label">Error information</string>
 
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="wait">Please wait...</string>
-    <string name="warming_up">Warming up...</string>
+    <string name="wait">Please wait…</string>
+    <string name="warming_up">Warming up…</string>
     <string name="serverConnect">Contacting server…</string>
     <string name="connected">All set</string>
     <string name="startClick">Click to start</string>
@@ -81,8 +80,16 @@
     <string name="excavator1">Excavator</string>
     <string name="go_to_nexcavator">Go to\nExcavator</string>
     <string name="turn_right">Turn Right</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait…</string>
     <string name="downloading_firmware_to_esp32">Downloading &amp; updating firmware</string>
     <string name="updatefirmware">Firmware Updated Successfully</string>
     <string name="serial_text">Serial text</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="serial_port">Serial Port</string>
+    <string name="send">Send</string>
+    <string name="chatInputHint">Type serial text to send</string>
+    <string name="sendChatButton">Send</string>
+    <string name="bucket_nangle">Bucket\nAngle</string>
+
 </resources>
