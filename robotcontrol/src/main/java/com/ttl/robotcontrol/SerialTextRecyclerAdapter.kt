@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ttl.robotcontrol.databinding.SerialTextBinding
-class SerialText(val serialText:String, val received: Boolean = true)
+class SerialText(val serialText:String, val color: Int = Color.WHITE)
 
 class SerialTextRecyclerAdapter(private val serialTextArray: ArrayList<SerialText>) :
     RecyclerView.Adapter<SerialTextRecyclerAdapter.ViewHolder>() {
@@ -23,11 +23,7 @@ class SerialTextRecyclerAdapter(private val serialTextArray: ArrayList<SerialTex
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        holder.bind(serialTextArray[position])
         holder.binding.serialText.text = serialTextArray[position].serialText
-        if(serialTextArray[position].received) {
-            holder.binding.serialText.setTextColor(Color.WHITE)
-        }else{
-            holder.binding.serialText.setTextColor(Color.GREEN)
-        }
+        holder.binding.serialText.setTextColor(serialTextArray[position].color)
     }
 
     override fun getItemCount(): Int {

@@ -81,6 +81,7 @@
     <string name="go_to_nexcavator">Go to\nExcavator</string>
     <string name="turn_right">Turn Right</string>
     <string name="please_wait">Please wait…</string>
+    <string name="listening">Listening…</string>
     <string name="downloading_firmware_to_esp32">Downloading &amp; updating firmware</string>
     <string name="updatefirmware">Firmware Updated Successfully</string>
     <string name="serial_text">Serial text</string>
@@ -91,5 +92,7 @@
     <string name="chatInputHint">Type serial text to send</string>
     <string name="sendChatButton">Send</string>
     <string name="bucket_nangle">Bucket\nAngle</string>
+    <string name="clear">Clear</string>
+    <string name="right">Right</string>
 
 </resources>

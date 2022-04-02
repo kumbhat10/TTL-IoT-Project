@@ -397,7 +397,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_33sdp"
             android:rotation="90"
-            android:text="Right"
+            android:text="@string/right"
             android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
             app:layout_constraintBottom_toBottomOf="@+id/moveRight"
@@ -426,6 +426,7 @@
             app:uiZoomControls="true"
             app:uiZoomGestures="true"
             tools:ignore="SpeakableTextPresentCheck" />
+
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/gpsCard"
@@ -665,6 +666,49 @@
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/clearChat"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="#8C0404"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:onClick="clearSerialWindow"
+                android:text="@string/clear"
+                android:textColor="@color/font_grey_settings"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toTopOf="@id/sendChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="@drawable/refresh"
+                android:clickable="true"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:onClick="connectDevice"
+                android:text="@string/clear"
+                android:textColor="@color/font_grey_settings"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toTopOf="@id/clearChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/clearChat"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -954,6 +998,23 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageButton
+            android:id="@+id/micButton"
+            android:background="@color/black"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/mic_off"
+            app:layout_constraintStart_toEndOf="@id/gpsCard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:elevation="@dimen/_5sdp"
+            android:focusable="true"
+            android:onClick="speechRecognitionEnable"
+            android:layout_margin="@dimen/_4sdp"/>
+
+
         <ImageView
             android:id="@+id/switchToRobot"
             android:layout_width="@dimen/_53sdp"
@@ -971,6 +1032,9 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/powerOn"
             app:layout_constraintTop_toBottomOf="@id/powerOn" />
+
+
+
 
         <ImageView
             android:id="@+id/ttlogoFS"
