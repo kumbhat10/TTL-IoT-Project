@@ -547,11 +547,12 @@
             android:theme="@style/ToggleButton.CustomTheme"
             app:layout_constraintBottom_toBottomOf="@+id/startPosition"
             app:layout_constraintStart_toEndOf="@+id/buzzer"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewRobot"
             app:layout_constraintTop_toTopOf="@id/startPosition" />
 
-        <com.google.android.gms.maps.MapView xmlns:map="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/mapView"
+        <com.google.android.gms.maps.MapView 
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapViewRobot"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -578,7 +579,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/mapView">
+            app:layout_constraintStart_toStartOf="@id/mapViewRobot">
 
             <TableLayout
                 android:id="@+id/gpsTable"
@@ -824,7 +825,7 @@
             android:scaleY="1"
             android:scaleType="fitXY"
             android:scaleX="1"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewRobot"
             app:layout_constraintTop_toBottomOf="@id/standUp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_8sdp"/>
@@ -980,7 +981,7 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="startExcavator"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/mapView"
+            app:layout_constraintEnd_toStartOf="@+id/mapViewRobot"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintTop_toTopOf="@id/pose1"
             app:layout_constraintBottom_toBottomOf="@id/pose1"/>

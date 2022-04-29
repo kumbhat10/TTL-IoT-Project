@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel1"
             type="com.ttl.robotcontrol.ExcavatorViewModel" />
@@ -23,88 +24,88 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="@dimen/_40sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/tablet_mode"
+            android:layout_marginBottom="@dimen/_45sdp"
+            android:layout_marginStart="@dimen/_minus6sdp"
             android:rotation="-90"
+            android:text="@string/default_mode"
+            android:textColor="#FFC107"
             android:textSize="@dimen/_5ssp"
-            android:textColor="#FFC107"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buzz"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="#CB16EC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
+            android:background="#CB16EC"
             android:clickable="true"
             android:focusable="true"
-            android:textColor="#FFFFFF"
-            app:layout_constraintHorizontal_chainStyle="spread"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{() -> viewModel1.buzzOnce()}"
             android:text="@string/button3"
+            android:textColor="#FFFFFF"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fakeCrash"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fakeCrash"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="#E91E63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
+            android:background="#E91E63"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:textColor="#FFFFFF"
             android:onClick="@{() -> viewModel1.fakeCrash()}"
             android:text="@string/button4"
+            android:textColor="#FFFFFF"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@id/buzz"
             app:layout_constraintEnd_toStartOf="@+id/buzzer"
+            app:layout_constraintStart_toEndOf="@id/buzz"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ToggleButton
             android:id="@+id/buzzer"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:checked="@={viewModel1.buzzerEnable}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/buz_noff"
             android:textOn="@string/buz_non"
             android:textSize="@dimen/_7ssp"
             android:theme="@style/ToggleButton.CustomTheme"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintBottom_toBottomOf="@id/fakeCrash"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintStart_toEndOf="@+id/fakeCrash"
-            app:layout_constraintTop_toTopOf="@id/fakeCrash"
-            app:layout_constraintBottom_toBottomOf="@id/fakeCrash"/>
+            app:layout_constraintTop_toTopOf="@id/fakeCrash" />
 
         <ToggleButton
             android:id="@+id/powerOn"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:checked="@={viewModel1.power}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/eng_noff"
             android:textOn="@string/eng_non"
             android:textSize="@dimen/_7ssp"
             android:theme="@style/ToggleButton.CustomTheme"
+            app:layout_constraintBottom_toBottomOf="@id/buttonEngineSound"
+            app:layout_constraintEnd_toStartOf="@+id/buttonEngineSound"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonEngineSound"
-            app:layout_constraintTop_toTopOf="@id/buttonEngineSound"
-            app:layout_constraintBottom_toBottomOf="@id/buttonEngineSound"/>
+            app:layout_constraintTop_toTopOf="@id/buttonEngineSound" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonEngineSound"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="#FF9800"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
+            android:background="#FF9800"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -113,114 +114,132 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/buttonLights"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/powerOn"
-            app:layout_constraintEnd_toStartOf="@+id/buttonLights"
             app:layout_constraintTop_toBottomOf="@id/buzz" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLights"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="#6FB81B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
+            android:background="#6FB81B"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{() -> viewModel1.engineLight()}"
             android:text="@string/lights"
-            android:textSize="@dimen/_7ssp"
             android:textColor="@color/black"
+            android:textSize="@dimen/_7ssp"
             android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintStart_toEndOf="@+id/buttonEngineSound"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
             app:layout_constraintTop_toBottomOf="@id/buzz" />
 
         <ImageButton
             android:id="@+id/call"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/call"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="callExcavator"
-            android:background="#00000000"
-            android:scaleY="1"
+            android:scaleType="fitXY"
             android:scaleX="1"
-            app:layout_constraintStart_toEndOf="@id/sendSMS"
+            android:scaleY="1"
+            android:src="@drawable/call"
             app:layout_constraintEnd_toStartOf="@id/callIncoming"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            tools:ignore="ContentDescription"/>
 
         <ImageButton
             android:id="@+id/callIncoming"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/call_incoming"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="receiveCallExcavator"
-            android:background="#00000000"
-            android:scaleY="1"
+            android:scaleType="fitXY"
             android:scaleX="1"
-            app:layout_constraintStart_toEndOf="@id/call"
+            android:scaleY="1"
+            android:src="@drawable/call_incoming"
             app:layout_constraintEnd_toStartOf="@id/callPick"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/callPick"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/call_pick"
-            android:onClick="pickUpCall"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="#00000000"
-            android:scaleY="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="pickUpCall"
+            android:scaleType="fitXY"
             android:scaleX="1"
-            app:layout_constraintStart_toEndOf="@id/callIncoming"
+            android:scaleY="1"
+            android:src="@drawable/call_pick"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/callEnd"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/call_end"
-            android:onClick="hangUpCall"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:scaleY="1"
+            android:onClick="hangUpCall"
+            android:scaleType="fitXY"
             android:scaleX="1"
-            app:layout_constraintStart_toEndOf="@id/callPick"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginTop="@dimen/_5sdp"/>
+            android:scaleY="1"
+            android:src="@drawable/call_end"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
+            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
 
         <ImageButton
             android:id="@+id/sendSMS"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/sms"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="smsExcavator"
-            android:background="#00000000"
-            android:scaleY="1"
+            android:scaleType="fitXY"
             android:scaleX="1"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleY="1"
+            android:src="@drawable/sms"
             app:layout_constraintEnd_toStartOf="@id/call"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            android:layout_marginTop="@dimen/_5sdp"/>
-
+            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
 
         <TextView
             android:id="@+id/debugText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_6ssp"
+            android:layout_marginStart="@dimen/_120sdp"
             android:textColor="@color/font_yellow"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="@dimen/_6ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/serialText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/serial_text"
+            android:textColor="@color/font_yellow"
+            android:textSize="@dimen/_6ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/debugText" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveLeft"
@@ -241,62 +260,62 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveLeft"
             android:layout_marginStart="@dimen/_33sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/moveLeft"
-            app:layout_constraintTop_toTopOf="@+id/moveLeft"
-            android:text="Left"
             android:rotation="-90"
+            android:text="@string/left"
+            android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
-            android:textColor="@color/font_yellow1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/moveLeft"
+            app:layout_constraintStart_toStartOf="@+id/moveLeft"
+            app:layout_constraintTop_toTopOf="@+id/moveLeft" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/moveCenter"
             style="?android:attr/borderlessButtonStyle"
-            android:text="@string/rotate_nleft"
-            android:textSize="@dimen/_11ssp"
-            android:textColor="@color/button_text_color"
-            android:background="@drawable/button_center"
             android:layout_width="@dimen/arrow_width2"
             android:layout_height="@dimen/arrow_height2"
+            android:background="@drawable/button_center"
+            android:text="@string/rotate_nleft"
+            android:textColor="@color/button_text_color"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="@id/moveDown"
-            app:layout_constraintTop_toTopOf="@id/moveUp"
             app:layout_constraintEnd_toEndOf="@+id/moveRight"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/moveLeft"
+            app:layout_constraintTop_toTopOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveUp"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp"
-            app:layout_constraintBottom_toTopOf="@+id/moveUp"
             android:text="@string/move"
+            android:textColor="@color/font_yellow"
             android:textSize="@dimen/_10ssp"
-            android:textColor="@color/font_yellow"/>
+            app:layout_constraintBottom_toTopOf="@+id/moveUp"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp"
+            app:layout_constraintStart_toStartOf="@+id/moveUp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveUp"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp"
-            app:layout_constraintBottom_toBottomOf="@+id/moveUp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:text="Forward"
+            android:text="@string/forward"
+            android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
-            android:textColor="@color/font_yellow1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/moveUp"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp"
+            app:layout_constraintStart_toStartOf="@+id/moveUp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveUp"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp"
-            app:layout_constraintTop_toTopOf="@+id/moveDown"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="Reverse"
+            android:text="@string/reverse"
+            android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
-            android:textColor="@color/font_yellow1"/>
+            app:layout_constraintEnd_toEndOf="@+id/moveUp"
+            app:layout_constraintStart_toStartOf="@+id/moveUp"
+            app:layout_constraintTop_toTopOf="@+id/moveDown" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveUp"
@@ -317,12 +336,12 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/arrow_width1"
             android:layout_height="@dimen/arrow_height1"
-            android:background="@color/buttonClear"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@color/buttonClear"
             android:src="@drawable/button_up"
-            app:layout_constraintTop_toTopOf="@id/moveUp"
             app:layout_constraintBottom_toTopOf="@id/moveDown3"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
+            app:layout_constraintTop_toTopOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -333,21 +352,21 @@
             android:background="@color/buttonClear"
             android:src="@drawable/button_down"
             app:layout_constraintBottom_toBottomOf="@id/moveDown"
-            app:layout_constraintTop_toBottomOf="@id/moveUp3"
             app:layout_constraintEnd_toEndOf="@id/moveUp3"
             app:layout_constraintStart_toStartOf="@id/moveUp3"
+            app:layout_constraintTop_toBottomOf="@id/moveUp3"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveUp3"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp3"
-            app:layout_constraintBottom_toTopOf="@+id/moveDown3"
-            app:layout_constraintTop_toBottomOf="@id/moveUp3"
-            android:text="Bucket\nAngle"
+            android:text="@string/bucket_nangle"
+            android:textColor="@color/font_yellow"
             android:textSize="@dimen/_10ssp"
-            android:textColor="@color/font_yellow"/>
+            app:layout_constraintBottom_toTopOf="@+id/moveDown3"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp3"
+            app:layout_constraintStart_toStartOf="@+id/moveUp3"
+            app:layout_constraintTop_toBottomOf="@id/moveUp3" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveDown"
@@ -362,6 +381,7 @@
             app:layout_constraintStart_toStartOf="@id/moveUp"
             app:layout_constraintTop_toBottomOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck" />
+
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveRight"
             style="?android:attr/borderlessButtonStyle"
@@ -374,22 +394,23 @@
             app:layout_constraintStart_toEndOf="@id/moveLeft"
             app:layout_constraintTop_toTopOf="@id/moveLeft"
             tools:ignore="SpeakableTextPresentCheck" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/moveRight"
             android:layout_marginEnd="@dimen/_33sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/moveRight"
-            app:layout_constraintTop_toTopOf="@+id/moveRight"
-            android:text="Right"
             android:rotation="90"
+            android:text="@string/right"
+            android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
-            android:textColor="@color/font_yellow1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/moveRight"
+            app:layout_constraintEnd_toEndOf="@+id/moveRight"
+            app:layout_constraintTop_toTopOf="@+id/moveRight" />
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
+            android:id="@+id/mapViewExcavator"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="@dimen/_220sdp"
+            android:layout_width="@dimen/_200sdp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_1sdp"
             app:cameraBearing="0"
@@ -397,8 +418,8 @@
             app:cameraZoom="14"
             app:layout_constraintBottom_toTopOf="@id/gpsCard"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:mapType="normal"
             app:uiCompass="true"
@@ -409,13 +430,14 @@
             app:uiZoomGestures="true"
             tools:ignore="SpeakableTextPresentCheck" />
 
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/gpsCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/mapView"
-            app:layout_constraintStart_toStartOf="@id/mapView">
+            app:layout_constraintEnd_toEndOf="@id/mapViewExcavator"
+            app:layout_constraintStart_toStartOf="@id/mapViewExcavator">
 
             <TableLayout
                 android:id="@+id/gpsTable"
@@ -561,20 +583,155 @@
 
             </TableLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/serialWindow"
+            android:layout_width="@dimen/_280sdp"
+            android:layout_height="0dp"
+            android:background="@drawable/shine_chat_background"
+            android:clickable="true"
+            android:elevation="@dimen/_10ssp"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/mapViewExcavator"
+            app:layout_constraintStart_toStartOf="@id/mapViewExcavator"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/serialTextRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:orientation="vertical"
+                android:scrollbarSize="@dimen/_5sdp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbarThumbVertical="@drawable/scrollbar"
+                android:scrollbarTrackVertical="@drawable/scrollbar_track"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="right"
+                app:layout_constraintBottom_toTopOf="@id/editTextChatInput1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextChatInput1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="1dp"
+                android:layout_marginBottom="1dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:hint="@string/chatInputHint"
+                android:imeOptions="actionSend"
+                android:inputType="textPersonName"
+                android:padding="@dimen/_3sdp"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/font_grey_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/sendChat"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextChatInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:imeOptions="flagNoFullscreen"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@color/font_yellow"
+                    android:textSize="@dimen/_10ssp"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sendChat"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="#FF9800"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:onClick="sendSerialCommand"
+                android:text="@string/sendChatButton"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/clearChat"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="#8C0404"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:onClick="clearSerialWindow"
+                android:text="@string/clear"
+                android:textColor="@color/font_grey_settings"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toTopOf="@id/sendChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="@drawable/refresh"
+                android:clickable="true"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:onClick="connectDevice"
+                android:text="@string/clear"
+                android:textColor="@color/font_grey_settings"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toTopOf="@id/clearChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/clearChat"
+                tools:ignore="ContentDescription,TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/bvCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/battCardLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:background="@color/grey">
+                android:background="@color/grey"
+                android:padding="@dimen/_5sdp">
 
                 <ImageView
                     android:id="@+id/bvImage"
@@ -582,47 +739,47 @@
                     android:layout_height="@dimen/_50sdp"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
+                    android:src="@drawable/battery"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/battery"
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bvText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/bvImage"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/bv"
-                    android:textSize="@dimen/_9ssp"/>
+                    android:textSize="@dimen/_9ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/bvImage"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bvText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/bvText1"
-                    app:layout_constraintStart_toEndOf="@id/bvImage"
                     android:layout_marginStart="@dimen/_4sdp"
                     android:text="@{viewModel1.bv}"
                     android:textColor="@color/font_yellow"
-                    android:textSize="@dimen/_22ssp"/>
+                    android:textSize="@dimen/_22ssp"
+                    app:layout_constraintStart_toEndOf="@id/bvImage"
+                    app:layout_constraintTop_toBottomOf="@id/bvText1" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bvText3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/bvText2"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:gravity="center"
                     android:text="@{viewModel1.bvInfo}"
                     android:textSize="@dimen/_7ssp"
-                    android:gravity="center"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bvText2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -639,59 +796,59 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/moveRight1"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@id/mapView"
+            app:layout_constraintStart_toEndOf="@id/mapViewExcavator"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveLeft1"
             android:layout_marginStart="@dimen/_25sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
-            app:layout_constraintTop_toTopOf="@+id/moveLeft1"
-            android:text="Turn Left"
             android:rotation="-90"
+            android:text="@string/turn_left"
+            android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
-            android:textColor="@color/font_yellow1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
+            app:layout_constraintStart_toStartOf="@+id/moveLeft1"
+            app:layout_constraintTop_toTopOf="@+id/moveLeft1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/moveRight1"
             android:layout_marginEnd="@dimen/_25sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
-            app:layout_constraintTop_toTopOf="@+id/moveLeft1"
-            android:text="@string/turn_right"
             android:rotation="90"
+            android:text="@string/turn_right1"
+            android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
-            android:textColor="@color/font_yellow1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
+            app:layout_constraintEnd_toEndOf="@+id/moveRight1"
+            app:layout_constraintTop_toTopOf="@+id/moveLeft1" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/moveCenter1"
             style="?android:attr/borderlessButtonStyle"
-            android:text="@string/rotate_nright"
-            android:textSize="@dimen/_11ssp"
-            android:padding="@dimen/_15sdp"
-            android:textColor="@color/button_text_color"
-            android:background="@drawable/button_center"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/arrow_height2"
+            android:background="@drawable/button_center"
+            android:padding="@dimen/_15sdp"
+            android:text="@string/rotate_nright"
+            android:textColor="@color/button_text_color"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="@id/moveDown1"
-            app:layout_constraintTop_toTopOf="@id/moveUp2"
             app:layout_constraintEnd_toEndOf="@+id/moveRight1"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/moveLeft1"
+            app:layout_constraintTop_toTopOf="@id/moveUp2"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveUp1"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/arrow_width1"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:layout_height="@dimen/arrow_height1"
             android:background="@color/buttonClear"
             android:src="@drawable/button_up"
             app:layout_constraintEnd_toEndOf="@+id/moveRight1"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/moveUp2"
             app:layout_constraintTop_toTopOf="@id/moveUp2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -699,35 +856,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveUp1"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp1"
-            app:layout_constraintBottom_toTopOf="@+id/moveUp1"
-            android:text="Arm2"
+            android:text="@string/arm2"
+            android:textColor="@color/font_yellow"
             android:textSize="@dimen/_10ssp"
-            android:textColor="@color/font_yellow"/>
+            app:layout_constraintBottom_toTopOf="@+id/moveUp1"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp1"
+            app:layout_constraintStart_toStartOf="@+id/moveUp1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/moveUp2"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp2"
-            app:layout_constraintBottom_toTopOf="@+id/moveUp2"
-            android:text="Arm1"
+            android:text="@string/arm1"
+            android:textColor="@color/font_yellow"
             android:textSize="@dimen/_10ssp"
-            android:textColor="@color/font_yellow"/>
+            app:layout_constraintBottom_toTopOf="@+id/moveUp2"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp2"
+            app:layout_constraintStart_toStartOf="@+id/moveUp2" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveUp2"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/arrow_width1"
-             android:layout_marginEnd="@dimen/_10sdp"
-             android:layout_marginBottom="@dimen/arrow_gap"
-             android:layout_height="@dimen/arrow_height1"
-             app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_height="@dimen/arrow_height1"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/arrow_gap"
             android:background="@color/buttonClear"
             android:src="@drawable/button_up"
             app:layout_constraintBottom_toTopOf="@id/moveDown1"
             app:layout_constraintEnd_toStartOf="@+id/moveUp1"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/moveLeft1"
             app:layout_constraintTop_toTopOf="@id/moveLeft1"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -772,15 +929,32 @@
             app:layout_constraintTop_toTopOf="@id/moveLeft1"
             tools:ignore="SpeakableTextPresentCheck" />
 
+        <ImageButton
+            android:id="@+id/openSerialWindow"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:background="#00000000"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="openCloseSerialWindow"
+            android:scaleType="fitXY"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:src="@drawable/serial_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
             android:id="@+id/maskDownloading"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true"
-            android:visibility="gone"
             android:background="@color/mask"
             android:clickable="true"
-            android:elevation="@dimen/_5sdp">
+            android:elevation="@dimen/_5sdp"
+            android:focusable="true"
+            android:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/downloadLottie"
@@ -791,66 +965,93 @@
                 android:scaleX="2.6"
                 android:scaleY="2.6"
                 android:visibility="visible"
-                app:layout_constraintHorizontal_bias="0.4"
-                app:layout_constraintVertical_bias="0.4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4"
                 app:lottie_autoPlay="true"
                 app:lottie_enableMergePathsForKitKatAndAbove="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/downloading"
                 app:lottie_repeatMode="restart"
-                app:lottie_speed="1" />
+                app:lottie_speed="1"
+                tools:ignore="TooManyViews" />
 
             <TextView
                 android:id="@+id/downloadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/downloadLottie"
-                app:layout_constraintBottom_toTopOf="@id/downloading"
+                android:scrollbarSize="@dimen/_9ssp"
                 android:text="@string/please_wait"
                 android:textColor="@color/font_grey_settings"
-                android:scrollbarSize="@dimen/_9ssp"/>
+                app:layout_constraintBottom_toTopOf="@id/downloading"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie" />
 
             <TextView
                 android:id="@+id/downloading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/downloadLottie"
-                app:layout_constraintTop_toTopOf="@id/downloadLottie"
-                app:layout_constraintBottom_toBottomOf="@id/downloadLottie"
-                app:layout_constraintVertical_bias="0.5"
+                android:scrollbarSize="@dimen/_11ssp"
                 android:text="@string/downloading_firmware_to_esp32"
                 android:textColor="@color/font_yellow"
-                android:scrollbarSize="@dimen/_11ssp"/>
+                app:layout_constraintBottom_toBottomOf="@id/downloadLottie"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie"
+                app:layout_constraintTop_toTopOf="@id/downloadLottie"
+                app:layout_constraintVertical_bias="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/micButton"
+            android:background="@color/black"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/mic_off"
+            app:layout_constraintStart_toEndOf="@id/gpsCard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:elevation="@dimen/_5sdp"
+            android:focusable="true"
+            android:onClick="speechRecognitionEnable"
+            android:layout_margin="@dimen/_4sdp"
+            tools:ignore="ContentDescription"/>
+
+
         <ImageView
             android:id="@+id/switchToRobot"
-            android:elevation="@dimen/_5sdp"
-            android:layout_width="@dimen/_43sdp"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_width="@dimen/_53sdp"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/robot"
+            android:elevation="@dimen/_5sdp"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="startRobot"
+            android:scaleType="centerCrop"
+            android:src="@drawable/robot"
             android:visibility="visible"
-            android:layout_marginTop="@dimen/_1sdp"
-            app:layout_constraintStart_toStartOf="@+id/sendSMS"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintTop_toBottomOf="@id/sendSMS"/>
+            app:layout_constraintStart_toStartOf="@+id/powerOn"
+            app:layout_constraintTop_toBottomOf="@id/powerOn"
+            tools:ignore="ContentDescription" />
+
+
+
+
         <ImageView
             android:id="@+id/ttlogoFS"
-            android:elevation="@dimen/_5sdp"
             android:layout_width="@dimen/_104sdp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:contentDescription="@string/app_name"
+            android:elevation="@dimen/_5sdp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ttl_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

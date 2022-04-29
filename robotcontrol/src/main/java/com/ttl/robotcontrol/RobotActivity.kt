@@ -70,8 +70,8 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
         viewModel.bvListener()
 //        binding.gridControlStats!!.layoutManager = GridLayoutManager(this, 1)
 //        binding.recyclerViewAdapter = RobotStatsGridAdapter(arrayList = setDataList())
-        binding.mapView.onCreate(savedInstanceState)
-        binding.mapView.getMapAsync(this)
+        binding.mapViewRobot.onCreate(savedInstanceState)
+        binding.mapViewRobot.getMapAsync(this)
 
         databaseRef = Firebase.database.getReference("Robot/Control/data")
         observeDataAndUpdateServer()
@@ -241,26 +241,26 @@ class RobotActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        binding.mapView.onResume()
+        binding.mapViewRobot.onResume()
     }
 
     override fun onStart() { //removed API key from here
         super.onStart()
-        binding.mapView.onStart()
+        binding.mapViewRobot.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        binding.mapView.onStop()
+        binding.mapViewRobot.onStop()
     }
 
     override fun onPause() {
-        binding.mapView.onPause()
+        binding.mapViewRobot.onPause()
         super.onPause()
     }
 
     override fun onDestroy() {
-        binding.mapView.onDestroy()
+        binding.mapViewRobot.onDestroy()
         super.onDestroy()
     }
 

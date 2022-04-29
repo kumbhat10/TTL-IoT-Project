@@ -80,7 +80,7 @@
             android:textSize="@dimen/_7ssp"
             android:theme="@style/ToggleButton.CustomTheme"
             app:layout_constraintBottom_toBottomOf="@id/fakeCrash"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintStart_toEndOf="@+id/fakeCrash"
             app:layout_constraintTop_toTopOf="@id/fakeCrash" />
 
@@ -133,7 +133,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintStart_toEndOf="@+id/buttonEngineSound"
             app:layout_constraintTop_toBottomOf="@id/buzz" />
 
@@ -151,7 +151,8 @@
             android:scaleY="1"
             android:src="@drawable/call"
             app:layout_constraintEnd_toStartOf="@id/callIncoming"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
+            app:layout_constraintTop_toBottomOf="@id/buttonLights"
+            tools:ignore="ContentDescription"/>
 
         <ImageButton
             android:id="@+id/callIncoming"
@@ -167,7 +168,8 @@
             android:scaleY="1"
             android:src="@drawable/call_incoming"
             app:layout_constraintEnd_toStartOf="@id/callPick"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
+            app:layout_constraintTop_toBottomOf="@id/buttonLights"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/callPick"
@@ -183,7 +185,8 @@
             android:scaleY="1"
             android:src="@drawable/call_pick"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
+            app:layout_constraintTop_toBottomOf="@id/buttonLights"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/callEnd"
@@ -198,7 +201,7 @@
             android:scaleX="1"
             android:scaleY="1"
             android:src="@drawable/call_end"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintTop_toBottomOf="@id/buttonLights" />
 
         <ImageButton
@@ -259,7 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_33sdp"
             android:rotation="-90"
-            android:text="Left"
+            android:text="@string/left"
             android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
             app:layout_constraintBottom_toBottomOf="@+id/moveLeft"
@@ -296,7 +299,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:text="Forward"
+            android:text="@string/forward"
             android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
             app:layout_constraintBottom_toBottomOf="@+id/moveUp"
@@ -307,7 +310,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="Reverse"
+            android:text="@string/reverse"
             android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
             app:layout_constraintEnd_toEndOf="@+id/moveUp"
@@ -337,7 +340,7 @@
             android:background="@color/buttonClear"
             android:src="@drawable/button_up"
             app:layout_constraintBottom_toTopOf="@id/moveDown3"
-            app:layout_constraintEnd_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintTop_toTopOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
@@ -405,7 +408,7 @@
             app:layout_constraintTop_toTopOf="@+id/moveRight" />
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
+            android:id="@+id/mapViewExcavator"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="0dp"
@@ -433,8 +436,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/mapView"
-            app:layout_constraintStart_toStartOf="@id/mapView">
+            app:layout_constraintEnd_toEndOf="@id/mapViewExcavator"
+            app:layout_constraintStart_toStartOf="@id/mapViewExcavator">
 
             <TableLayout
                 android:id="@+id/gpsTable"
@@ -592,8 +595,8 @@
             android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/mapView"
-            app:layout_constraintStart_toStartOf="@id/mapView"
+            app:layout_constraintEnd_toEndOf="@id/mapViewExcavator"
+            app:layout_constraintStart_toStartOf="@id/mapViewExcavator"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -709,7 +712,7 @@
                 app:layout_constraintBottom_toTopOf="@id/clearChat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/clearChat"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="ContentDescription,TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -793,7 +796,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/moveRight1"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@id/mapView"
+            app:layout_constraintStart_toEndOf="@id/mapViewExcavator"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
@@ -801,7 +804,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_25sdp"
             android:rotation="-90"
-            android:text="Turn Left"
+            android:text="@string/turn_left"
             android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
             app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
@@ -813,7 +816,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_25sdp"
             android:rotation="90"
-            android:text="Turn Right"
+            android:text="@string/turn_right1"
             android:textColor="@color/font_yellow1"
             android:textSize="@dimen/textExc"
             app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
@@ -853,7 +856,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arm2"
+            android:text="@string/arm2"
             android:textColor="@color/font_yellow"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toTopOf="@+id/moveUp1"
@@ -863,7 +866,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arm1"
+            android:text="@string/arm1"
             android:textColor="@color/font_yellow"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toTopOf="@+id/moveUp2"
@@ -939,7 +942,8 @@
             android:scaleY="1"
             android:src="@drawable/serial_line"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -972,7 +976,8 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/downloading"
                 app:lottie_repeatMode="restart"
-                app:lottie_speed="1" />
+                app:lottie_speed="1"
+                tools:ignore="TooManyViews" />
 
             <TextView
                 android:id="@+id/downloadingText"
@@ -1012,7 +1017,8 @@
             android:elevation="@dimen/_5sdp"
             android:focusable="true"
             android:onClick="speechRecognitionEnable"
-            android:layout_margin="@dimen/_4sdp"/>
+            android:layout_margin="@dimen/_4sdp"
+            tools:ignore="ContentDescription"/>
 
 
         <ImageView
@@ -1031,7 +1037,8 @@
             android:visibility="visible"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/powerOn"
-            app:layout_constraintTop_toBottomOf="@id/powerOn" />
+            app:layout_constraintTop_toBottomOf="@id/powerOn"
+            tools:ignore="ContentDescription" />
 
 
 

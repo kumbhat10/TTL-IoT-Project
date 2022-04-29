@@ -94,5 +94,12 @@
     <string name="bucket_nangle">Bucket\nAngle</string>
     <string name="clear">Clear</string>
     <string name="right">Right</string>
+    <string name="turn_left">Turn Left</string>
+    <string name="turn_right1">Turn Right</string>
+    <string name="arm2">Arm2</string>
+    <string name="arm1">Arm1</string>
+    <string name="reverse">Reverse</string>
+    <string name="forward">Forward</string>
+    <string name="left">Left</string>
 
 </resources>

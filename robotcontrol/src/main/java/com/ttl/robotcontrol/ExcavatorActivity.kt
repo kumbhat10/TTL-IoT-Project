@@ -143,15 +143,18 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         FirebaseApp.initializeApp(this);
 
 
-        registerBroadcastReceiver()
+        registerBroadcastReceiver() //        val a = MediaPlayer.create(this, R.raw.success)
+        //        a.prepareAsync()
+        //        a.start()
+
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this)[ExcavatorViewModel::class.java]
         binding.viewModel1 = viewModel // bind view model in XML layout to our viewModel
         viewModel.firmwareUpdateListener()
         viewModel.gpsInfoListener()
         viewModel.bvListener()
-        binding.mapView.onCreate(savedInstanceState)
-        binding.mapView.getMapAsync(this)
+        binding.mapViewExcavator.onCreate(savedInstanceState)
+        binding.mapViewExcavator.getMapAsync(this)
         binding.serialTextRecyclerView!!.layoutManager = LinearLayoutManager(this)
         serialTextAdapter = SerialTextRecyclerAdapter(serialTextArray)
         binding.serialTextRecyclerView!!.adapter = serialTextAdapter
@@ -261,21 +264,16 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                 override fun onReadyForSpeech(params: Bundle?) {
                     mAudioManager?.setStreamVolume(AudioManager.STREAM_MUSIC, mStreamVolume, 0); // again setting the system volume back to the original, un-mutting
                 }
-
                 override fun onBeginningOfSpeech() {
                     binding.downloading.text = ""
                 }
-
                 override fun onRmsChanged(rmsdB: Float) {
                 }
-
                 override fun onBufferReceived(buffer: ByteArray?) {
                 }
-
                 override fun onEndOfSpeech() {
                     startSpeechRecognition()
                 }
-
                 @SuppressLint("SetTextI18n")
                 override fun onError(error: Int) {
                     Log.d("SpeechMax", "onError $error")
@@ -285,7 +283,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                             binding.downloading.text = "ERROR_NO_MATCH"
                         }
                         SpeechRecognizer.ERROR_AUDIO -> {
-                            binding.downloading.text = "ERROR_NO_MATCH" //7
+                            binding.downloading.text = "ERROR_AUDIO" //7
                         }
                         SpeechRecognizer.ERROR_CLIENT -> {
                             binding.downloading.text = "ERROR_CLIENT"
@@ -301,29 +299,30 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                         }
                     }
                 }
-
                 override fun onResults(results: Bundle?) {
+                    try{
                     val result = results!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.joinToString(", ")
                     binding.downloading.text = result!!.removePrefix('['.toString()).removeSuffix(']'.toString())
                     Log.d("SpeechMax Results", result)
                     startSpeechRecognition()
-                    excavatorAction(result)
+                    excavatorAction(result)}
+                    catch(_:java.lang.Exception){
+                    }
                 }
-
                 override fun onPartialResults(partialResults: Bundle?) {
                     Log.d("SpeechMax", "onPartialResults ${
                         partialResults!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).toString()
                     }")
                 }
-
                 override fun onEvent(eventType: Int, params: Bundle?) {
                 }
             })
             speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) //            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 500)
+            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
+            //            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+//            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 500)
             speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
-            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH)
+//            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH)
         }
     }
 
@@ -331,18 +330,18 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         when {
             result.contains("forward", ignoreCase = true) or result.contains("front", ignoreCase = true) or result.contains("ahead", ignoreCase = true) or result.contains("straight", ignoreCase = true) -> {
                 z1 = -1; z8 = -1; writeToFirebase()
-                if(!result.contains("infinite", ignoreCase = true) and !result.contains("non", ignoreCase = true)) Handler(Looper.getMainLooper()).postDelayed({ z1 = 0; z8 = 0; writeToFirebase() }, timerVoiceAction)
+                if (!result.contains("infinite", ignoreCase = true) and !result.contains("non", ignoreCase = true)) Handler(Looper.getMainLooper()).postDelayed({ z1 = 0; z8 = 0; writeToFirebase() }, timerVoiceAction)
             }
             result.contains("reverse", ignoreCase = true) or result.contains("river", ignoreCase = true) or result.contains("back", ignoreCase = true) or result.contains("bak", ignoreCase = true) or result.contains("backward", ignoreCase = true) -> {
                 z1 = 1; z8 = 1; writeToFirebase()
-                if(!result.contains("infinite", ignoreCase = true) and !result.contains("non", ignoreCase = true)) Handler(Looper.getMainLooper()).postDelayed({ z1 = 0; z8 = 0; writeToFirebase() }, timerVoiceAction)
+                if (!result.contains("infinite", ignoreCase = true) and !result.contains("non", ignoreCase = true)) Handler(Looper.getMainLooper()).postDelayed({ z1 = 0; z8 = 0; writeToFirebase() }, timerVoiceAction)
             }
             (result.contains("rotate", ignoreCase = true) or result.contains("turn", ignoreCase = true)) and (result.contains("right", ignoreCase = true) or result.contains("clockwise", ignoreCase = true)) -> {
-                z2 = -1 ; writeToFirebase()
+                z2 = -1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z2 = 0; writeToFirebase() }, timerVoiceAction)
             }
-            (result.contains("rotate", ignoreCase = true) or result.contains("turn", ignoreCase = true)) and ( result.contains("left", ignoreCase = true) or result.contains("counter clockwise", ignoreCase = true) or result.contains("anti clockwise", ignoreCase = true)) -> {
-                z2 = 1 ; writeToFirebase()
+            (result.contains("rotate", ignoreCase = true) or result.contains("turn", ignoreCase = true)) and (result.contains("left", ignoreCase = true) or result.contains("counter clockwise", ignoreCase = true) or result.contains("anti clockwise", ignoreCase = true)) -> {
+                z2 = 1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z2 = 0; writeToFirebase() }, timerVoiceAction)
             }
             (result.contains("left", ignoreCase = true) or result.contains("anti clockwise", ignoreCase = true) or result.contains("counter clockwise", ignoreCase = true)) -> {
@@ -353,42 +352,42 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                 z1 = -1; z8 = 1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z1 = 0; z8 = 0; writeToFirebase() }, timerVoiceAction)
             }
-            (result.contains("bucket", ignoreCase = true) or result.contains("angle", ignoreCase = true)) and (result.contains("raise", ignoreCase = true) or result.contains("race", ignoreCase = true) or result.contains("up", ignoreCase = true)or result.contains("lift", ignoreCase = true)) -> {
-                z6 = -1 ; writeToFirebase()
+            (result.contains("bucket", ignoreCase = true) or result.contains("angle", ignoreCase = true)) and (result.contains("raise", ignoreCase = true) or result.contains("race", ignoreCase = true) or result.contains("up", ignoreCase = true) or result.contains("lift", ignoreCase = true)) -> {
+                z6 = -1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z6 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
             (result.contains("bucket", ignoreCase = true) or result.contains("angle", ignoreCase = true)) and (result.contains("down", ignoreCase = true) or result.contains("lower", ignoreCase = true) or result.contains("descent", ignoreCase = true) or result.contains("town", ignoreCase = true)) -> {
-                z6 = 1 ; writeToFirebase()
+                z6 = 1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z6 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
-            (result.contains("primary", ignoreCase = true) or result.contains("first", ignoreCase = true) or result.contains("arm", ignoreCase = true) or  result.contains("main", ignoreCase = true) or  result.contains("alpha", ignoreCase = true)) and (result.contains("down", ignoreCase = true) or result.contains("lower", ignoreCase = true)or result.contains("descent", ignoreCase = true) or result.contains("town", ignoreCase = true)) -> {
-                z7 = -1 ; writeToFirebase()
+            (result.contains("primary", ignoreCase = true) or result.contains("first", ignoreCase = true) or result.contains("arm", ignoreCase = true) or result.contains("main", ignoreCase = true) or result.contains("alpha", ignoreCase = true)) and (result.contains("down", ignoreCase = true) or result.contains("lower", ignoreCase = true) or result.contains("descent", ignoreCase = true) or result.contains("town", ignoreCase = true)) -> {
+                z7 = -1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z7 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
-            (result.contains("primary", ignoreCase = true) or result.contains("first", ignoreCase = true) or result.contains("arm", ignoreCase = true) or  result.contains("main", ignoreCase = true) or  result.contains("alpha", ignoreCase = true)) and (result.contains("up", ignoreCase = true) or result.contains("lift", ignoreCase = true)or result.contains("raise", ignoreCase = true) or result.contains("race", ignoreCase = true)) -> {
-                z7 = 1 ; writeToFirebase()
+            (result.contains("primary", ignoreCase = true) or result.contains("first", ignoreCase = true) or result.contains("arm", ignoreCase = true) or result.contains("main", ignoreCase = true) or result.contains("alpha", ignoreCase = true)) and (result.contains("up", ignoreCase = true) or result.contains("lift", ignoreCase = true) or result.contains("raise", ignoreCase = true) or result.contains("race", ignoreCase = true)) -> {
+                z7 = 1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z7 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
-            (result.contains("secondary", ignoreCase = true) or result.contains("second", ignoreCase = true) ) and (result.contains("up", ignoreCase = true) or result.contains("lift", ignoreCase = true)or result.contains("raise", ignoreCase = true) or result.contains("race", ignoreCase = true)) -> {
-                z3 = 1 ; writeToFirebase()
+            (result.contains("secondary", ignoreCase = true) or result.contains("second", ignoreCase = true)) and (result.contains("up", ignoreCase = true) or result.contains("lift", ignoreCase = true) or result.contains("raise", ignoreCase = true) or result.contains("race", ignoreCase = true)) -> {
+                z3 = 1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z3 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
-            (result.contains("secondary", ignoreCase = true) or result.contains("second", ignoreCase = true) ) and (result.contains("down", ignoreCase = true) or result.contains("lower", ignoreCase = true) or result.contains("descent", ignoreCase = true) or result.contains("town", ignoreCase = true)) -> {
-                z3 = -1 ; writeToFirebase()
+            (result.contains("secondary", ignoreCase = true) or result.contains("second", ignoreCase = true)) and (result.contains("down", ignoreCase = true) or result.contains("lower", ignoreCase = true) or result.contains("descent", ignoreCase = true) or result.contains("town", ignoreCase = true)) -> {
+                z3 = -1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z3 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
-            result.contains("engine", ignoreCase = true) or result.contains("sound", ignoreCase = true)   -> {
-               viewModel.engineSound()
+            result.contains("engine", ignoreCase = true) or result.contains("sound", ignoreCase = true) -> {
+                viewModel.engineSound()
             }
-            result.contains("light", ignoreCase = true) or result.contains("lite", ignoreCase = true)   -> {
+            result.contains("light", ignoreCase = true) or result.contains("lite", ignoreCase = true) -> {
                 viewModel.engineLight()
             }
-            result.contains("grab", ignoreCase = true) or result.contains("hold", ignoreCase = true) or result.contains("grip", ignoreCase = true) or result.contains("rap", ignoreCase = true) or result.contains("tap", ignoreCase = true) or result.contains("pick", ignoreCase = true)   -> {
-                z4 = 1 ; writeToFirebase()
+            result.contains("grab", ignoreCase = true) or result.contains("hold", ignoreCase = true) or result.contains("grip", ignoreCase = true) or result.contains("rap", ignoreCase = true) or result.contains("tap", ignoreCase = true) or result.contains("pick", ignoreCase = true) -> {
+                z4 = 1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z4 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
-            result.contains("release", ignoreCase = true) or result.contains("leave", ignoreCase = true) or result.contains("drop", ignoreCase = true)   -> {
-                z4 = -1 ; writeToFirebase()
+            result.contains("release", ignoreCase = true) or result.contains("leave", ignoreCase = true) or result.contains("drop", ignoreCase = true) -> {
+                z4 = -1; writeToFirebase()
                 Handler(Looper.getMainLooper()).postDelayed({ z4 = 0; writeToFirebase() }, timerVoiceActionLow)
             }
             result.contains("stop", ignoreCase = true) or result.contains("abort", ignoreCase = true) or result.contains("kill", ignoreCase = true) -> {
@@ -457,7 +456,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     private fun requestCurrentLocation() {
         val currentLocationTask = fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token)
         currentLocationTask.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
+            if (task.isSuccessful && task.result != null) {
                 currentDeviceLocation = task.result
                 val latLong = LatLng(currentDeviceLocation.latitude, currentDeviceLocation.longitude)
                 markerDevice = googleMap.addMarker(MarkerOptions().position(latLong).title("Phone").visible(true))!!
@@ -546,7 +545,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         Handler(Looper.getMainLooper()).postDelayed({ databaseRef.updateChildren(mapOf("AT" to "ATH")) }, 1000L)
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "HardwareIds")
     fun receiveCallExcavator(view: View) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_NUMBERS), intReadPhoneNumber)
@@ -604,8 +603,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     }
 
     private fun updateSerialData(serialText: String, color: Int = Color.WHITE) {
-        val text = serialText
-        serialTextArray.add(SerialText(text, color = color))
+        serialTextArray.add(SerialText(serialText, color = color))
         serialTextAdapter.notifyItemInserted(serialTextArray.size - 1)
         binding.serialTextRecyclerView!!.scrollToPosition(serialTextArray.size - 1)
     }
@@ -621,14 +619,17 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
 
     @SuppressLint("NotifyDataSetChanged")
     fun clearSerialWindow(view: View) {
-        serialTextArray.removeAll(serialTextArray)
-        serialTextAdapter.notifyDataSetChanged() //        serialTextAdapter.notifyItemInserted(serialTextArray.size - 1)
+        serialTextArray.removeAll(serialTextArray.toSet())
+        serialTextAdapter.notifyDataSetChanged()
+    //        serialTextAdapter.notifyItemInserted(serialTextArray.size - 1)
         //        binding.serialTextRecyclerView!!.scrollToPosition(serialTextArray.size - 1)
     }
 
     private fun distanceToRobot() {
-        if (this::currentDeviceLocation.isInitialized) { //            val results = FloatArray(1)
-            //            val distance = Location.distanceBetween(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!, currentDeviceLocation.latitude, currentDeviceLocation.longitude, results) //            Toast.makeText(this, "GPS distance ${results[0]}", Toast.LENGTH_SHORT).show()
+        if (this::currentDeviceLocation.isInitialized) {
+//            val results = FloatArray(1)
+//            val distance = Location.distanceBetween(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!, currentDeviceLocation.latitude, currentDeviceLocation.longitude, results)
+//            Toast.makeText(this, "GPS distance ${results[0]}", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -818,28 +819,28 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
 
     override fun onResume() {
         super.onResume()
-        binding.mapView.onResume()
+        binding.mapViewExcavator.onResume()
     }
 
     override fun onStart() { //removed API key from here
         super.onStart()
         handler.post(updateFirebaseTask)
-        binding.mapView.onStart()
+        binding.mapViewExcavator.onStart()
     }
 
     override fun onStop() {
         super.onStop()
         handler.removeCallbacksAndMessages(null)
-        binding.mapView.onStop()
+        binding.mapViewExcavator.onStop()
     }
 
     override fun onPause() {
-        binding.mapView.onPause()
+        binding.mapViewExcavator.onPause()
         super.onPause()
     }
 
     override fun onDestroy() {
-        binding.mapView.onDestroy()
+        binding.mapViewExcavator.onDestroy()
         if (this::bluetoothManagerSerial.isInitialized) bluetoothManagerSerial.close();
         super.onDestroy()
     }
