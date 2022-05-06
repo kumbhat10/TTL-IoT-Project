@@ -126,6 +126,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     private val timerVoiceAction = 1500L
     private val timerVoiceActionLow = 1000L
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -155,14 +156,14 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         viewModel.bvListener()
         binding.mapViewExcavator.onCreate(savedInstanceState)
         binding.mapViewExcavator.getMapAsync(this)
-        binding.serialTextRecyclerView!!.layoutManager = LinearLayoutManager(this)
+        binding.serialTextRecyclerView.layoutManager = LinearLayoutManager(this)
         serialTextAdapter = SerialTextRecyclerAdapter(serialTextArray)
-        binding.serialTextRecyclerView!!.adapter = serialTextAdapter
+        binding.serialTextRecyclerView.adapter = serialTextAdapter
 
         databaseRef = Firebase.database.getReference("Excavator/Control/data")
         aTDatabaseRef = Firebase.database.getReference("Excavator/AT")
         serialDatabaseRef = Firebase.database.getReference("Serial")
-        binding.editTextChatInput!!.setOnEditorActionListener { v, actionId, _ ->
+        binding.editTextChatInput.setOnEditorActionListener { v, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_SEND -> {
                     sendSerialCommand(v)
@@ -192,6 +193,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
             }
         } //        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         checkPermissions()
+        binding.infoText.text = binding.infoText.text.toString() + "VC:${packageManager.getPackageInfo(packageName,0).versionCode} W:${resources.configuration.screenWidthDp} H:${resources.configuration.screenHeightDp}"
     }
 
     private fun registerBroadcastReceiver() {
@@ -221,13 +223,9 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                 initializeSpeechRecognition()
             }
             binding.downloading.text = ""
-            binding.micButton?.setImageResource(R.drawable.mic)
+            binding.micButton.setImageResource(R.drawable.mic)
         } else {
-            if (this::speechRecognizer.isInitialized) {
-                stopSpeechRecognition()
-            }
-            binding.maskDownloading.visibility = View.GONE
-            binding.micButton?.setImageResource(R.drawable.mic_off)
+            stopSpeechRecognition()
         }
     }
 
@@ -236,7 +234,8 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
             speechRecognizer.startListening(speechRecognizerIntent)
             mStreamVolume = mAudioManager?.getStreamVolume(AudioManager.STREAM_MUSIC) ?: 0; // getting system volume into var for later un-muting
             mAudioManager?.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0); // setting system volume to zero, muting
-            binding.micButton!!.visibility = View.VISIBLE
+            binding.micButton.setImageResource(R.drawable.mic)
+            binding.micButton.visibility = View.VISIBLE
             binding.maskDownloading.visibility = View.VISIBLE
             binding.downloadingText.visibility = View.VISIBLE
             viewModel.downlaodingFirmwarePrev.value = true
@@ -250,9 +249,13 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     }
 
     private fun stopSpeechRecognition() {
+        speechRecognizeEnabled = false
         z1 = 0;z2 = 0; z3 = 0; z4 = 0; z6 = 0; z7 = 0; z8 = 0; writeToFirebase()
-        speechRecognizer.stopListening()
+        if (this::speechRecognizer.isInitialized) {
+            speechRecognizer.stopListening()
+        }
         binding.maskDownloading.visibility = View.GONE
+        binding.micButton.setImageResource(R.drawable.mic_off)
     }
 
     private fun initializeSpeechRecognition() {
@@ -264,16 +267,21 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                 override fun onReadyForSpeech(params: Bundle?) {
                     mAudioManager?.setStreamVolume(AudioManager.STREAM_MUSIC, mStreamVolume, 0); // again setting the system volume back to the original, un-mutting
                 }
+
                 override fun onBeginningOfSpeech() {
                     binding.downloading.text = ""
                 }
+
                 override fun onRmsChanged(rmsdB: Float) {
                 }
+
                 override fun onBufferReceived(buffer: ByteArray?) {
                 }
+
                 override fun onEndOfSpeech() {
                     startSpeechRecognition()
                 }
+
                 @SuppressLint("SetTextI18n")
                 override fun onError(error: Int) {
                     Log.d("SpeechMax", "onError $error")
@@ -299,30 +307,31 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
                         }
                     }
                 }
+
                 override fun onResults(results: Bundle?) {
-                    try{
-                    val result = results!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.joinToString(", ")
-                    binding.downloading.text = result!!.removePrefix('['.toString()).removeSuffix(']'.toString())
-                    Log.d("SpeechMax Results", result)
-                    startSpeechRecognition()
-                    excavatorAction(result)}
-                    catch(_:java.lang.Exception){
+                    try {
+                        val result = results!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.joinToString(", ")
+                        binding.downloading.text = result!!.removePrefix('['.toString()).removeSuffix(']'.toString())
+                        Log.d("SpeechMax Results", result)
+                        startSpeechRecognition()
+                        excavatorAction(result)
+                    } catch (_: java.lang.Exception) {
                     }
                 }
+
                 override fun onPartialResults(partialResults: Bundle?) {
                     Log.d("SpeechMax", "onPartialResults ${
                         partialResults!!.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).toString()
                     }")
                 }
+
                 override fun onEvent(eventType: Int, params: Bundle?) {
                 }
             })
             speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
-            //            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-//            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 500)
             speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
-//            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH)
+            startSpeechRecognition()
         }
     }
 
@@ -620,33 +629,28 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
     @SuppressLint("NotifyDataSetChanged")
     fun clearSerialWindow(view: View) {
         serialTextArray.removeAll(serialTextArray.toSet())
-        serialTextAdapter.notifyDataSetChanged()
-    //        serialTextAdapter.notifyItemInserted(serialTextArray.size - 1)
+        serialTextAdapter.notifyDataSetChanged() //        serialTextAdapter.notifyItemInserted(serialTextArray.size - 1)
         //        binding.serialTextRecyclerView!!.scrollToPosition(serialTextArray.size - 1)
     }
 
     private fun distanceToRobot() {
-        if (this::currentDeviceLocation.isInitialized) {
-//            val results = FloatArray(1)
-//            val distance = Location.distanceBetween(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!, currentDeviceLocation.latitude, currentDeviceLocation.longitude, results)
-//            Toast.makeText(this, "GPS distance ${results[0]}", Toast.LENGTH_SHORT).show()
+        if (this::currentDeviceLocation.isInitialized) { //            val results = FloatArray(1)
+            //            val distance = Location.distanceBetween(viewModel.gpsLatitude.value!!, viewModel.gpsLongitude.value!!, currentDeviceLocation.latitude, currentDeviceLocation.longitude, results)
+            //            Toast.makeText(this, "GPS distance ${results[0]}", Toast.LENGTH_SHORT).show()
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun observeDataAndUpdateServer() {
-        serialTextData.observe(this) {
-            binding.serialText!!.text = it //            val key = serialDatabaseRef.child("R").push().key
+        serialTextData.observe(this) { //            binding.serialText!!.text = it
+            //            val key = serialDatabaseRef.child("R").push().key
             //            serialDatabaseRef.child("R").updateChildren(mapOf(key to it))
-
             serialTextDataTemp += it
             if (it.contains("\n")) {
                 updateSerialData(serialTextDataTemp.replace("\n", ""))
                 serialTextDataTemp = ""
             }
-
         }
-
         viewModel.downlaodingFirmware.observe(this) {
             when {
                 it -> {
@@ -832,6 +836,7 @@ class ExcavatorActivity : AppCompatActivity(), OnMapReadyCallback, View.OnTouchL
         super.onStop()
         handler.removeCallbacksAndMessages(null)
         binding.mapViewExcavator.onStop()
+        stopSpeechRecognition()
     }
 
     override fun onPause() {

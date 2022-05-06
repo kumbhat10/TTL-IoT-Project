@@ -40,8 +40,8 @@ class ExcavatorViewModel : ViewModel() {
     var gpsSat = MutableLiveData("6")
     var gpsLat = MutableLiveData("0 N")
     var gpsLong = MutableLiveData("0 W")
-    var gpsLatitude = MutableLiveData(51.5084945833)
-    var gpsLongitude = MutableLiveData(0.03156366)
+    var gpsLatitude = MutableLiveData(52.276968) // MutableLiveData(51.50860150)  // EIDC ->  52.276968
+    var gpsLongitude = MutableLiveData(-1.549007) // MutableLiveData(0.03153882)   //  EIDC -> -1.549007
     var gpsAlt = MutableLiveData("10m")
     var gpsSpeed = MutableLiveData("1m/s")
     var bv = MutableLiveData("7.00v")

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel1"
             type="com.ttl.robotcontrol.ExcavatorViewModel" />
@@ -22,90 +21,100 @@
         tools:context=".RobotActivity">
 
         <TextView
+            android:id="@+id/infoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_45sdp"
-            android:layout_marginStart="@dimen/_minus6sdp"
-            android:rotation="-90"
-            android:text="@string/default_mode"
-            android:textColor="#FFC107"
-            android:textSize="@dimen/_5ssp"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
+            android:layout_marginEnd="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="@string/tablet_mode"
+            android:textSize="@dimen/_5ssp"
+            android:textColor="#FFC107"/>
+
+        <TextView
+            android:id="@+id/debugText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_6ssp"
+            android:textColor="@color/font_yellow"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/infoText"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buzz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#CB16EC"
+            android:layout_marginTop="@dimen/_5sdp"
             android:clickable="true"
             android:focusable="true"
+            android:textColor="#FFFFFF"
+            app:layout_constraintHorizontal_chainStyle="spread"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{() -> viewModel1.buzzOnce()}"
             android:text="@string/button3"
-            android:textColor="#FFFFFF"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/fakeCrash"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fakeCrash"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fakeCrash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#E91E63"
+            android:layout_marginTop="@dimen/_5sdp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:textColor="#FFFFFF"
             android:onClick="@{() -> viewModel1.fakeCrash()}"
             android:text="@string/button4"
-            android:textColor="#FFFFFF"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/buzzer"
             app:layout_constraintStart_toEndOf="@id/buzz"
+            app:layout_constraintEnd_toStartOf="@+id/buzzer"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ToggleButton
             android:id="@+id/buzzer"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
             android:checked="@={viewModel1.buzzerEnable}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/buz_noff"
             android:textOn="@string/buz_non"
             android:textSize="@dimen/_7ssp"
             android:theme="@style/ToggleButton.CustomTheme"
-            app:layout_constraintBottom_toBottomOf="@id/fakeCrash"
             app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintStart_toEndOf="@+id/fakeCrash"
-            app:layout_constraintTop_toTopOf="@id/fakeCrash" />
+            app:layout_constraintTop_toTopOf="@id/fakeCrash"
+            app:layout_constraintBottom_toBottomOf="@id/fakeCrash"/>
 
         <ToggleButton
             android:id="@+id/powerOn"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_35sdp"
             android:checked="@={viewModel1.power}"
             android:soundEffectsEnabled="true"
             android:textOff="@string/eng_noff"
             android:textOn="@string/eng_non"
             android:textSize="@dimen/_7ssp"
             android:theme="@style/ToggleButton.CustomTheme"
-            app:layout_constraintBottom_toBottomOf="@id/buttonEngineSound"
-            app:layout_constraintEnd_toStartOf="@+id/buttonEngineSound"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/buttonEngineSound" />
+            app:layout_constraintEnd_toStartOf="@+id/buttonEngineSound"
+            app:layout_constraintTop_toTopOf="@id/buttonEngineSound"
+            app:layout_constraintBottom_toBottomOf="@id/buttonEngineSound"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonEngineSound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#FF9800"
+            android:layout_marginTop="@dimen/_8sdp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -114,132 +123,105 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/buttonLights"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/powerOn"
+            app:layout_constraintEnd_toStartOf="@+id/buttonLights"
             app:layout_constraintTop_toBottomOf="@id/buzz" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLights"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="#6FB81B"
+            android:layout_marginTop="@dimen/_8sdp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{() -> viewModel1.engineLight()}"
             android:text="@string/lights"
-            android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
+            android:textColor="@color/black"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintStart_toEndOf="@+id/buttonEngineSound"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
             app:layout_constraintTop_toBottomOf="@id/buzz" />
 
         <ImageButton
             android:id="@+id/call"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:background="#00000000"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/call"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="callExcavator"
-            android:scaleType="fitXY"
-            android:scaleX="1"
+            android:background="#00000000"
             android:scaleY="1"
-            android:src="@drawable/call"
+            android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/sendSMS"
             app:layout_constraintEnd_toStartOf="@id/callIncoming"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            tools:ignore="ContentDescription"/>
+            android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
             android:id="@+id/callIncoming"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:background="#00000000"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/call_incoming"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="receiveCallExcavator"
-            android:scaleType="fitXY"
-            android:scaleX="1"
+            android:background="#00000000"
             android:scaleY="1"
-            android:src="@drawable/call_incoming"
+            android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/call"
             app:layout_constraintEnd_toStartOf="@id/callPick"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            tools:ignore="ContentDescription" />
+            android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
             android:id="@+id/callPick"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="#00000000"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onClick="pickUpCall"
-            android:scaleType="fitXY"
-            android:scaleX="1"
-            android:scaleY="1"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:src="@drawable/call_pick"
+            android:onClick="pickUpCall"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:background="#00000000"
+            android:scaleY="1"
+            android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/callIncoming"
             app:layout_constraintEnd_toStartOf="@id/callEnd"
             app:layout_constraintTop_toBottomOf="@id/buttonLights"
-            tools:ignore="ContentDescription" />
+            android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
             android:id="@+id/callEnd"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/call_end"
+            android:onClick="hangUpCall"
             android:background="#00000000"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onClick="hangUpCall"
-            android:scaleType="fitXY"
-            android:scaleX="1"
             android:scaleY="1"
-            android:src="@drawable/call_end"
+            android:scaleX="1"
+            app:layout_constraintStart_toEndOf="@id/callPick"
             app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
+            app:layout_constraintTop_toBottomOf="@id/buttonLights"
+            android:layout_marginTop="@dimen/_5sdp"/>
 
         <ImageButton
             android:id="@+id/sendSMS"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:background="#00000000"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/sms"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="smsExcavator"
-            android:scaleType="fitXY"
-            android:scaleX="1"
+            android:background="#00000000"
             android:scaleY="1"
-            android:src="@drawable/sms"
+            android:scaleX="1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/call"
-            app:layout_constraintTop_toBottomOf="@id/buttonLights" />
+            app:layout_constraintTop_toBottomOf="@id/buttonLights"
+            android:layout_marginTop="@dimen/_5sdp"/>
 
-        <TextView
-            android:id="@+id/debugText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_120sdp"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_6ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/serialText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:text="@string/serial_text"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_6ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/debugText" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveLeft"
@@ -260,62 +242,62 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_33sdp"
-            android:rotation="-90"
-            android:text="@string/left"
-            android:textColor="@color/font_yellow1"
-            android:textSize="@dimen/textExc"
-            app:layout_constraintBottom_toBottomOf="@+id/moveLeft"
             app:layout_constraintStart_toStartOf="@+id/moveLeft"
-            app:layout_constraintTop_toTopOf="@+id/moveLeft" />
+            android:layout_marginStart="@dimen/_33sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/moveLeft"
+            app:layout_constraintTop_toTopOf="@+id/moveLeft"
+            android:text="Left"
+            android:rotation="-90"
+            android:textSize="@dimen/textExc"
+            android:textColor="@color/font_yellow1"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/moveCenter"
             style="?android:attr/borderlessButtonStyle"
+            android:text="@string/rotate_nleft"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/button_text_color"
+            android:background="@drawable/button_center"
             android:layout_width="@dimen/arrow_width2"
             android:layout_height="@dimen/arrow_height2"
-            android:background="@drawable/button_center"
-            android:text="@string/rotate_nleft"
-            android:textColor="@color/button_text_color"
-            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="@id/moveDown"
+            app:layout_constraintTop_toTopOf="@id/moveUp"
             app:layout_constraintEnd_toEndOf="@+id/moveRight"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/moveLeft"
-            app:layout_constraintTop_toTopOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/move"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/moveUp"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp"
-            app:layout_constraintStart_toStartOf="@+id/moveUp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:text="@string/forward"
-            android:textColor="@color/font_yellow1"
-            android:textSize="@dimen/textExc"
-            app:layout_constraintBottom_toBottomOf="@+id/moveUp"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp"
-            app:layout_constraintStart_toStartOf="@+id/moveUp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/reverse"
-            android:textColor="@color/font_yellow1"
-            android:textSize="@dimen/textExc"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp"
             app:layout_constraintStart_toStartOf="@+id/moveUp"
-            app:layout_constraintTop_toTopOf="@+id/moveDown" />
+            app:layout_constraintEnd_toEndOf="@+id/moveUp"
+            app:layout_constraintBottom_toTopOf="@+id/moveUp"
+            android:text="@string/move"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/font_yellow"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/moveUp"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp"
+            app:layout_constraintBottom_toBottomOf="@+id/moveUp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="Forward"
+            android:textSize="@dimen/textExc"
+            android:textColor="@color/font_yellow1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/moveUp"
+            app:layout_constraintEnd_toEndOf="@+id/moveUp"
+            app:layout_constraintTop_toTopOf="@+id/moveDown"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Reverse"
+            android:textSize="@dimen/textExc"
+            android:textColor="@color/font_yellow1"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveUp"
@@ -336,12 +318,12 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/arrow_width1"
             android:layout_height="@dimen/arrow_height1"
-            android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/buttonClear"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/button_up"
+            app:layout_constraintTop_toTopOf="@id/moveUp"
             app:layout_constraintBottom_toTopOf="@id/moveDown3"
             app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
-            app:layout_constraintTop_toTopOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -352,21 +334,21 @@
             android:background="@color/buttonClear"
             android:src="@drawable/button_down"
             app:layout_constraintBottom_toBottomOf="@id/moveDown"
+            app:layout_constraintTop_toBottomOf="@id/moveUp3"
             app:layout_constraintEnd_toEndOf="@id/moveUp3"
             app:layout_constraintStart_toStartOf="@id/moveUp3"
-            app:layout_constraintTop_toBottomOf="@id/moveUp3"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bucket_nangle"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/moveDown3"
-            app:layout_constraintEnd_toEndOf="@+id/moveUp3"
             app:layout_constraintStart_toStartOf="@+id/moveUp3"
-            app:layout_constraintTop_toBottomOf="@id/moveUp3" />
+            app:layout_constraintEnd_toEndOf="@+id/moveUp3"
+            app:layout_constraintBottom_toTopOf="@+id/moveDown3"
+            app:layout_constraintTop_toBottomOf="@id/moveUp3"
+            android:text="Bucket\nAngle"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/font_yellow"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveDown"
@@ -381,7 +363,6 @@
             app:layout_constraintStart_toStartOf="@id/moveUp"
             app:layout_constraintTop_toBottomOf="@id/moveUp"
             tools:ignore="SpeakableTextPresentCheck" />
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveRight"
             style="?android:attr/borderlessButtonStyle"
@@ -394,23 +375,22 @@
             app:layout_constraintStart_toEndOf="@id/moveLeft"
             app:layout_constraintTop_toTopOf="@id/moveLeft"
             tools:ignore="SpeakableTextPresentCheck" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_33sdp"
-            android:rotation="90"
-            android:text="@string/right"
-            android:textColor="@color/font_yellow1"
-            android:textSize="@dimen/textExc"
-            app:layout_constraintBottom_toBottomOf="@+id/moveRight"
             app:layout_constraintEnd_toEndOf="@+id/moveRight"
-            app:layout_constraintTop_toTopOf="@+id/moveRight" />
+            android:layout_marginEnd="@dimen/_33sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/moveRight"
+            app:layout_constraintTop_toTopOf="@+id/moveRight"
+            android:text="Right"
+            android:rotation="90"
+            android:textSize="@dimen/textExc"
+            android:textColor="@color/font_yellow1"/>
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapViewExcavator"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="@dimen/_200sdp"
+            android:layout_width="@dimen/_220sdp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_1sdp"
             app:cameraBearing="0"
@@ -418,8 +398,8 @@
             app:cameraZoom="14"
             app:layout_constraintBottom_toTopOf="@id/gpsCard"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:mapType="normal"
             app:uiCompass="true"
@@ -429,7 +409,6 @@
             app:uiZoomControls="true"
             app:uiZoomGestures="true"
             tools:ignore="SpeakableTextPresentCheck" />
-
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/gpsCard"
@@ -716,22 +695,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/bvCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
             android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_2sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/battCardLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:padding="@dimen/_5sdp">
+                android:padding="@dimen/_5sdp"
+                android:background="@color/grey">
 
                 <ImageView
                     android:id="@+id/bvImage"
@@ -739,47 +716,47 @@
                     android:layout_height="@dimen/_50sdp"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
-                    android:src="@drawable/battery"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/battery"
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bvText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="@string/bv"
-                    android:textSize="@dimen/_9ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@id/bvImage"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@string/bv"
+                    android:textSize="@dimen/_9ssp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bvText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/bvText1"
+                    app:layout_constraintStart_toEndOf="@id/bvImage"
                     android:layout_marginStart="@dimen/_4sdp"
                     android:text="@{viewModel1.bv}"
                     android:textColor="@color/font_yellow"
-                    android:textSize="@dimen/_22ssp"
-                    app:layout_constraintStart_toEndOf="@id/bvImage"
-                    app:layout_constraintTop_toBottomOf="@id/bvText1" />
+                    android:textSize="@dimen/_22ssp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bvText3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
+                    app:layout_constraintTop_toBottomOf="@id/bvText2"
                     android:layout_marginTop="@dimen/_3sdp"
-                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:text="@{viewModel1.bvInfo}"
                     android:textSize="@dimen/_7ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/bvText2" />
+                    android:gravity="center"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -802,53 +779,53 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_25sdp"
-            android:rotation="-90"
-            android:text="@string/turn_left"
-            android:textColor="@color/font_yellow1"
-            android:textSize="@dimen/textExc"
-            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
             app:layout_constraintStart_toStartOf="@+id/moveLeft1"
-            app:layout_constraintTop_toTopOf="@+id/moveLeft1" />
+            android:layout_marginStart="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
+            app:layout_constraintTop_toTopOf="@+id/moveLeft1"
+            android:text="Turn Left"
+            android:rotation="-90"
+            android:textSize="@dimen/textExc"
+            android:textColor="@color/font_yellow1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_25sdp"
-            android:rotation="90"
-            android:text="@string/turn_right1"
-            android:textColor="@color/font_yellow1"
-            android:textSize="@dimen/textExc"
-            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
             app:layout_constraintEnd_toEndOf="@+id/moveRight1"
-            app:layout_constraintTop_toTopOf="@+id/moveLeft1" />
+            android:layout_marginEnd="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/moveLeft1"
+            app:layout_constraintTop_toTopOf="@+id/moveLeft1"
+            android:text="@string/turn_right"
+            android:rotation="90"
+            android:textSize="@dimen/textExc"
+            android:textColor="@color/font_yellow1"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/moveCenter1"
             style="?android:attr/borderlessButtonStyle"
+            android:text="@string/rotate_nright"
+            android:textSize="@dimen/_11ssp"
+            android:padding="@dimen/_15sdp"
+            android:textColor="@color/button_text_color"
+            android:background="@drawable/button_center"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/arrow_height2"
-            android:background="@drawable/button_center"
-            android:padding="@dimen/_15sdp"
-            android:text="@string/rotate_nright"
-            android:textColor="@color/button_text_color"
-            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="@id/moveDown1"
+            app:layout_constraintTop_toTopOf="@id/moveUp2"
             app:layout_constraintEnd_toEndOf="@+id/moveRight1"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/moveLeft1"
-            app:layout_constraintTop_toTopOf="@id/moveUp2"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveUp1"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/arrow_width1"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:layout_height="@dimen/arrow_height1"
             android:background="@color/buttonClear"
             android:src="@drawable/button_up"
             app:layout_constraintEnd_toEndOf="@+id/moveRight1"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/moveUp2"
             app:layout_constraintTop_toTopOf="@id/moveUp2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -856,35 +833,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/arm2"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/moveUp1"
+            app:layout_constraintStart_toStartOf="@+id/moveUp1"
             app:layout_constraintEnd_toEndOf="@+id/moveUp1"
-            app:layout_constraintStart_toStartOf="@+id/moveUp1" />
+            app:layout_constraintBottom_toTopOf="@+id/moveUp1"
+            android:text="Arm2"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/font_yellow"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/arm1"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/moveUp2"
+            app:layout_constraintStart_toStartOf="@+id/moveUp2"
             app:layout_constraintEnd_toEndOf="@+id/moveUp2"
-            app:layout_constraintStart_toStartOf="@+id/moveUp2" />
+            app:layout_constraintBottom_toTopOf="@+id/moveUp2"
+            android:text="Arm1"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/font_yellow"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveUp2"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/arrow_width1"
-            android:layout_height="@dimen/arrow_height1"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/arrow_gap"
+             android:layout_marginEnd="@dimen/_10sdp"
+             android:layout_marginBottom="@dimen/arrow_gap"
+             android:layout_height="@dimen/arrow_height1"
+             app:layout_constraintHorizontal_chainStyle="packed"
             android:background="@color/buttonClear"
             android:src="@drawable/button_up"
             app:layout_constraintBottom_toTopOf="@id/moveDown1"
             app:layout_constraintEnd_toStartOf="@+id/moveUp1"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/moveLeft1"
             app:layout_constraintTop_toTopOf="@id/moveLeft1"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -947,14 +924,14 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/maskDownloading"
             android:layout_width="match_parent"
+            android:id="@+id/maskDownloading"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:visibility="gone"
             android:background="@color/mask"
             android:clickable="true"
-            android:elevation="@dimen/_5sdp"
-            android:focusable="true"
-            android:visibility="gone">
+            android:elevation="@dimen/_5sdp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/downloadLottie"
@@ -965,41 +942,40 @@
                 android:scaleX="2.6"
                 android:scaleY="2.6"
                 android:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintVertical_bias="0.4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4"
                 app:lottie_autoPlay="true"
                 app:lottie_enableMergePathsForKitKatAndAbove="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/downloading"
                 app:lottie_repeatMode="restart"
-                app:lottie_speed="1"
-                tools:ignore="TooManyViews" />
+                app:lottie_speed="1" />
 
             <TextView
                 android:id="@+id/downloadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbarSize="@dimen/_9ssp"
+                app:layout_constraintStart_toEndOf="@id/downloadLottie"
+                app:layout_constraintBottom_toTopOf="@id/downloading"
                 android:text="@string/please_wait"
                 android:textColor="@color/font_grey_settings"
-                app:layout_constraintBottom_toTopOf="@id/downloading"
-                app:layout_constraintStart_toEndOf="@id/downloadLottie" />
+                android:scrollbarSize="@dimen/_9ssp"/>
 
             <TextView
                 android:id="@+id/downloading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbarSize="@dimen/_11ssp"
-                android:text="@string/downloading_firmware_to_esp32"
-                android:textColor="@color/font_yellow"
-                app:layout_constraintBottom_toBottomOf="@id/downloadLottie"
                 app:layout_constraintStart_toEndOf="@id/downloadLottie"
                 app:layout_constraintTop_toTopOf="@id/downloadLottie"
-                app:layout_constraintVertical_bias="0.5" />
+                app:layout_constraintBottom_toBottomOf="@id/downloadLottie"
+                app:layout_constraintVertical_bias="0.5"
+                android:text="@string/downloading_firmware_to_esp32"
+                android:textColor="@color/font_yellow"
+                android:scrollbarSize="@dimen/_11ssp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1023,35 +999,28 @@
 
         <ImageView
             android:id="@+id/switchToRobot"
-            android:layout_width="@dimen/_53sdp"
-            android:layout_height="@dimen/_55sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:clickable="true"
             android:elevation="@dimen/_5sdp"
+            android:layout_width="@dimen/_43sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/robot"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="startRobot"
-            android:scaleType="centerCrop"
-            android:src="@drawable/robot"
             android:visibility="visible"
+            android:layout_marginTop="@dimen/_1sdp"
+            app:layout_constraintStart_toStartOf="@+id/sendSMS"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/powerOn"
-            app:layout_constraintTop_toBottomOf="@id/powerOn"
-            tools:ignore="ContentDescription" />
-
-
-
-
+            app:layout_constraintTop_toBottomOf="@id/sendSMS"/>
         <ImageView
             android:id="@+id/ttlogoFS"
+            android:elevation="@dimen/_5sdp"
             android:layout_width="@dimen/_104sdp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:contentDescription="@string/app_name"
-            android:elevation="@dimen/_5sdp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ttl_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

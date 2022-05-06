@@ -22,16 +22,25 @@
         tools:context=".RobotActivity">
 
         <TextView
+            android:id="@+id/infoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_45sdp"
-            android:layout_marginStart="@dimen/_minus6sdp"
-            android:rotation="-90"
-            android:text="@string/default_mode"
-            android:textColor="#FFC107"
-            android:textSize="@dimen/_5ssp"
+            app:layout_constraintEnd_toStartOf="@id/mapViewExcavator"
+            android:layout_marginEnd="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="@string/default_mode"
+            android:textSize="@dimen/_7ssp"
+            android:textColor="#FFC107"/>
+
+        <TextView
+            android:id="@+id/debugText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textColor="@color/font_yellow"
+            android:textSize="@dimen/_6ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/infoText" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buzz"
@@ -220,26 +229,7 @@
             app:layout_constraintEnd_toStartOf="@id/call"
             app:layout_constraintTop_toBottomOf="@id/buttonLights" />
 
-        <TextView
-            android:id="@+id/debugText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_120sdp"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_6ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/serialText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:text="@string/serial_text"
-            android:textColor="@color/font_yellow"
-            android:textSize="@dimen/_6ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/debugText" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/moveLeft"
@@ -1019,7 +1009,6 @@
             android:onClick="speechRecognitionEnable"
             android:layout_margin="@dimen/_4sdp"
             tools:ignore="ContentDescription"/>
-
 
         <ImageView
             android:id="@+id/switchToRobot"

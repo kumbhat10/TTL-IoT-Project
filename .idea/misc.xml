@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/drawable/refresh.xml" value="0.3055" />
-        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout-sw600dp/activity_excavator.xml" value="0.228125" />
-        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout-sw600dp/activity_robot.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/drawable/ttl_logo.xml" value="0.3075" />
+        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout-sw600dp/activity_excavator.xml" value="0.10400000000000001" />
+        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout-sw600dp/activity_robot.xml" value="0.13072916666666667" />
         <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout/activity_excavator.xml" value="0.264" />
-        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout/activity_robot.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout/activity_robot.xml" value="0.136" />
+        <entry key="..\:/Users/dkK53733/AndroidStudioProjects/TTL-IoT-Project/robotcontrol/src/main/res/layout/serial_text.xml" value="0.109765625" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/app/src/main/res/drawable/roboticon.xml" value="0.1225" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/app/src/main/res/layout/activity_splash.xml" value="0.1015625" />
         <entry key="..\:/Users/kumbh/AndroidStudioProjects/rpi/raspberryPiReceiver/src/main/res/layout/activity_main.xml" value="0.15625" />

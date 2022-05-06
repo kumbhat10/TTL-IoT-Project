@@ -38,7 +38,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     @SuppressLint("SimpleDateFormat")
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Firebase.database.getReference("FCM_Token").setValue(token)
+//        Firebase.database.getReference("FCM_Token").setValue(token)
     }
 
     private fun sendNotification(remoteMessage: RemoteMessage) {

@@ -37,8 +37,10 @@ class RobotViewModel : ViewModel() {
     var gpsSat = MutableLiveData("6")
     var gpsLat = MutableLiveData("0 N")
     var gpsLong = MutableLiveData("0 W")
-    var gpsLatitude = MutableLiveData(51.5054)
-    var gpsLongitude = MutableLiveData(0.0235)
+    var gpsLatitude = MutableLiveData(52.276968) // MutableLiveData(51.50860150)  // EIDC ->  52.276968
+    var gpsLongitude = MutableLiveData(-1.549007) // MutableLiveData(0.03153882)   //  EIDC -> -1.549007
+//    // var gpsLatitude = MutableLiveData(51.5054)
+//    var gpsLongitude = MutableLiveData(0.0235)
     var gpsAlt = MutableLiveData("10m")
     var gpsSpeed = MutableLiveData("1m/s")
     var bv = MutableLiveData("7.00v")
@@ -217,6 +219,21 @@ class RobotViewModel : ViewModel() {
         progress3.value = pose1().pro_ry
         progress4.value = pose1().pro_rx
         progress5.value = pose1().pro_tr
+    }
+    fun pose2Set() {
+        progress1.value = pose2().pro_lx
+        progress2.value = pose2().pro_ly
+        progress3.value = pose2().pro_ry
+        progress4.value = pose2().pro_rx
+        progress5.value = pose2().pro_tr
+    }
+    fun gripClose() {
+
+        progress5.value = 180
+    }
+    fun gripOpen() {
+
+        progress5.value = -180
     }
 
     private fun angleFromJoystick(x: Float): Int {

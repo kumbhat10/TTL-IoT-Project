@@ -14,8 +14,8 @@ android {
         applicationId "com.ttl.robotcontrol"
         minSdk 26
         targetSdk 31
-        versionCode 13
-        versionName "v13.0 - with USB serial"
+        versionCode 17
+        versionName "v17.0"
     }
 
     buildTypes {
